@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->boolean('es_nacional');
             $table->foreignId('documento_id');
+            $table->foreign('documento_id')->references('id')->on('documento')->onDelete('cascade');
         });
     }
 

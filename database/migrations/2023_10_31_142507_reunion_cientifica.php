@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->date('fecha_inicio');
-            $table->string('titulo_trabajo');
+            $table->foreignId('trabajo_id');
             $table->string('ciudad')->nullable();
             $table->string('pais')->nullable();
             $table->boolean('nacional');

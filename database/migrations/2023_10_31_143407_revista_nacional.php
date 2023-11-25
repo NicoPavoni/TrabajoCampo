@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('titulo_trabajo');
             $table->boolean('con_referato');
             $table->foreignId('documento_id');
+            $table->foreign('documento_id')->references('id')->on('documento')->onDelete('cascade');
         });
     }
 

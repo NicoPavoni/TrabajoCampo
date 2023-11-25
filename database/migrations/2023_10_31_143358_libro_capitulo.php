@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('libro_capitulo', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('isbn');
             $table->string('editorial');
-            $table->string('nro_capitulo');
+            $table->string('nro_capitulo')->nullable();
             $table->foreignId('documento_id');
+            $table->foreign('documento_id')->references('id')->on('documento')->onDelete('cascade');
         });
     }
 

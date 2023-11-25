@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('celular');
             $table->string('direccion_postal');
             $table->string('email_personal');
+            $table->foreignId('user_id');
         });
     }
 

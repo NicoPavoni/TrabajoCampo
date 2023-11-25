@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->tinyInteger('tipo_documento');
+            // tipo_documento = 1: libro_capitulo
+            // tipo_documento = 2: revista_nacional
+            // tipo_documento = 3: articulo_con_referato
+            // tipo_documento = 4: documento_tecnico
         });
     }
 
