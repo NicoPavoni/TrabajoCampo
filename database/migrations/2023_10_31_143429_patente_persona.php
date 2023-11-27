@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('movimiento', function (Blueprint $table) {
+        Schema::create('patente_persona', function (Blueprint $table) {
             $table->id();
-            $table->integer('nro_transaccion');
-            $table->string('motivo')->nullable();
-            $table->foreignId('cbu_envio');
-            $table->foreignId('cbu_destino');
-            $table->double('monto');
-            $table->dateTime('fecha_hora');
+            $table->foreignId('persona_id');
+            $table->foreignId('patente_id');
         });
     }
 
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('movimiento');
+        Schema::dropIfExists('patente_persona');
     }
 };

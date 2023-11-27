@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banco_externo', function (Blueprint $table) {
+        Schema::create('tipo_licencia', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->integer('codigoBanco');
-            $table->string('url');
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banco_externo');
+        Schema::dropIfExists('tipo_licencia');
     }
 };

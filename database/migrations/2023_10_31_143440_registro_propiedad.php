@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cuenta', function (Blueprint $table) {
+        Schema::create('registro_propiedad', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_cuenta');
-            $table->string('cbu');
-            $table->string('client_id');
-            $table->integer('otp')->nullable();
+            $table->string('nombre');
+            $table->string('tipo');
+            $table->foreignId('institucion_id');
+            $table->foreignId('tipo_licencia_id');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cuenta');
+        Schema::dropIfExists('registro_propiedad');
     }
 };
