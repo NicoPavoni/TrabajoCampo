@@ -15,12 +15,11 @@ class Evento extends Model
         'fecha',
         'nombre',
         'descripcion',
-    ]
+    ];
     public $timestamps = false;
 
-    public function evento()
+    public function asistentes()
     {
-        return $this->belongsTo(Evento::class);
+        return $this->hasMany(Persona::class);
     }
-
 }

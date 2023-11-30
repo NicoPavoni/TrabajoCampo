@@ -17,7 +17,8 @@ class EventoController extends Controller
             'fecha' => 'required|date',
             'nombre' => 'required|string',
             'descripcion' => 'required|string',
-            'autores' => 'required|array',
+            'asistentes' => 'nullable|array',
+            'asistentes.*' => 'numeric|min:1'
         ]);
 
         if ($validator->fails()) {
@@ -35,12 +36,12 @@ class EventoController extends Controller
             'descripcion' => $request['descripcion'],
         ]);
 
-        $evento->autores()->sync($request['autores']);
+        $evento->asistentes()->attach($request['autores']);
 
         DB::commit();
 
         // Cargar la relación después de la transacción
-        $evento->load('autores');
+        $evento->load('asistentes');
 
         return response()->json([
             'message' => 'Evento creado exitosamente',
@@ -55,7 +56,8 @@ class EventoController extends Controller
             'fecha' => 'required|date',
             'nombre' => 'required|string',
             'descripcion' => 'required|string',
-            'autores' => 'required|array',
+            'asistentes' => 'nullable|array',
+            'asistentes.*' => 'numeric|min:1'
         ]);
 
         if ($validator->fails()) {
@@ -80,12 +82,12 @@ class EventoController extends Controller
         $evento->descripcion = $request['descripcion'];
         $evento->save();
 
-        $evento->autores()->sync($request['autores']);
+        $evento->asistentes()->sync($request['asistentes']);
 
         DB::commit();
 
         // Cargar la relación después de la transacción
-        $evento->load('autores');
+        $evento->load('asistentes');
 
         return response()->json([
             'message' => 'Evento actualizado exitosamente',
