@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\ReunionCientifica;
-use App\Models\Expositor;
 use App\Models\Persona;
 
 class ReunionCientificaController extends Controller
@@ -17,12 +16,13 @@ class ReunionCientificaController extends Controller
             'nombre' => 'required|string',
             'fecha_inicio' => 'required|date',
             'ciudad' => 'required|string',
-            'expositor_id' => 'required|exists:expositores,id',
+            'expositor_id' => 'required|exists:personas,id',
+            'autores' => 'required|array',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Parámetros inválidos y/o faltantes'
+                'message' => 'Parámetros inválidos y/o faltantes',
             ], 422);
         }
 
@@ -32,48 +32,61 @@ class ReunionCientificaController extends Controller
             'nombre' => $request['nombre'],
             'fecha_inicio' => $request['fecha_inicio'],
             'ciudad' => $request['ciudad'],
-            'nacional' => true,
             'expositor_id' => $request['expositor_id'],
         ]);
 
+        $reunion->autores()->attach($request['autores']);
+
         DB::commit();
 
         return response()->json([
-            'message' => 'Reunión nacional creada exitosamente',
-            'reunion' => $reunion
+            'message' => 'Reunión Nacional creada exitosamente',
+            'reunion' => $reunion,
         ], 201);
     }
 
-    public function agregarAutor(Request $request)
+    public function editarReunionNacional(int $reunion_id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'reunion_id' => 'required|exists:reunion_cientifica,id',
-            'autor_id' => 'required|exists:personas,id',
+            'nombre' => 'required|string',
+            'fecha_inicio' => 'required|date',
+            'ciudad' => 'required|string',
+            'expositor_id' => 'required|exists:personas,id',
+            'autores' => 'required|array',
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Parámetros inválidos y/o faltantes'
+                'message' => 'Parámetros inválidos y/o faltantes',
             ], 422);
         }
-
-        $reunion = ReunionCientifica::find($request['reunion_id']);
-
+    
+        $reunion = ReunionCientifica::find($reunion_id);
+    
         if (!$reunion) {
             return response()->json([
-                'message' => 'Reunión no encontrada'
+                'message' => 'Reunión no encontrada',
             ], 404);
         }
-
+    
         DB::beginTransaction();
-
-        $reunion->autores()->attach($request['autor_id']);
-
+    
+        $reunion->nombre = $request['nombre'];
+        $reunion->fecha_inicio = $request['fecha_inicio'];
+        $reunion->ciudad = $request['ciudad'];
+        $reunion->expositor_id = $request['expositor_id'];
+        $reunion->save();
+    
+        $reunion->autores()->sync($request['autores']);
+    
         DB::commit();
-
+    
+        // Cargar la relación después de la transacción
+        $reunion->load('autores');
+    
         return response()->json([
-            'message' => 'Autor agregado a la reunión',
-            'reunion' => $reunion
+            'message' => 'Reunión Nacional actualizada exitosamente',
+            'reunion' => $reunion,
         ]);
     }
 
@@ -85,15 +98,15 @@ class ReunionCientificaController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Parámetros inválidos y/o faltantes'
+                'message' => 'Parámetros inválidos y/o faltantes',
             ], 422);
         }
 
-        $reunion = ReunionCientifica::where('nombre', $request['nombre'])->first();
+        $reunion = ReunionCientifica::with('autores')->where('nombre', $request['nombre'])->first();
 
         if (!$reunion) {
             return response()->json([
-                'message' => 'Reunión no encontrada'
+                'message' => 'Reunión no encontrada',
             ], 404);
         }
 

@@ -25,4 +25,10 @@ class ReunionCientifica extends Model
     {
         return $this->belongsTo(Expositor::class, 'expositor_id');
     }
+
+    // Relación muchos a muchos con Personas (autores)
+    public function autores()
+    {
+        return $this->belongsToMany(Persona::class, 'autores_reunion', 'reunion_cientifica_id', 'persona_id');
+    }
 }
