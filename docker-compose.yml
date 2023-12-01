@@ -2,7 +2,17 @@ version: "3"
 volumes:
   data:
 services:
-  www:
+  front:
+    build: ./frontend/
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 5000:5173
+    links:
+      - api-service
+    depends_on:
+      - api-service
+  api-service:
     build: .
     volumes:
       - ./:/app

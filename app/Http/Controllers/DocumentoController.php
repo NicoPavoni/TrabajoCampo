@@ -238,11 +238,10 @@ class DocumentoController extends Controller
         ]);
 
         $articuloConReferato = ArticuloConReferato::create([
-            'isbn' => $request['isbn'],
-            'lugar' => '',
-            'fecha' => '',
-            'es_nacional' => '',
-            'documento_id' => '',
+            'lugar' => $request['lugar'],
+            'fecha' => $request['fecha'],
+            'es_nacional' => $request['es_nacional'],
+            'documento_id' => $documento->id,
         ]);
 
         DB::commit();
