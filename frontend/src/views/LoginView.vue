@@ -71,11 +71,21 @@ export default {
       }
 
       this.loading = true;
+      let response = await axios.get(import.meta.env.VITE_API_URL)
 
-      let response = await axios.post(import.meta.env.VITE_API_URL + "/login", {
+      response = await axios.post("http://172.24.0.4:80/login/", {
         email: this.email,
         password: this.password
-      },).then((data) => response.json());
+      }, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then((data) => response.json())
+        .catch(e => {
+          console.error(e)
+          this.loading = false
+        });
+      this.loading = false
 
       console.log(response);
     },
