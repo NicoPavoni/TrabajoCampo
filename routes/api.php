@@ -28,8 +28,9 @@ Route::prefix('documento')->group(function () {
 });
 
 Route::prefix('reunion-cientifica')->group(function () {
-    Route::post('/', 'App\Http\Controllers\ReunionCientificaController@crearReunionNacional');
-    Route::put('/{reunion_id}', 'App\Http\Controllers\ReunionCientificaController@editarReunionNacional')->where('reunion_id', '[0-9]+');
+    Route::get('/', 'App\Http\Controllers\ReunionCientificaController@listarReunionesCientificas');
+    Route::post('/', 'App\Http\Controllers\ReunionCientificaController@crearReunionCientifica');
+    Route::put('/{reunion_id}', 'App\Http\Controllers\ReunionCientificaController@editarReunionCientifica')->where('reunion_id', '[0-9]+');
     Route::get('/{reunion_id}', 'App\Http\Controllers\ReunionCientificaController@buscarReunion')->where('reunion_id', '[0-9]+');
 });
 

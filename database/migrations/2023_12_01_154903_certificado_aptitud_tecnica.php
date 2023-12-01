@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enlace', function (Blueprint $table) {
+        // CAT
+        Schema::create('certificado_aptitud_tecnica', function (Blueprint $table) {
             $table->id();
-            $table->string('enlace');
-            $table->foreignId('documento_tecnico_id');
-            $table->foreign('documento_tecnico_id')->references('id')->on('documento_tecnico')->onDelete('cascade');
+            $table->string('denominacion_comercial');
+            $table->integer('nro_certificado');
+            $table->string('aptitud');
+            $table->date('vencimiento');
+            $table->foreignId('titular_id');
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enlace');
+        Schema::dropIfExists('certificado_aptitud_tecnica');
     }
 };
