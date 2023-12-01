@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
 WORKDIR /app
-CMD ["npm", "run", "dev", "0.0.0.0:5173"]
+CMD ["sh", "docker_entrypoint.sh"]
 
 EXPOSE 5173

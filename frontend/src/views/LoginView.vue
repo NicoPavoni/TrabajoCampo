@@ -27,7 +27,10 @@ main {
             v-model="password">
           <span class="small text-danger ms-3" v-if="errors.password">{{ errors.password }}</span>
         </div>
-        <button type="submit" class="btn btn-success align-self-center">Ingresar</button>
+        <button type="submit" class="btn btn-success align-self-center" :disabled="loading">
+          <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
+          Ingresar
+        </button>
 
       </form>
     </div>
@@ -35,6 +38,7 @@ main {
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -43,12 +47,13 @@ export default {
         password: undefined,
       },
       email: "",
-      password: ""
+      password: "",
+      loading: false
     }
   },
 
   methods: {
-    login(e) {
+    async login(e) {
       e.preventDefault();
 
       this.errors = {
@@ -64,6 +69,15 @@ export default {
       if (!this.password) {
         this.errors.password = "Ingrese una contraseña";
       }
+
+      this.loading = true;
+
+      let response = await axios.post(import.meta.env.VITE_API_URL + "/login", {
+        email: this.email,
+        password: this.password
+      },).then((data) => response.json());
+
+      console.log(response);
     },
 
     validarEmail(email) {
