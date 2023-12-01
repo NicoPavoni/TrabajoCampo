@@ -95,9 +95,14 @@ class EventoController extends Controller
         ]);
     }
 
-    public function buscarEvento(int $evento_id)
+    public function listarEventos()
     {
-        $evento = Evento::with('autores')->find($evento_id);
+        return Evento::all();
+    }
+
+    public function eliminarEvento(int $evento_id)
+    {
+        $evento = Evento::find($evento_id);
 
         if (!$evento) {
             return response()->json([
@@ -105,6 +110,18 @@ class EventoController extends Controller
             ], 404);
         }
 
-        return response()->json(['evento' => $evento]);
+        $evento->delete();
+
+        return response()->json([
+            'message' => "Evento eliminado correctamente"
+        ]);
+    }
+
+    public function verEvento(int $evento_id)
+    {
+        return Evento::with('asistentes')->find($evento_id) ??
+            response()->json([
+                'message' => 'El evento es inexistente'
+            ], 404);
     }
 }

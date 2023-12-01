@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('reunion_cientifica_id');
             $table->foreignId('persona_id');
+            $table->foreign('reunion_cientifica_id')->references('id')->on('reunion_cientifica')->onDelete('cascade');
+            $table->foreign('persona_id')->references('id')->on('persona')->onDelete('cascade');
         });
     }
 

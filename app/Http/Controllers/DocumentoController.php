@@ -437,27 +437,51 @@ class DocumentoController extends Controller
         ]);
     }
 
-    public function listarDocumentos(int $pagina = 1)
+    /**
+     * Metodo privado que dependiendo del numero de tipo_documento carga distintas relaciones de Documento con
+     * sus tabla real
+     */
+    private function cargarRelacionDocumento(Documento $documento)
     {
-        $documentos = Documento::offset(($pagina - 1) * 10)->limit(10)->get();
+        switch ($documento->tipo_documento) {
+            case LIBRO_CAPITULO:
+                $documento->load('libroCapitulo');
+                break;
+            case REVISTA_NACIONAL:
+                $documento->load('revistaNacional');
+                break;
+            case ARTICULO_CON_REFERATO:
+                $documento->load('articuloConReferato');
+                break;
+            case DOCUMENTO_TECNICO:
+                $documento->load('documentoTecnico');
+                break;
+        }
+    }
+
+    public function listarDocumentos(int $tipo_documento)
+    {
+        $documentos = Documento::where('tipo_documento', $tipo_documento)->get();
 
         foreach ($documentos as $documento) {
-            switch ($documento->tipo_documento) {
-                case LIBRO_CAPITULO:
-                    $documento->load('libroCapitulo');
-                    break;
-                case REVISTA_NACIONAL:
-                    $documento->load('revistaNacional');
-                    break;
-                case ARTICULO_CON_REFERATO:
-                    $documento->load('articuloConReferato');
-                    break;
-                case DOCUMENTO_TECNICO:
-                    $documento->load('documentoTecnico');
-                    break;
-            }
+            $this->cargarRelacionDocumento($documento);
         }
 
         return response()->json($documentos);
+    }
+
+    public function verDocumento(int $documento_id)
+    {
+        $documento = Documento::find($documento_id);
+
+        if (!$documento) {
+            return response()->json([
+                'message' => 'Documento inexistente'
+            ], 404);
+        }
+
+        $this->cargarRelacionDocumento($documento);
+
+        return response()->json($documento);
     }
 }

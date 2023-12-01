@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('persona_id');
             $table->foreignId('patente_id');
+            $table->foreign('persona_id')->references('id')->on('persona')->onDelete('cascade');
+            $table->foreign('patente_id')->references('id')->on('patente')->onDelete('cascade');
         });
     }
 

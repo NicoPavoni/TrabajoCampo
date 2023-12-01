@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registro_propiedad', function (Blueprint $table) {
+        Schema::create('registro_propiedad_intelectual', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('tipo');
-            $table->foreignId('institucion_id');
+            $table->foreignId('titular_id');
             $table->foreignId('tipo_licencia_id');
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('registro_propiedad');
+        Schema::dropIfExists('registro_propiedad_intelectual');
     }
 };

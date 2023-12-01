@@ -113,26 +113,28 @@ class ReunionCientificaController extends Controller
         return response()->json(ReunionCientifica::all());
     }
 
-    public function buscarReunion(Request $request)
+    public function eliminarReunionCientifica(int $reunion_id)
     {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Parámetros inválidos y/o faltantes',
-            ], 422);
-        }
-
-        $reunion = ReunionCientifica::with('autores')->where('nombre', $request['nombre'])->first();
+        $reunion = ReunionCientifica::find($reunion_id);
 
         if (!$reunion) {
             return response()->json([
-                'message' => 'Reunión no encontrada',
+                'message' => 'Reunion Cientifica no encontrada'
             ], 404);
         }
 
-        return response()->json(['reunion' => $reunion]);
+        $reunion->delete();
+
+        return response()->json([
+            'message' => 'Reunion Cientifica eliminada correctamente'
+        ]);
+    }
+
+    public function verReunion(int $reunion_id)
+    {
+        return ReunionCientifica::with(['expositor', 'autores'])->find($reunion_id) ??
+            response()->json([
+                'message' => 'Reunion Cientifica inexistente'
+            ], 404);
     }
 }

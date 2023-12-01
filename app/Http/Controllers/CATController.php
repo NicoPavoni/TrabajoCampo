@@ -89,9 +89,8 @@ class CATController extends Controller
             'cat' => $cat
         ]);
     }
-    // FIN Documento Tecnico
 
-    public function eliminarDocumento(int $cat_id)
+    public function eliminarCAT(int $cat_id)
     {
         $cat = CertificadoAptitudTecnica::find($cat_id);
 
@@ -104,7 +103,15 @@ class CATController extends Controller
         $cat->delete();
 
         return response()->json([
-            'message' => 'Certificado de Aptitud Tue3cnica eliminado exitosamente'
+            'message' => 'Certificado de Aptitud Técnica eliminado exitosamente'
         ]);
+    }
+
+    public function verCAT(int $cat_id)
+    {
+        return CertificadoAptitudTecnica::find($cat_id) ??
+            response()->json([
+                'message' => 'Certificado de Aptitud Técnica no encontrado'
+            ]);
     }
 }
