@@ -8,7 +8,7 @@ use App\Models\Evento;
 
 class EventoSeeder extends Seeder
 {
-    /**
+    /** 
      * Run the database seeds.
      */
     public function run(): void
