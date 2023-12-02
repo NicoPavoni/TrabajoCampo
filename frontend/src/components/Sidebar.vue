@@ -1,50 +1,40 @@
 <script setup>
+
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-3 bg-white border-end" style="width: 280px;">
+  <div class="flex-shrink-0 p-3 bg-white border-end offcanvas offcanvas-start show" id="offcanvasSidebar">
     <a href="/home" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none text-black border-bottom">
       <span class="fs-5 fw-semibold">Modulo GCC</span>
     </a>
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-          data-bs-target="#home-collapse" aria-expanded="false">
+        <router-link to="/home" class="btn align-items-center rounded">
           Home
-        </button>
-        <div class="collapse" id="home-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="sidebar-link">Overview</a></li>
-            <li><a href="#" class="sidebar-link">Updates</a></li>
-            <li><a href="#" class="sidebar-link">Reports</a></li>
-          </ul>
-        </div>
+        </router-link>
+      </li>
+      <li class="mb-1">
+        <router-link to="" class="btn align-items-center rounded">
+          Reuniones Cientificas
+        </router-link>
       </li>
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-          data-bs-target="#dashboard-collapse" aria-expanded="false">
-          Dashboard
+          data-bs-target="#trabajos-cientificos-collapse" aria-expanded="false">
+          Trabajos Cientificos
         </button>
-        <div class="collapse" id="dashboard-collapse">
+        <div class="collapse" id="trabajos-cientificos-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="sidebar-link">Overview</a></li>
-            <li><a href="#" class="sidebar-link">Weekly</a></li>
-            <li><a href="#" class="sidebar-link">Monthly</a></li>
-            <li><a href="#" class="sidebar-link">Annually</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-          data-bs-target="#orders-collapse" aria-expanded="false">
-          Orders
-        </button>
-        <div class="collapse" id="orders-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="sidebar-link">New</a></li>
-            <li><a href="#" class="sidebar-link">Processed</a></li>
-            <li><a href="#" class="sidebar-link">Shipped</a></li>
-            <li><a href="#" class="sidebar-link">Returned</a></li>
+            <li>
+              <router-link to="/home" class="sidebar-link">En Revistas Nacionales</router-link>
+            </li>
+            <li><router-link to="/" class="sidebar-link">Articulos con Referato</router-link></li>
+            <li><router-link to="/" class="sidebar-link">Libros/Capitulos</router-link></li>
+            <li><router-link to="/" class="sidebar-link">Eventos</router-link></li>
+            <li><router-link to="/" class="sidebar-link">Articulos, informes y memorias</router-link></li>
+            <li><router-link to="/" class="sidebar-link">Pat. desarrollos y cert.</router-link></li>
+            <li><router-link to="/" class="sidebar-link">Reg. de Prop. Intelectual</router-link></li>
+            <li><router-link to="/" class="sidebar-link">Reg. de Prop. Industrial</router-link></li>
           </ul>
         </div>
       </li>
@@ -95,5 +85,11 @@ button.btn-toggle::before {
 /* Rota la flechita 90 grados cuando se expande el collapse del sidebar */
 button.btn-toggle[aria-expanded="true"]::before {
   transform: rotate(90deg);
+}
+
+.btn.active {
+  width: 100%;
+  border: 0;
+  background-color: #B44AAB80;
 }
 </style>
