@@ -1,7 +1,9 @@
 <style scoped></style>
-
+<script setup>
+import DefaultLayout from '../layouts/DefaultLayout.vue';
+</script>
 <template>
-    <main>Este es el home papa</main>
+    <DefaultLayout>Este es el home papa</DefaultLayout>
 </template>
 
 <script>
