@@ -3,5 +3,5 @@
 if [[ ! -d node_modules ]]; then
     npm install
 fi
-
-npm run dev
+echo "Corriendo servicio"
+npm run dev -- --host
