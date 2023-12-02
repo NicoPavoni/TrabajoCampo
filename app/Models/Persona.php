@@ -39,4 +39,9 @@ class Persona extends Model
     {
         return $this->belongsToMany(Patente::class, 'patente_persona');
     }
+
+    public function eventos()
+    {
+        return $this->belongsToMany(Evento::class, 'asistentes_evento', 'persona_id', 'evento_id');
+    }
 }

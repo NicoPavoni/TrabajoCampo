@@ -1,20 +1,48 @@
 <script setup>
+import { useRoute, useRouter } from 'vue-router';
 
+const router = useRouter();
+const route = useRoute();
+
+const isActive = (ruta) => {
+  return route.fullPath == ruta;
+}
+
+const logout = () => {
+  localStorage.clear();
+  router.push({ name: 'login' });
+}
+</script>
+
+<script>
+export default {
+  data() {
+    return {
+      "showSidebar": true
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-3 bg-white border-end offcanvas offcanvas-start show" id="offcanvasSidebar">
-    <a href="/home" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none text-black border-bottom">
-      <span class="fs-5 fw-semibold">Modulo GCC</span>
-    </a>
+  <div class="flex-shrink-0 p-3 bg-white border-end offcanvas offcanvas-start overflow-y-auto"
+    :class="{ show: showSidebar }" style="max-width: 280px;" id="offcanvasSidebar">
+    <div class="d-flex border-bottom pb-3 mb-3 align-items-center justify-content-between">
+      <a href="/home" class="d-flex align-items-center link-dark text-decoration-none text-black">
+        <span class="fs-5 fw-semibold">Modulo GCC </span>
+      </a>
+      <button class="btn" @click="showSidebar = false"><i class="bi bi-chevron-left me-2"></i></button>
+    </div>
+
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
-        <router-link to="/home" class="btn align-items-center rounded">
+        <router-link to="/home" class="btn align-items-center rounded" :class="{ active: isActive('/home') }">
           Home
         </router-link>
       </li>
       <li class="mb-1">
-        <router-link to="" class="btn align-items-center rounded">
+        <router-link to="/reunion-cientifica" class="btn align-items-center rounded"
+          :class="{ active: isActive('/reunion-cientifica') }">
           Reuniones Cientificas
         </router-link>
       </li>
@@ -25,46 +53,43 @@
         </button>
         <div class="collapse" id="trabajos-cientificos-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li>
-              <router-link to="/home" class="sidebar-link">En Revistas Nacionales</router-link>
+            <li class="sidebar-link rounded">
+              <router-link to="/home">En Revistas Nacionales</router-link>
             </li>
-            <li><router-link to="/" class="sidebar-link">Articulos con Referato</router-link></li>
-            <li><router-link to="/" class="sidebar-link">Libros/Capitulos</router-link></li>
-            <li><router-link to="/" class="sidebar-link">Eventos</router-link></li>
-            <li><router-link to="/" class="sidebar-link">Articulos, informes y memorias</router-link></li>
-            <li><router-link to="/" class="sidebar-link">Pat. desarrollos y cert.</router-link></li>
-            <li><router-link to="/" class="sidebar-link">Reg. de Prop. Intelectual</router-link></li>
-            <li><router-link to="/" class="sidebar-link">Reg. de Prop. Industrial</router-link></li>
+            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Articulos con
+                Referato</router-link>
+            </li>
+            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Libros/Capitulos</router-link></li>
+            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Eventos</router-link></li>
+            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Articulos, informes y
+                memorias</router-link></li>
+            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Pat. desarrollos y
+                cert.</router-link></li>
+            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Reg. de Prop.
+                Intelectual</router-link></li>
+            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Reg. de Prop.
+                Industrial</router-link></li>
           </ul>
         </div>
       </li>
       <li class="border-top my-3"></li>
       <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-          data-bs-target="#account-collapse" aria-expanded="false">
-          Account
+        <button class="btn align-items-center rounded fw-semibold text-danger" @click="logout()">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Cerrar Sesión
         </button>
-        <div class="collapse" id="account-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="sidebar-link">New...</a></li>
-            <li><a href="#" class="sidebar-link">Profile</a></li>
-            <li><a href="#" class="sidebar-link">Settings</a></li>
-            <li><a href="#" class="sidebar-link">Sign out</a></li>
-          </ul>
-        </div>
       </li>
     </ul>
   </div>
 </template>
 
 <style scoped>
-li>a.sidebar-link {
+li.sidebar-link>a {
   margin-left: 2.5em;
   text-decoration: none;
   color: var(--bs-dark);
 }
 
-li>a.sidebar-link:hover {
+li.sidebar-link>a:hover {
   color: var(--bs-dark-text-emphasis);
 }
 
@@ -90,6 +115,35 @@ button.btn-toggle[aria-expanded="true"]::before {
 .btn.active {
   width: 100%;
   border: 0;
-  background-color: #B44AAB80;
+  background-color: #6c4c99;
+  color: white;
+  font-weight: 500;
+}
+
+.sidebar-link {
+  width: 100%;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.sidebar-link.active {
+  background-color: #6c4c99;
+  font-weight: 500;
+}
+
+.sidebar-link.active>a {
+  color: white;
+}
+
+.btn:focus,
+.btn:active,
+.btn {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  transition: 0s;
+
 }
 </style>

@@ -1,3 +1,7 @@
 @import './base.css';
 
-
+body{
+    background: url('/assets/img/background.jpeg');
+    background-position-x: 65%;
+    background-position-y:10%;
+}

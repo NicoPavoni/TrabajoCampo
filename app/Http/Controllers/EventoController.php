@@ -20,7 +20,7 @@ class EventoController extends Controller
             'asistentes' => 'nullable|array',
             'asistentes.*' => 'numeric|min:1'
         ]);
-
+        return response()->json($request->all());
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Parámetros inválidos y/o faltantes'
