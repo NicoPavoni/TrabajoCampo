@@ -39,7 +39,18 @@ main {
 
 <script>
 import axios from 'axios';
+import { useUserStore } from '../stores/user';
+import { useRouter } from 'vue-router';
 export default {
+  setup() {
+    if (localStorage.getItem('token')) {
+      const router = useRouter()
+      router.push({ name: 'home' })
+    }
+    const userStore = useUserStore()
+    return { userStore }
+  },
+
   data() {
     return {
       errors: {
@@ -72,24 +83,12 @@ export default {
       }
 
       this.loading = true;
-      let response = await fetch(import.meta.env.VITE_API_URL + "/login", {
-        method: 'POST',
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: this.email,
-          password: this.password
-        })
-      }).catch(e => console.error(e))
-        .then(data => {
+
+      let response = await this.userStore.logIn(this.email, this.password)
+        .then(() => {
           setTimeout(() => { this.loading = false }, 1000)
-          return data.json()
+          this.$router.push({ name: 'home' })
         });
-
-
-      console.log(response);
     },
 
     validarEmail(email) {

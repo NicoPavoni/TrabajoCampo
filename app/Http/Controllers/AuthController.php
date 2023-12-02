@@ -43,7 +43,8 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
             'type' => 'Bearer',
-            'expire_date' => Carbon::now()->addMinutes(30)->format("d/m/Y H:i:s")
+            'expire_date' => Carbon::now()->addMinutes(30)->format("d/m/Y H:i:s"),
+            'user' => $user
         ]);
     }
 }
