@@ -12,7 +12,7 @@ import Header from '../components/Header.vue';
 <template>
     <div class="main-container">
         <Sidebar></Sidebar>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column w-100">
             <Header>Este es el header</Header>
             <main>
                 <slot></slot>
