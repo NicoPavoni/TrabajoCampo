@@ -17,4 +17,8 @@ footer {
     justify-content: flex-end;
     align-items: center;
 }
+
+footer>.logo-footer {
+    width: 180px;
+}
 </style>

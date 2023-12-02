@@ -128,6 +128,10 @@ button.btn-toggle[aria-expanded="true"]::before {
   color: white;
 }
 
+.sidebar-link.active:hover>a {
+  color: white;
+}
+
 .btn:focus,
 .btn:active,
 .btn {

@@ -32,7 +32,7 @@ import Footer from '../components/Footer.vue';
 export default {
     data() {
         return {
-            "showSidebar": true
+            "showSidebar": false
         }
     }
 }
