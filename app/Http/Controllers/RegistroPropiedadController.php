@@ -111,7 +111,7 @@ class RegistroPropiedadController extends Controller
 
     public function verRegIndustrial(int $registro_id)
     {
-        return RegistroPropiedadIndustrial::find($registro_id) ??
+        return RegistroPropiedadIndustrial::with('titular')->find($registro_id) ??
             response()->json([
                 'message' => 'Registro de Propiedad Industrial no encontrado'
             ], 404);
@@ -213,7 +213,7 @@ class RegistroPropiedadController extends Controller
 
     public function verRegIntelectual(int $registro_id)
     {
-        return RegistroPropiedadIntelectual::find($registro_id) ??
+        return RegistroPropiedadIntelectual::with('titular')->find($registro_id) ??
             response()->json([
                 'message' => 'Registro de Propiedad Intelectual no encontrado'
             ], 404);

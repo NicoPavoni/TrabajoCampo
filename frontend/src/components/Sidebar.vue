@@ -18,7 +18,7 @@ const logout = () => {
 export default {
   data() {
     return {
-      "showSidebar": true
+      "showSidebar": false
     }
   }
 }
