@@ -15,7 +15,7 @@ main {
     <div class="card py-3">
       <img src="../../assets/img/logo-utn.png" alt="UTN logo" class="logo-utn">
       <hr class="mx-2">
-      <form class="col-11 align-self-center d-flex flex-column" @submit="login">
+      <form class="col-11 align-self-center d-flex flex-column" @submit="login" @keyup.enter="submit">
         <div class="mb-3">
           <label for="email" class="form-label">Correo electronico</label>
           <input type="email" class="form-control" id="email" placeholder="mail@example.com" v-model="email">
@@ -55,7 +55,7 @@ export default {
   methods: {
     async login(e) {
       e.preventDefault();
-
+      if (this.loading) return;
       this.errors = {
         email: undefined,
         password: undefined,
@@ -68,6 +68,7 @@ export default {
 
       if (!this.password) {
         this.errors.password = "Ingrese una contraseña";
+        return;
       }
 
       this.loading = true;
@@ -83,7 +84,7 @@ export default {
         })
       }).catch(e => console.error(e))
         .then(data => {
-          this.loading = false
+          setTimeout(() => { this.loading = false }, 1000)
           return data.json()
         });
 
