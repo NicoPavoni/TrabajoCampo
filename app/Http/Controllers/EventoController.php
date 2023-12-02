@@ -36,7 +36,7 @@ class EventoController extends Controller
             'descripcion' => $request['descripcion'],
         ]);
 
-        $evento->asistentes()->attach($request['autores']);
+        $evento->asistentes()->attach($request['asistentes']);
 
         DB::commit();
 

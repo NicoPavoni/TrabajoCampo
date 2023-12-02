@@ -20,6 +20,6 @@ class Evento extends Model
 
     public function asistentes()
     {
-        return $this->hasMany(Persona::class);
+        return $this->belongsToMany(Persona::class, 'asistentes_evento', 'evento_id', 'persona_id');
     }
 }

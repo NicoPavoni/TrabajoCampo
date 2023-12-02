@@ -7,12 +7,13 @@
 </style>
 <script setup>
 import Sidebar from '../components/Sidebar.vue';
+import Header from '../components/Header.vue';
 </script>
 <template>
     <div class="main-container">
         <Sidebar></Sidebar>
         <div class="d-flex flex-column">
-            <header>Este es el header</header>
+            <Header>Este es el header</Header>
             <main>
                 <slot></slot>
             </main>

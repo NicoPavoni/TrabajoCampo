@@ -60,8 +60,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('evento')->group(function () {
-        Route::get('/', 'App\Http\Controllers\EventoController@listarEventos');
         Route::post('/', 'App\Http\Controllers\EventoController@crearEvento');
+        Route::get('/', 'App\Http\Controllers\EventoController@listarEventos');
         Route::get('/{evento_id}', 'App\Http\Controllers\EventoController@verEvento')->where('evento_id', '[0-9]+');
         Route::put('/{evento_id}', 'App\Http\Controllers\EventoController@editarEvento')->where('evento_id', '[0-9]+');
         Route::delete('/{evento_id}', 'App\Http\Controllers\EventoController@eliminarEvento')->where('evento_id', '[0-9]+');
