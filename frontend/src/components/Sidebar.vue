@@ -1,4 +1,5 @@
 <script setup>
+const props = defineProps(['open']);
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -14,24 +15,14 @@ const logout = () => {
 }
 </script>
 
-<script>
-export default {
-  data() {
-    return {
-      "showSidebar": false
-    }
-  }
-}
-</script>
-
 <template>
   <div class="flex-shrink-0 p-3 bg-white border-end offcanvas offcanvas-start overflow-y-auto"
-    :class="{ show: showSidebar }" style="max-width: 280px;" id="offcanvasSidebar">
+    :class="{ show: props.open }" style="max-width: 280px;" id="offcanvasSidebar">
     <div class="d-flex border-bottom pb-3 mb-3 align-items-center justify-content-between">
       <a href="/home" class="d-flex align-items-center link-dark text-decoration-none text-black">
         <span class="fs-5 fw-semibold">Modulo GCC </span>
       </a>
-      <button class="btn" @click="showSidebar = false"><i class="bi bi-chevron-left me-2"></i></button>
+      <button class="btn" @click="$emit('cerrarSidebar')"><i class="bi bi-chevron-left me-2"></i></button>
     </div>
 
     <ul class="list-unstyled ps-0">
@@ -52,7 +43,7 @@ export default {
           Trabajos Cientificos
         </button>
         <div class="collapse" id="trabajos-cientificos-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <ul class="btn-toggle-nav fw-normal pb-1 small">
             <li class="sidebar-link rounded">
               <router-link to="/home">En Revistas Nacionales</router-link>
             </li>
@@ -84,7 +75,7 @@ export default {
 
 <style scoped>
 li.sidebar-link>a {
-  margin-left: 2.5em;
+  margin-left: 0.5em;
   text-decoration: none;
   color: var(--bs-dark);
 }

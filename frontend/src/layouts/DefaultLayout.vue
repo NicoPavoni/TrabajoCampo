@@ -11,9 +11,9 @@ import Header from '../components/Header.vue';
 </script>
 <template>
     <div class="main-container">
-        <Sidebar></Sidebar>
+        <Sidebar :open="showSidebar" @cerrarSidebar="showSidebar = false"></Sidebar>
         <div class="d-flex flex-column w-100">
-            <Header>Este es el header</Header>
+            <Header @abrirMenu="showSidebar = true">Este es el header</Header>
             <main>
                 <slot></slot>
             </main>
@@ -23,7 +23,11 @@ import Header from '../components/Header.vue';
 </template>
 
 <script>
-import axios from 'axios';
 export default {
+    data() {
+        return {
+            "showSidebar": true
+        }
+    }
 }
 </script>

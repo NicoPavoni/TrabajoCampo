@@ -313,7 +313,7 @@ class RegistroPropiedadController extends Controller
     public function listarPatente()
     {
         return response()->json(
-            RegistroPropiedadIntelectual::all()
+            Patente::all()
         );
     }
 

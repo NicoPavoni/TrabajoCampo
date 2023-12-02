@@ -3,10 +3,10 @@
 
 <template>
     <header class="border-bottom">
-        <div class="menu-icon">
+        <button class="btn menu-icon" @click="$emit('abrirMenu')">
             <i class="bi bi-list"></i>
-        </div>
-        <h1 class="text-center">GCC - Grupo 8</h1>
+        </button>
+        <h1 class="title">GCC - Grupo 8</h1>
     </header>
 </template>
 
@@ -24,5 +24,21 @@ header {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+header>.title {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2em;
+}
+
+.btn:focus,
+.btn:active,
+.btn {
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+    transition: 0s;
+
 }
 </style>
