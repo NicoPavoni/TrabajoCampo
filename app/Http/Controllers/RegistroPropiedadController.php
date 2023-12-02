@@ -278,8 +278,8 @@ class RegistroPropiedadController extends Controller
 
         DB::beginTransaction();
 
-        $patente->fecha_presentacion = $request['nombre'];
-        $patente->titulo = $request['titular_id'];
+        $patente->fecha_presentacion = $request['fecha_presentacion'];
+        $patente->titulo = $request['titulo'];
 
         $patente->save();
 
@@ -319,7 +319,7 @@ class RegistroPropiedadController extends Controller
 
     public function verPatente(int $patente_id)
     {
-        return Patente::find($patente_id) ??
+        return Patente::with(['titulares'])->find($patente_id) ??
             response()->json([
                 'message' => 'Patente no encontrada'
             ], 404);

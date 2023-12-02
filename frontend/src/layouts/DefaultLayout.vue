@@ -4,10 +4,16 @@
     min-height: 100vh;
     align-items: stretch;
 }
+
+main {
+    display: flex;
+    flex-direction: column;
+}
 </style>
 <script setup>
 import Sidebar from '../components/Sidebar.vue';
 import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
 </script>
 <template>
     <div class="main-container">
@@ -17,7 +23,7 @@ import Header from '../components/Header.vue';
             <main>
                 <slot></slot>
             </main>
-            <footer>Aca va el footer</footer>
+            <Footer></Footer>
         </div>
     </div>
 </template>
