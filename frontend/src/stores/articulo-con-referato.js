@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
 export const useArtReferatoStore = defineStore('articulo-con-referato', {
   state: () => ({
@@ -13,11 +14,15 @@ export const useArtReferatoStore = defineStore('articulo-con-referato', {
 
   actions: {
     crearArtReferato(articulo) {
-      return axios
-        .post('/api/documento/articulo-con-referato', articulo)
-        .catch((e) => console.error(e))
-        .then((response) => response.json())
-        .then((data) => (this.articulo = data.articulo_con_referato))
+      return axios.post(
+        import.meta.env.VITE_API_URL + '/documento/articulo-con-referato',
+        articulo,
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+        }
+      )
     }
   }
 })

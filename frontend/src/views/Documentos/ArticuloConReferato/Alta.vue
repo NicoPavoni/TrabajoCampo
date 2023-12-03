@@ -29,12 +29,11 @@
 
           <div class="d-flex w-100 justify-content-between justify-content-md-center">
             <div class="form-check">
-              <input v-model="articulo.es_nacional" class="form-check-input" type="radio" id="nacional" value="true">
+              <input v-model="articulo.es_nacional" class="form-check-input" type="radio" id="nacional" value="1">
               <label class="form-check-label" for="nacional">Nacional</label>
             </div>
             <div class="form-check">
-              <input v-model="articulo.es_nacional" class="form-check-input" type="radio" id="internacional"
-                value="false">
+              <input v-model="articulo.es_nacional" class="form-check-input" type="radio" id="internacional" value="0">
               <label class="form-check-label" for="internacional">Internacional</label>
             </div>
           </div>
@@ -93,7 +92,7 @@
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center">Articulo con Referato creado exitosamente</div>
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato creado exitosamente</div>
   </DefaultLayout>
 </template>
 
@@ -102,6 +101,8 @@ import DefaultLayout from '../../../layouts/DefaultLayout.vue';
 import { useArtReferatoStore } from '@/stores/articulo-con-referato';
 import { usePersonaStore } from '@/stores/persona';
 import { useRouter } from 'vue-router';
+
+
 </script>
 
 <script>
@@ -117,6 +118,8 @@ export default {
 
     this.autores = personaStore.getPersonas;
     this.autoresNoSeleccionados = this.autores;
+
+    this.artStore = artStore;
   },
 
   data() {
@@ -165,15 +168,17 @@ export default {
         return;
       }
 
-      await this.artStore.crearArticulo(this.articulo)
-        .then((success) => {
-          if (success) {
+      await this.artStore.crearArtReferato(this.articulo)
+        .catch(e => console.error(e))
+        .then(data => {
+          if (data.status == 201) {
             this.mensajeExito = true;
-            setTimeout(() => {
-              this.$router.push({ name: 'home' }); // Retornar luego al listado
-            }, 1000)
+            setTimeout(() => this.$router.push({ name: 'home' }), 5000)
+          } else if (data.status == 401) {
+            localStorage.clear();
+            this.$router.push({ name: 'login' })
           }
-        })
+        });
     },
 
     cancelar: function () {

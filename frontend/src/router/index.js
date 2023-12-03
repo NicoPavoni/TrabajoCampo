@@ -2,8 +2,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
-import ArticuloReferato from '../views/Documentos/ArticuloConReferato/Alta.vue'
-import RevistaNacional from '../views/Documentos/RevistaNacional/Alta.vue'
+import ListadoArtReferato from '../views/Documentos/ArticuloConReferato/Listado.vue'
+import AltaArtReferato from '../views/Documentos/ArticuloConReferato/Alta.vue'
+import EditarArtReferato from '../views/Documentos/ArticuloConReferato/Editar.vue'
+import ListadoRevistaNacional from '../views/Documentos/RevistaNacional/Listado.vue'
 import LibroCapitulo from '../views/Documentos/LibroCapitulo/Alta.vue'
 import Eventos from '../views/Evento/Alta.vue'
 import ArticulosInformes from '../views/Documentos/DocumentoTecnico/Alta.vue'
@@ -33,18 +35,28 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/revistas-nacionales',
-      name: 'revistasNacionales',
-      component: RevistaNacional
-    },
-    {
       path: '/articulo-referato',
-      name: 'articuloReferato',
-      component: ArticuloReferato
+      name: 'listadoArtReferato',
+      component: ListadoArtReferato
     },
     {
-      path: '/libros-capitulos',
-      name: 'librosCapitulos',
+      path: '/articulo-referato/alta',
+      name: 'altaArtReferato',
+      component: AltaArtReferato
+    },
+    {
+      path: '/articulo-referato/:id/alta',
+      name: 'editarArtReferato',
+      component: EditarArtReferato
+    },
+    {
+      path: '/revista-nacional',
+      name: 'listadoRevistaNacional',
+      component: ListadoRevistaNacional
+    },
+    {
+      path: '/libro-capitulo',
+      name: 'libroCapitulo',
       component: LibroCapitulo
     },
     {

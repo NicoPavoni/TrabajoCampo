@@ -45,7 +45,7 @@ const logout = () => {
         <div class="collapse" id="trabajos-cientificos-collapse">
           <ul class="btn-toggle-nav fw-normal pb-1 small">
             <li class="sidebar-link rounded">
-              <router-link to="/home">En Revistas Nacionales</router-link>
+              <router-link to="/revista-nacional">En Revistas Nacionales</router-link>
             </li>
             <li class="sidebar-link rounded">
               <router-link to="/articulo-referato" class="sidebar-link">Articulos con Referato</router-link>
@@ -63,7 +63,8 @@ const logout = () => {
               <router-link to="/patentes-desarrollos" class="sidebar-link">Pat. desarrollos y cert.</router-link>
             </li>
             <li class="sidebar-link rounded">
-              <router-link to="/registro-propiedad-intelectual" class="sidebar-link">Reg. de Prop. Intelectual</router-link>
+              <router-link to="/registro-propiedad-intelectual" class="sidebar-link">Reg. de Prop.
+                Intelectual</router-link>
             </li>
             <li class="sidebar-link rounded">
               <router-link to="/registro-propiedad-industrial" class="sidebar-link">Reg. de Prop.Industrial</router-link>
