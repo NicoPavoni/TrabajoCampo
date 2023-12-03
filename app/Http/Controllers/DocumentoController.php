@@ -222,6 +222,8 @@ class DocumentoController extends Controller
             'lugar' => 'required|string',
             'fecha' => 'required|date',
             'es_nacional' => 'required|boolean',
+            'autores' => 'array|required',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -244,9 +246,12 @@ class DocumentoController extends Controller
             'documento_id' => $documento->id,
         ]);
 
+        $documento->autores()->attach($request['autores']);
+
         DB::commit();
 
         $documento->articuloConReferato = $articuloConReferato;
+        $documento->load('autores');
 
         return response()->json([
             'message' => 'Articulo con Referato creado exitosamente',

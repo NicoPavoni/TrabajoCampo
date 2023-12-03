@@ -91,6 +91,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{patente_id}', 'App\Http\Controllers\RegistroPropiedadController@eliminarPatente')->where('patente_id', '[0-9]+');
     });
 
+    Route::prefix('parametricas')->group(function () {
+        Route::get('personas', 'App\Http\Controllers\ParametricaController@personas');
+    });
+
     Route::get('tipos-licencias', 'App\Http\Controllers\ParametricaController@tiposLicencias');
     Route::get('instituciones', 'App\Http\Controllers\ParametricaController@instituciones');
 });

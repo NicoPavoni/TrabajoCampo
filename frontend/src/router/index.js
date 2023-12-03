@@ -1,24 +1,23 @@
 // En tu archivo de configuración de Vue Router (index.js u otro)
-import { createRouter, createWebHistory } from 'vue-router';
-import LoginView from '../views/LoginView.vue';
-import HomeView from '../views/HomeView.vue';
-import ArticuloReferato from '../views/ArticuloConReferato.vue';
-import RevistasNacionales from '../views/RevistasNacionales.vue';
-import LibrosCapitulos from '../views/LibrosCapitulos.vue';
-import Eventos from '../views/Eventos.vue';
-import ArticulosInformes from '../views/ArticulosInformes.vue';
-import PatentesDesarrollos from '../views/PatentesDesarrollos.vue';
-import RegistroPropiedadIntelectual from '../views/RegistroPropiedadIntelectual.vue';
-import RegistroPropiedadIndustrial from '../views/RegistroPropiedadIndustrial.vue';
-
+import { createRouter, createWebHistory } from 'vue-router'
+import LoginView from '../views/LoginView.vue'
+import HomeView from '../views/HomeView.vue'
+import ArticuloReferato from '../views/Documentos/ArticuloConReferato/Alta.vue'
+import RevistaNacional from '../views/Documentos/RevistaNacional/Alta.vue'
+import LibroCapitulo from '../views/Documentos/LibroCapitulo/Alta.vue'
+import Eventos from '../views/Evento/Alta.vue'
+import ArticulosInformes from '../views/Documentos/DocumentoTecnico/Alta.vue'
+import PatenteDesarrollo from '../views/Patente/Alta.vue'
+import RegistroPropiedadIntelectual from '../views/RegPropIntelectual/Alta.vue'
+import RegistroPropiedadIndustrial from '../views/RegPropIndustrial/Alta.vue'
 
 const isLoggedIn = () => {
   if (localStorage.getItem('token')) {
-    return true;
+    return true
   }
 
-  return false;
-};
+  return false
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,58 +25,58 @@ const router = createRouter({
     {
       path: '/',
       name: 'login',
-      component: LoginView,
+      component: LoginView
     },
     {
       path: '/home',
       name: 'home',
-      component: HomeView,
+      component: HomeView
     },
     {
       path: '/revistas-nacionales',
       name: 'revistasNacionales',
-      component: RevistasNacionales,
+      component: RevistaNacional
     },
     {
       path: '/articulo-referato',
       name: 'articuloReferato',
-      component: ArticuloReferato,
+      component: ArticuloReferato
     },
     {
       path: '/libros-capitulos',
       name: 'librosCapitulos',
-      component: LibrosCapitulos,
+      component: LibroCapitulo
     },
     {
       path: '/eventos',
       name: 'eventos',
-      component: Eventos,
+      component: Eventos
     },
     {
       path: '/articulos-informes',
       name: 'articulosInformes',
-      component: ArticulosInformes,
+      component: ArticulosInformes
     },
     {
       path: '/patentes-desarrollos',
       name: 'patentesDesarrollos',
-      component: PatentesDesarrollos,
+      component: PatenteDesarrollo
     },
     {
       path: '/registro-propiedad-intelecual',
       name: 'propiedadIntelecual',
-      component: RegistroPropiedadIntelectual,
+      component: RegistroPropiedadIntelectual
     },
     {
       path: '/registro-propiedad-industrial',
       name: 'propiedadIndustrial',
-      component: RegistroPropiedadIndustrial,
-    },
-  ],
-});
+      component: RegistroPropiedadIndustrial
+    }
+  ]
+})
 
 router.beforeEach((to, from) => {
-  if (to.name !== 'login' && !isLoggedIn()) return { name: 'login' };
-});
+  if (to.name !== 'login' && !isLoggedIn()) return { name: 'login' }
+})
 
-export default router;
+export default router

@@ -40,4 +40,9 @@ class Documento extends Model
     {
         return $this->hasOne(DocumentoTecnico::class, 'documento_id');
     }
+
+    public function autores()
+    {
+        return $this->belongsToMany(Persona::class, 'autor_documento', 'documento_id', 'persona_id');
+    }
 }
