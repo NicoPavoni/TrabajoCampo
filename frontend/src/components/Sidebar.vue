@@ -6,7 +6,7 @@ const router = useRouter();
 const route = useRoute();
 
 const isActive = (ruta) => {
-  return route.fullPath == ruta;
+  return route.fullPath.includes(ruta);
 }
 
 const logout = () => {
@@ -27,13 +27,13 @@ const logout = () => {
 
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
-        <router-link to="/home" class="btn align-items-center rounded" :class="{ active: isActive('/home') }">
+        <router-link to="/home" class="btn align-items-center rounded" :class="{ active: isActive('home') }">
           Home
         </router-link>
       </li>
       <li class="mb-1">
         <router-link to="/reunion-cientifica" class="btn align-items-center rounded"
-          :class="{ active: isActive('/reunion-cientifica') }">
+          :class="{ active: isActive('reunion-cientifica') }">
           Reuniones Cientificas
         </router-link>
       </li>
@@ -47,7 +47,7 @@ const logout = () => {
             <li class="sidebar-link rounded">
               <router-link to="/revista-nacional">En Revistas Nacionales</router-link>
             </li>
-            <li class="sidebar-link rounded">
+            <li class="sidebar-link rounded" :class="{ active: isActive('articulo-referato') }">
               <router-link to="/articulo-referato" class="sidebar-link">Articulos con Referato</router-link>
             </li>
             <li class="sidebar-link rounded">

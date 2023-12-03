@@ -6,12 +6,12 @@ import ListadoArtReferato from '../views/Documentos/ArticuloConReferato/Listado.
 import AltaArtReferato from '../views/Documentos/ArticuloConReferato/Alta.vue'
 import EditarArtReferato from '../views/Documentos/ArticuloConReferato/Editar.vue'
 import ListadoRevistaNacional from '../views/Documentos/RevistaNacional/Listado.vue'
-import LibroCapitulo from '../views/Documentos/LibroCapitulo/Alta.vue'
-import Eventos from '../views/Evento/Alta.vue'
-import ArticulosInformes from '../views/Documentos/DocumentoTecnico/Alta.vue'
-import PatenteDesarrollo from '../views/Patente/Alta.vue'
-import RegistroPropiedadIntelectual from '../views/RegPropIntelectual/Alta.vue'
-import RegistroPropiedadIndustrial from '../views/RegPropIndustrial/Alta.vue'
+import ListadoLibroCapitulo from '../views/Documentos/LibroCapitulo/Listado.vue'
+import ListadoEvento from '../views/Evento/Listado.vue'
+import ListadoDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Listado.vue'
+import ListadoPatente from '../views/Patente/Listado.vue'
+import ListadoRegPropIntelectual from '../views/RegPropIntelectual/Listado.vue'
+import ListadoRegPropIndustrial from '../views/RegPropIndustrial/Listado.vue'
 
 const isLoggedIn = () => {
   if (localStorage.getItem('token')) {
@@ -56,33 +56,33 @@ const router = createRouter({
     },
     {
       path: '/libro-capitulo',
-      name: 'libroCapitulo',
-      component: LibroCapitulo
+      name: 'listadoLibroCapitulo',
+      component: ListadoLibroCapitulo
     },
     {
-      path: '/eventos',
-      name: 'eventos',
-      component: Eventos
+      path: '/evento',
+      name: 'lintadoEvento',
+      component: ListadoEvento
     },
     {
-      path: '/articulos-informes',
-      name: 'articulosInformes',
-      component: ArticulosInformes
+      path: '/documento-tecnico',
+      name: 'listadoDocumentoTecnico',
+      component: ListadoDocumentoTecnico
     },
     {
-      path: '/patentes-desarrollos',
-      name: 'patentesDesarrollos',
-      component: PatenteDesarrollo
+      path: '/patente',
+      name: 'listadoPatente',
+      component: ListadoPatente
     },
     {
       path: '/registro-propiedad-intelecual',
-      name: 'propiedadIntelecual',
-      component: RegistroPropiedadIntelectual
+      name: 'listadoPropiedadIntelecual',
+      component: ListadoRegPropIntelectual
     },
     {
       path: '/registro-propiedad-industrial',
-      name: 'propiedadIndustrial',
-      component: RegistroPropiedadIndustrial
+      name: 'listadoPropiedadIndustrial',
+      component: ListadoRegPropIndustrial
     }
   ]
 })
