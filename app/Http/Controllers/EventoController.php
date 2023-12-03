@@ -17,7 +17,8 @@ class EventoController extends Controller
             'fecha' => 'required|date',
             'nombre' => 'required|string',
             'descripcion' => 'required|string',
-            'autores' => 'required|array',
+            'asistentes' => 'nullable|array',
+            'asistentes.*' => 'numeric|min:1'
         ]);
 
         if ($validator->fails()) {
@@ -35,12 +36,12 @@ class EventoController extends Controller
             'descripcion' => $request['descripcion'],
         ]);
 
-        $evento->autores()->sync($request['autores']);
+        $evento->asistentes()->attach($request['asistentes']);
 
         DB::commit();
 
         // Cargar la relación después de la transacción
-        $evento->load('autores');
+        $evento->load('asistentes');
 
         return response()->json([
             'message' => 'Evento creado exitosamente',
@@ -55,7 +56,8 @@ class EventoController extends Controller
             'fecha' => 'required|date',
             'nombre' => 'required|string',
             'descripcion' => 'required|string',
-            'autores' => 'required|array',
+            'asistentes' => 'nullable|array',
+            'asistentes.*' => 'numeric|min:1'
         ]);
 
         if ($validator->fails()) {
@@ -80,12 +82,12 @@ class EventoController extends Controller
         $evento->descripcion = $request['descripcion'];
         $evento->save();
 
-        $evento->autores()->sync($request['autores']);
+        $evento->asistentes()->sync($request['asistentes']);
 
         DB::commit();
 
         // Cargar la relación después de la transacción
-        $evento->load('autores');
+        $evento->load('asistentes');
 
         return response()->json([
             'message' => 'Evento actualizado exitosamente',
@@ -93,9 +95,14 @@ class EventoController extends Controller
         ]);
     }
 
-    public function buscarEvento(int $evento_id)
+    public function listarEventos()
     {
-        $evento = Evento::with('autores')->find($evento_id);
+        return Evento::all();
+    }
+
+    public function eliminarEvento(int $evento_id)
+    {
+        $evento = Evento::find($evento_id);
 
         if (!$evento) {
             return response()->json([
@@ -103,6 +110,18 @@ class EventoController extends Controller
             ], 404);
         }
 
-        return response()->json(['evento' => $evento]);
+        $evento->delete();
+
+        return response()->json([
+            'message' => "Evento eliminado correctamente"
+        ]);
+    }
+
+    public function verEvento(int $evento_id)
+    {
+        return Evento::with('asistentes')->find($evento_id) ??
+            response()->json([
+                'message' => 'El evento es inexistente'
+            ], 404);
     }
 }

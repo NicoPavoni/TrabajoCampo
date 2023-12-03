@@ -23,7 +23,7 @@ class ReunionCientifica extends Model
 
     public function expositor()
     {
-        return $this->belongsTo(Expositor::class, 'expositor_id');
+        return $this->belongsTo(Persona::class, 'expositor_id');
     }
 
     // Relación muchos a muchos con Personas (autores)

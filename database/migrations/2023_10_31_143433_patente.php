@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('patente', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('fecha_solicitud');
+            $table->dateTime('fecha_presentacion');
             $table->string('titulo');
-            $table->foreignId('registro_propiedad_id');
+            $table->foreignId('registro_propiedad_id')->nullable();
         });
     }
 

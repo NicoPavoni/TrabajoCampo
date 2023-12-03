@@ -28,11 +28,20 @@ class Persona extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     // Relación muchos a muchos con Reuniones Científicas
     public function reunionesCientificas()
     {
         return $this->belongsToMany(ReunionCientifica::class, 'autores_reunion', 'persona_id', 'reunion_cientifica_id');
     }
 
+    public function patentes()
+    {
+        return $this->belongsToMany(Patente::class, 'patente_persona');
+    }
+
+    public function eventos()
+    {
+        return $this->belongsToMany(Evento::class, 'asistentes_evento', 'persona_id', 'evento_id');
+    }
 }

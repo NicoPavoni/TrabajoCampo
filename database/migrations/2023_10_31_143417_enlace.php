@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('enlace');
             $table->foreignId('documento_tecnico_id');
+            $table->foreign('documento_tecnico_id')->references('id')->on('documento_tecnico')->onDelete('cascade');
         });
     }
 

@@ -10,19 +10,24 @@ use App\Models\Persona;
 
 class ReunionCientificaController extends Controller
 {
-    public function crearReunionNacional(Request $request)
+    public function crearReunionCientifica(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string',
             'fecha_inicio' => 'required|date',
-            'ciudad' => 'required|string',
-            'expositor_id' => 'required|exists:personas,id',
-            'autores' => 'required|array',
+            'trabajo_id' => 'required|numeric|min:1',
+            'ciudad' => 'required_if_accepted:nacional|string',
+            'pais' => 'required_unless:nacional,1|string',
+            'nacional' => 'required|boolean',
+            'expositor_id' => 'required|numeric|min:1',
+            'autores' => 'nullable|array',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Parámetros inválidos y/o faltantes',
+                'errors' => $validator->errors()
             ], 422);
         }
 
@@ -31,7 +36,10 @@ class ReunionCientificaController extends Controller
         $reunion = ReunionCientifica::create([
             'nombre' => $request['nombre'],
             'fecha_inicio' => $request['fecha_inicio'],
-            'ciudad' => $request['ciudad'],
+            'trabajo_id' => $request['trabajo_id'],
+            'ciudad' => $request['nacional'] == 1 ? $request['ciudad'] : null,
+            'pais' => $request['nacional'] == 0 ? $request['pais'] : null,
+            'nacional' => $request['nacional'],
             'expositor_id' => $request['expositor_id'],
         ]);
 
@@ -39,110 +47,94 @@ class ReunionCientificaController extends Controller
 
         DB::commit();
 
+        $reunion->load('autores');
+
         return response()->json([
-            'message' => 'Reunión Nacional creada exitosamente',
+            'message' => 'Reunión Cientifica creada exitosamente',
             'reunion' => $reunion,
         ], 201);
     }
 
-    public function editarReunionNacional(int $reunion_id, Request $request)
+    public function editarReunionCientifica(int $reunion_id, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string',
             'fecha_inicio' => 'required|date',
-            'ciudad' => 'required|string',
-            'expositor_id' => 'required|exists:personas,id',
-            'autores' => 'required|array',
+            'trabajo_id' => 'required|numeric|min:1',
+            'ciudad' => 'required_if_accepted:nacional|string',
+            'pais' => 'required_unless:nacional,1|string',
+            'nacional' => 'required|boolean',
+            'expositor_id' => 'required|numeric|min:1',
+            'autores' => 'nullable|array',
+            'autores.*' => 'numeric'
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Parámetros inválidos y/o faltantes',
             ], 422);
         }
-    
+
         $reunion = ReunionCientifica::find($reunion_id);
-    
+
         if (!$reunion) {
             return response()->json([
-                'message' => 'Reunión no encontrada',
+                'message' => 'Reunión Cientifica no encontrada',
             ], 404);
         }
-    
+
         DB::beginTransaction();
-    
+
         $reunion->nombre = $request['nombre'];
         $reunion->fecha_inicio = $request['fecha_inicio'];
-        $reunion->ciudad = $request['ciudad'];
+        $reunion->trabajo_id = $request['trabajo_id'];
+        $reunion->ciudad = $request['nacional'] == 1 ? $request['ciudad'] : null;
+        $reunion->pais = $request['nacional'] == 0 ? $request['pais'] : null;
+        $reunion->nacional = $request['nacional'];
         $reunion->expositor_id = $request['expositor_id'];
+
         $reunion->save();
-    
+
         $reunion->autores()->sync($request['autores']);
-    
+
         DB::commit();
-    
+
         // Cargar la relación después de la transacción
         $reunion->load('autores');
-    
+
         return response()->json([
-            'message' => 'Reunión Nacional actualizada exitosamente',
+            'message' => 'Reunión Cientifica actualizada exitosamente',
             'reunion' => $reunion,
         ]);
     }
 
-    public function buscarReunion(Request $request)
+    public function listarReunionesCientificas()
     {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string',
-        ]);
+        return response()->json(ReunionCientifica::all());
+    }
 
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Parámetros inválidos y/o faltantes',
-            ], 422);
-        }
-
-        $reunion = ReunionCientifica::with('autores')->where('nombre', $request['nombre'])->first();
+    public function eliminarReunionCientifica(int $reunion_id)
+    {
+        $reunion = ReunionCientifica::find($reunion_id);
 
         if (!$reunion) {
             return response()->json([
-                'message' => 'Reunión no encontrada',
+                'message' => 'Reunion Cientifica no encontrada'
             ], 404);
         }
 
-        return response()->json(['reunion' => $reunion]);
-    }
-
-    public function crearReunionInternacional(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string',
-            'fecha_inicio' => 'required|date',
-            'ciudad' => 'required|string',
-            'expositor_id' => 'required|exists:expositores,id',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Parámetros inválidos y/o faltantes'
-            ], 422);
-        }
-
-        DB::beginTransaction();
-
-        $reunion = ReunionCientifica::create([
-            'nombre' => $request['nombre'],
-            'fecha_inicio' => $request['fecha_inicio'],
-            'ciudad' => $request['ciudad'],
-            'nacional' => false,
-            'expositor_id' => $request['expositor_id'],
-        ]);
-
-        DB::commit();
+        $reunion->delete();
 
         return response()->json([
-            'message' => 'Reunión internacional creada exitosamente',
-            'reunion' => $reunion
-        ], 201);
+            'message' => 'Reunion Cientifica eliminada correctamente'
+        ]);
+    }
+
+    public function verReunion(int $reunion_id)
+    {
+        return ReunionCientifica::with(['expositor', 'autores'])->find($reunion_id) ??
+            response()->json([
+                'message' => 'Reunion Cientifica inexistente'
+            ], 404);
     }
 }

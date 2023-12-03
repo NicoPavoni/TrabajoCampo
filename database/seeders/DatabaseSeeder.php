@@ -14,5 +14,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(PersonaSeeder::class);
+        $this->call(TipoDocumentoTecnicoSeeder::class);
+        $this->call(ArticuloConReferatoSeeder::class);
+        $this->call(DocumentoTecnicoSeeder::class);
+        $this->call(EventoSeeder::class);
+        $this->call(LibroCapituloSeeder::class);
+        $this->call(PatenteSeeder::class);
+        $this->call(RevistaNacionalSeeder::class);
     }
 }
