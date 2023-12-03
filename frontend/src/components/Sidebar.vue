@@ -47,19 +47,27 @@ const logout = () => {
             <li class="sidebar-link rounded">
               <router-link to="/home">En Revistas Nacionales</router-link>
             </li>
-            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Articulos con
-                Referato</router-link>
+            <li class="sidebar-link rounded">
+              <router-link to="/articulo-referato" class="sidebar-link">Articulos con Referato</router-link>
             </li>
-            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Libros/Capitulos</router-link></li>
-            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Eventos</router-link></li>
-            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Articulos, informes y
-                memorias</router-link></li>
-            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Pat. desarrollos y
-                cert.</router-link></li>
-            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Reg. de Prop.
-                Intelectual</router-link></li>
-            <li class="sidebar-link rounded"><router-link to="/" class="sidebar-link">Reg. de Prop.
-                Industrial</router-link></li>
+            <li class="sidebar-link rounded">
+              <router-link to="/libros-capitulos">Libros Capitulos</router-link>
+            </li>
+            <li class="sidebar-link rounded">
+              <router-link to="/eventos" class="sidebar-link">Eventos</router-link>
+            </li>
+            <li class="sidebar-link rounded">
+              <router-link to="/articulos-informes" class="sidebar-link">Articulos, informes y memorias</router-link>
+            </li>
+            <li class="sidebar-link rounded">
+              <router-link to="/patentes-desarrollos" class="sidebar-link">Pat. desarrollos y cert.</router-link>
+            </li>
+            <li class="sidebar-link rounded">
+              <router-link to="/registro-propiedad-intelectual" class="sidebar-link">Reg. de Prop. Intelectual</router-link>
+            </li>
+            <li class="sidebar-link rounded">
+              <router-link to="/registro-propiedad-industrial" class="sidebar-link">Reg. de Prop.Industrial</router-link>
+            </li>
           </ul>
         </div>
       </li>
