@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <DefaultLayout>
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
         <button class="btn btn-primary" @click="toggleSidebar">
@@ -85,12 +85,12 @@
         </button>
       </div>
     </div>
-  </div>
+  </DefaultLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-
+import DefaultLayout from '../layouts/DefaultLayout.vue';
 const nombreArticulo = ref('');
 const lugar = ref('');
 const fecha = ref('');
