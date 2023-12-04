@@ -208,7 +208,11 @@ export default {
     },
 
     agregarAutor: function () {
+      if (!this.autorSeleccionado) {
+        return;
+      }
       this.articulo.autores.push(this.autorSeleccionado);
+      this.autorSeleccionado = null;
       this.autoresNoSeleccionados = this.autores.filter((autor) => !this.articulo.autores.includes(autor.id))
     },
 

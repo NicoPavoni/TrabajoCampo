@@ -9,6 +9,18 @@ const isActive = (ruta) => {
   return route.fullPath.includes(ruta);
 }
 
+const isntActive = (rutas) => {
+  let isntActive = true;
+  rutas.forEach((ruta) => {
+    console.log(ruta);
+    if (route.fullPath.includes(ruta)) {
+      isntActive = false;
+    }
+  });
+  return isntActive;
+}
+
+
 const logout = () => {
   localStorage.clear();
   router.push({ name: 'login' });
@@ -22,7 +34,7 @@ const logout = () => {
       <a href="/home" class="d-flex align-items-center link-dark text-decoration-none text-black">
         <span class="fs-5 fw-semibold">Modulo GCC </span>
       </a>
-      <button class="btn" @click="$emit('cerrarSidebar')"><i class="bi bi-chevron-left me-2"></i></button>
+      <button class="btn close-modal" @click="$emit('cerrarSidebar')"><i class="bi bi-chevron-left me-2"></i></button>
     </div>
 
     <ul class="list-unstyled ps-0">
@@ -39,7 +51,8 @@ const logout = () => {
       </li>
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-          data-bs-target="#trabajos-cientificos-collapse" aria-expanded="false">
+          :class="{ active: isntActive(['home', 'reunion-cientifica']) }" data-bs-target="#trabajos-cientificos-collapse"
+          aria-expanded="false">
           Trabajos Cientificos
         </button>
         <div class="collapse" id="trabajos-cientificos-collapse">
@@ -74,7 +87,7 @@ const logout = () => {
       </li>
       <li class="border-top my-3"></li>
       <li class="mb-1">
-        <button class="btn align-items-center rounded fw-semibold text-danger" @click="logout()">
+        <button class="btn align-items-center rounded fw-semibold text-danger logout-button" @click="logout()">
           <i class="bi bi-box-arrow-in-right me-2"></i>Cerrar Sesión
         </button>
       </li>
@@ -96,6 +109,10 @@ li.sidebar-link>a:hover {
 
 .btn-toggle {
   display: inline-flex;
+}
+
+button.btn-toggle.active {
+  background-color: #b5a1d0;
 }
 
 /* Muestra la flechita al lado de los collapsable del sidebar */
@@ -120,12 +137,26 @@ button.btn-toggle[aria-expanded="true"]::before {
   font-weight: 500;
 }
 
+.btn:hover {
+  background-color: #d2c7e3;
+}
+
+.btn.close-modal:hover,
+.logout-button:hover {
+  background-color: #f0f0f0;
+}
+
 .sidebar-link {
   width: 100%;
   padding-top: 0.25em;
   padding-bottom: 0.25em;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+  transition: 200ms;
+}
+
+.sidebar-link:hover {
+  background-color: #d2c7e3;
 }
 
 .sidebar-link.active {
