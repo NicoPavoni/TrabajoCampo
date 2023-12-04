@@ -94,7 +94,7 @@
 
     <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado exitosamente
     </div>
-    <div class="alert alert-success align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
+    <div class="alert alert-danger align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
   </DefaultLayout>
 </template>
 
