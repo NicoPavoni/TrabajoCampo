@@ -1,11 +1,11 @@
 <template>
-    <div>
-      <h2>Artículos, informes y Memorias</h2>
-    </div>
-  </template>
+  <DefaultLayout>
+    <h2 class="text-center">Artículos, informes y Memorias</h2>
+  </DefaultLayout>
+</template>
   
-  <script setup>
-  </script>
+<script setup>
+import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+</script>
   
-  <style scoped>
-  </style>
+<style scoped></style>

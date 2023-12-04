@@ -1,11 +1,11 @@
 <template>
-    <div>
-      <h2>Patentes, desarrollos y cert.</h2>
-    </div>
-  </template>
+  <DefaultLayout>
+    <h2 class="text-center">Patentes, desarrollos y cert.</h2>
+  </DefaultLayout>
+</template>
   
-  <script setup>
-  </script>
+<script setup>
+import DefaultLayout from '../../layouts/DefaultLayout.vue';
+</script>
   
-  <style scoped>
-  </style>
+<style scoped></style>

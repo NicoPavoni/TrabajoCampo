@@ -12,6 +12,7 @@ import ListadoDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Listad
 import ListadoPatente from '../views/Patente/Listado.vue'
 import ListadoRegPropIntelectual from '../views/RegPropIntelectual/Listado.vue'
 import ListadoRegPropIndustrial from '../views/RegPropIndustrial/Listado.vue'
+import ListadoReunionCientifica from '../views/ReunionCientifica/Listado.vue'
 
 const isLoggedIn = () => {
   if (localStorage.getItem('token')) {
@@ -75,14 +76,19 @@ const router = createRouter({
       component: ListadoPatente
     },
     {
-      path: '/registro-propiedad-intelecual',
-      name: 'listadoPropiedadIntelecual',
+      path: '/registro-propiedad-intelectual',
+      name: 'listadoPropiedadIntelectual',
       component: ListadoRegPropIntelectual
     },
     {
       path: '/registro-propiedad-industrial',
       name: 'listadoPropiedadIndustrial',
       component: ListadoRegPropIndustrial
+    },
+    {
+      path: '/reunion-cientifica',
+      name: 'listadoReunionCientifica',
+      component: ListadoReunionCientifica
     }
   ]
 })

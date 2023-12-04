@@ -44,29 +44,29 @@ const logout = () => {
         </button>
         <div class="collapse" id="trabajos-cientificos-collapse">
           <ul class="btn-toggle-nav fw-normal pb-1 small">
-            <li class="sidebar-link rounded">
+            <li class="sidebar-link rounded" :class="{ active: isActive('revista-nacional') }">
               <router-link to="/revista-nacional">En Revistas Nacionales</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('articulo-referato') }">
               <router-link to="/articulo-referato" class="sidebar-link">Articulos con Referato</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/libros-capitulos">Libros Capitulos</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('libro-capitulo') }">
+              <router-link to="/libro-capitulo">Libros Capitulos</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/eventos" class="sidebar-link">Eventos</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('evento') }">
+              <router-link to="/evento" class="sidebar-link">Eventos</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/articulos-informes" class="sidebar-link">Articulos, informes y memorias</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('documento-tecnico') }">
+              <router-link to="/documento-tecnico" class="sidebar-link">Articulos, informes y memorias</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/patentes-desarrollos" class="sidebar-link">Pat. desarrollos y cert.</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('patente') }">
+              <router-link to="/patente" class="sidebar-link">Pat. desarrollos y cert.</router-link>
             </li>
-            <li class="sidebar-link rounded">
+            <li class="sidebar-link rounded" :class="{ active: isActive('registro-propiedad-intelectual') }">
               <router-link to="/registro-propiedad-intelectual" class="sidebar-link">Reg. de Prop.
                 Intelectual</router-link>
             </li>
-            <li class="sidebar-link rounded">
+            <li class="sidebar-link rounded" :class="{ active: isActive('registro-propiedad-industrial') }">
               <router-link to="/registro-propiedad-industrial" class="sidebar-link">Reg. de Prop.Industrial</router-link>
             </li>
           </ul>

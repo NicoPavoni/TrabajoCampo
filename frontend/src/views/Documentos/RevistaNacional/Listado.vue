@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <h2>Revistas Nacionales</h2>
-  </div>
+  <DefaultLayout>
+    <h2 class="text-center">Revistas Nacionales</h2>
+  </DefaultLayout>
 </template>
   
 <script setup>
+import DefaultLayout from '../../../layouts/DefaultLayout.vue';
 </script>
   
 <style scoped></style>
