@@ -6,8 +6,20 @@ const router = useRouter();
 const route = useRoute();
 
 const isActive = (ruta) => {
-  return route.fullPath == ruta;
+  return route.fullPath.includes(ruta);
 }
+
+const isntActive = (rutas) => {
+  let isntActive = true;
+  rutas.forEach((ruta) => {
+    console.log(ruta);
+    if (route.fullPath.includes(ruta)) {
+      isntActive = false;
+    }
+  });
+  return isntActive;
+}
+
 
 const logout = () => {
   localStorage.clear();
@@ -22,58 +34,60 @@ const logout = () => {
       <a href="/home" class="d-flex align-items-center link-dark text-decoration-none text-black">
         <span class="fs-5 fw-semibold">Modulo GCC </span>
       </a>
-      <button class="btn" @click="$emit('cerrarSidebar')"><i class="bi bi-chevron-left me-2"></i></button>
+      <button class="btn close-modal" @click="$emit('cerrarSidebar')"><i class="bi bi-chevron-left me-2"></i></button>
     </div>
 
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
-        <router-link to="/home" class="btn align-items-center rounded" :class="{ active: isActive('/home') }">
+        <router-link to="/home" class="btn align-items-center rounded" :class="{ active: isActive('home') }">
           Home
         </router-link>
       </li>
       <li class="mb-1">
         <router-link to="/reunion-cientifica" class="btn align-items-center rounded"
-          :class="{ active: isActive('/reunion-cientifica') }">
+          :class="{ active: isActive('reunion-cientifica') }">
           Reuniones Cientificas
         </router-link>
       </li>
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-          data-bs-target="#trabajos-cientificos-collapse" aria-expanded="false">
+          :class="{ active: isntActive(['home', 'reunion-cientifica']) }" data-bs-target="#trabajos-cientificos-collapse"
+          aria-expanded="false">
           Trabajos Cientificos
         </button>
         <div class="collapse" id="trabajos-cientificos-collapse">
           <ul class="btn-toggle-nav fw-normal pb-1 small">
-            <li class="sidebar-link rounded">
-              <router-link to="/home">En Revistas Nacionales</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('revista-nacional') }">
+              <router-link to="/revista-nacional">En Revistas Nacionales</router-link>
             </li>
-            <li class="sidebar-link rounded">
+            <li class="sidebar-link rounded" :class="{ active: isActive('articulo-referato') }">
               <router-link to="/articulo-referato" class="sidebar-link">Articulos con Referato</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/libros-capitulos">Libros Capitulos</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('libro-capitulo') }">
+              <router-link to="/libro-capitulo">Libros Capitulos</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/eventos" class="sidebar-link">Eventos</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('evento') }">
+              <router-link to="/evento" class="sidebar-link">Eventos</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/articulos-informes" class="sidebar-link">Articulos, informes y memorias</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('documento-tecnico') }">
+              <router-link to="/documento-tecnico" class="sidebar-link">Articulos, informes y memorias</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/patentes-desarrollos" class="sidebar-link">Pat. desarrollos y cert.</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('patente') }">
+              <router-link to="/patente" class="sidebar-link">Pat. desarrollos y cert.</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/registro-propiedad-intelectual" class="sidebar-link">Reg. de Prop. Intelectual</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('registro-propiedad-intelectual') }">
+              <router-link to="/registro-propiedad-intelectual" class="sidebar-link">Reg. de Prop.
+                Intelectual</router-link>
             </li>
-            <li class="sidebar-link rounded">
-              <router-link to="/registro-propiedad-industrial" class="sidebar-link">Reg. de Prop.Industrial</router-link>
+            <li class="sidebar-link rounded" :class="{ active: isActive('registro-propiedad-industrial') }">
+              <router-link to="/registro-propiedad-industrial" class="sidebar-link">Reg. de Prop. Industrial</router-link>
             </li>
           </ul>
         </div>
       </li>
       <li class="border-top my-3"></li>
       <li class="mb-1">
-        <button class="btn align-items-center rounded fw-semibold text-danger" @click="logout()">
+        <button class="btn align-items-center rounded fw-semibold text-danger logout-button" @click="logout()">
           <i class="bi bi-box-arrow-in-right me-2"></i>Cerrar Sesión
         </button>
       </li>
@@ -95,6 +109,10 @@ li.sidebar-link>a:hover {
 
 .btn-toggle {
   display: inline-flex;
+}
+
+button.btn-toggle.active {
+  background-color: #b5a1d0;
 }
 
 /* Muestra la flechita al lado de los collapsable del sidebar */
@@ -119,12 +137,26 @@ button.btn-toggle[aria-expanded="true"]::before {
   font-weight: 500;
 }
 
+.btn:hover {
+  background-color: #d2c7e3;
+}
+
+.btn.close-modal:hover,
+.logout-button:hover {
+  background-color: #f0f0f0;
+}
+
 .sidebar-link {
   width: 100%;
   padding-top: 0.25em;
   padding-bottom: 0.25em;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+  transition: 200ms;
+}
+
+.sidebar-link:hover {
+  background-color: #d2c7e3;
 }
 
 .sidebar-link.active {

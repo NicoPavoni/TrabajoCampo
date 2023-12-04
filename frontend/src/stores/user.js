@@ -24,13 +24,6 @@ export const useUserStore = defineStore('user', {
           password: password
         })
       })
-        .catch((e) => console.error(e))
-        .then((response) => {
-          return response.json()
-        })
-        .then((data) => {
-          localStorage.setItem('token', data.token)
-        })
     }
   }
 })
