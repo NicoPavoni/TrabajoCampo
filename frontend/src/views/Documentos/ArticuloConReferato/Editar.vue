@@ -87,12 +87,13 @@
           <i class="bi bi-x me-1"></i>Cancelar
         </button>
         <button type="submit" class="btn btn-success">
-          <i class="bi bi-plus me-1"></i>Crear Articulo
+          <i class="bi bi-plus me-1"></i>Editar Articulo
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato creado exitosamente</div>
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado exitosamente
+    </div>
     <div class="alert alert-success align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
   </DefaultLayout>
 </template>
@@ -189,10 +190,10 @@ export default {
         return;
       }
 
-      await this.artStore.crearArtReferato(this.articulo)
+      await this.artStore.editarArtReferato(this.$route.params.id, this.articulo)
         .catch(e => console.error(e))
         .then(data => {
-          if (data.status == 201) {
+          if (data.status == 200) {
             this.mensajeExito = true;
             setTimeout(() => this.$router.push({ name: 'listadoArtReferato' }), 5000)
           } else if (data.status == 401) {
