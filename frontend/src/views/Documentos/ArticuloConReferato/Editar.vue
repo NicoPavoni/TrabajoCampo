@@ -189,7 +189,7 @@ export default {
         return;
       }
 
-      await this.artStore.crearArtReferato(this.articulo)
+      await this.artStore.editarArtReferato(this.$route.params.id, this.articulo)
         .catch(e => console.error(e))
         .then(data => {
           if (data.status == 201) {
