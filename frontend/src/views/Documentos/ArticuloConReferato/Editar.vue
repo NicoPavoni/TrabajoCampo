@@ -92,7 +92,8 @@
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato creado exitosamente</div>
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado exitosamente
+    </div>
     <div class="alert alert-success align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
   </DefaultLayout>
 </template>
@@ -192,7 +193,7 @@ export default {
       await this.artStore.editarArtReferato(this.$route.params.id, this.articulo)
         .catch(e => console.error(e))
         .then(data => {
-          if (data.status == 201) {
+          if (data.status == 200) {
             this.mensajeExito = true;
             setTimeout(() => this.$router.push({ name: 'listadoArtReferato' }), 5000)
           } else if (data.status == 401) {
