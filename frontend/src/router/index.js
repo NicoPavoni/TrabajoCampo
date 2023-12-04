@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue'
 import ListadoArtReferato from '../views/Documentos/ArticuloConReferato/Listado.vue'
 import AltaArtReferato from '../views/Documentos/ArticuloConReferato/Alta.vue'
 import EditarArtReferato from '../views/Documentos/ArticuloConReferato/Editar.vue'
+import DetalleArtReferato from '../views/Documentos/ArticuloConReferato/Detalle.vue'
 import ListadoRevistaNacional from '../views/Documentos/RevistaNacional/Listado.vue'
 import ListadoLibroCapitulo from '../views/Documentos/LibroCapitulo/Listado.vue'
 import ListadoEvento from '../views/Evento/Listado.vue'
@@ -49,6 +50,11 @@ const router = createRouter({
       path: '/articulo-referato/:id/editar',
       name: 'editarArtReferato',
       component: EditarArtReferato
+    },
+    {
+      path: '/articulo-referato/:id',
+      name: 'detalleArtReferato',
+      component: DetalleArtReferato
     },
     {
       path: '/revista-nacional',

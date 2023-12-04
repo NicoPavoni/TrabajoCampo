@@ -51,6 +51,14 @@ export const useArtReferatoStore = defineStore('articulo-con-referato', {
           }
         }
       )
+    },
+
+    eliminarArtReferato(documento_id) {
+      return axios.delete(import.meta.env.VITE_API_URL + '/documento/' + documento_id, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
     }
   }
 })
