@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <h2 class="text-center">Registro de propiedad Industrial</h2>
+    <h2 class="text-center">Registro de Propiedad Industrial</h2>
   </DefaultLayout>
 </template>
   

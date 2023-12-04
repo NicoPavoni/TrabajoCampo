@@ -67,7 +67,7 @@ const logout = () => {
                 Intelectual</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('registro-propiedad-industrial') }">
-              <router-link to="/registro-propiedad-industrial" class="sidebar-link">Reg. de Prop.Industrial</router-link>
+              <router-link to="/registro-propiedad-industrial" class="sidebar-link">Reg. de Prop. Industrial</router-link>
             </li>
           </ul>
         </div>

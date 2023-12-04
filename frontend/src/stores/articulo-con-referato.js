@@ -23,6 +23,13 @@ export const useArtReferatoStore = defineStore('articulo-con-referato', {
           }
         }
       )
+    },
+    detalleArtReferato(documento_id) {
+      return axios.get(import.meta.env.VITE_API_URL + '/documento/ver/' + documento_id, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
     }
   }
 })

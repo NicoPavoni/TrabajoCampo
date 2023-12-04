@@ -173,7 +173,7 @@ export default {
         .then(data => {
           if (data.status == 201) {
             this.mensajeExito = true;
-            setTimeout(() => this.$router.push({ name: 'home' }), 5000)
+            setTimeout(() => this.$router.push({ name: 'listadoArtReferato' }), 5000)
           } else if (data.status == 401) {
             localStorage.clear();
             this.$router.push({ name: 'login' })
@@ -182,7 +182,7 @@ export default {
     },
 
     cancelar: function () {
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'listadoArtReferato' });
     },
 
     agregarAutor: function () {
