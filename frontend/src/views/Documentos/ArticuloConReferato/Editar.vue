@@ -87,7 +87,7 @@
           <i class="bi bi-x me-1"></i>Cancelar
         </button>
         <button type="submit" class="btn btn-success">
-          <i class="bi bi-plus me-1"></i>Crear Articulo
+          <i class="bi bi-plus me-1"></i>Editar Articulo
         </button>
       </div>
     </form>
