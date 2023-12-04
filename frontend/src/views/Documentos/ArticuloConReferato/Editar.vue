@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <form @submit="crearArticulo">
+    <form @submit="editarArticulo">
       <div class="container d-flex flex-column mt-5">
         <h2 class="text-center mb-4 center-content">Articulos con Referato - Alta</h2>
 
@@ -158,7 +158,8 @@ export default {
       "autores": [],
       "autoresNoSeleccionados": [],
       "autorSeleccionado": null,
-      "mensajeExito": null
+      "mensajeExito": null,
+      "mensajeError": null
     }
   },
   computed: {
@@ -168,7 +169,7 @@ export default {
   },
 
   methods: {
-    crearArticulo: async function (e) {
+    editarArticulo: async function (e) {
       e.preventDefault();
 
       this.errors = {
