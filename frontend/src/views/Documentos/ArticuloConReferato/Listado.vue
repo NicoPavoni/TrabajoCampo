@@ -19,15 +19,11 @@
                     <td>{{ articulo.articulo_con_referato.lugar }}</td>
                     <td>{{ articulo.articulo_con_referato.fecha }}</td>
                     <td>{{ articulo.articulo_con_referato.es_nacional ? 'Nacional ​ ​' : 'Internacional 🌎' }}</td>
-                    <td>
-                        <!-- Itera sobre los autores de este artículo -->
-                        <span v-for="autor in articulo.autores" :key="autor.id">
-                            {{ autor.nombre }} {{ autor.apellido }}
-                        </span>
-                    </td>
-                    <td>
-                        <button @click="verDetalles(articulo.id)">Detalles</button>
-                    </td>
+                    <!-- Itera sobre los autores de este artículo -->
+                    <span v-for="autor in articulo.autores" :key="autor.id">
+                        {{ autor.nombre }} {{ autor.apellido }}
+                    </span>
+                    <button @click="verDetalles(articulo.articulo_con_referato.id)">Detalles</button>
                 </tr>
             </tbody>
         </table>
