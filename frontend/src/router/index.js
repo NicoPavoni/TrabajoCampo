@@ -46,7 +46,7 @@ const router = createRouter({
       component: AltaArtReferato
     },
     {
-      path: '/articulo-referato/:id/alta',
+      path: '/articulo-referato/:id/editar',
       name: 'editarArtReferato',
       component: EditarArtReferato
     },

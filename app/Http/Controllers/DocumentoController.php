@@ -485,6 +485,7 @@ class DocumentoController extends Controller
         }
 
         $this->cargarRelacionDocumento($documento);
+        $documento->load('autores');
 
         return response()->json($documento);
     }
