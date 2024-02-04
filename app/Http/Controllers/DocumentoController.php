@@ -266,6 +266,8 @@ class DocumentoController extends Controller
             'lugar' => 'required|string',
             'fecha' => 'required|date',
             'es_nacional' => 'required|boolean',
+            'autores' => 'array|required',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -297,6 +299,8 @@ class DocumentoController extends Controller
 
         $documento->push();
 
+        $documento->autores()->sync($request['autores']);
+
         DB::commit();
 
         return response()->json([
@@ -315,7 +319,9 @@ class DocumentoController extends Controller
             'fecha' => 'required|date',
             'tipo_documento_tecnico_id' => 'required|numeric|min:1',
             'enlaces' => 'nullable|array',
-            'enlaces.*' => 'string'
+            'enlaces.*' => 'string',
+            'autores' => 'array|required',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -347,6 +353,8 @@ class DocumentoController extends Controller
             }
         }
 
+        $documento->autores()->attach($request['autores']);
+
         DB::commit();
 
         $documento->documentoTecnico = $documentoTecnico;
@@ -365,7 +373,9 @@ class DocumentoController extends Controller
             'fecha' => 'required|date',
             'tipo_documento_tecnico_id' => 'required|numeric|min:1',
             'enlaces' => 'nullable|array',
-            'enlaces.*' => 'string'
+            'enlaces.*' => 'string',
+            'autores' => 'array|required',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -415,6 +425,8 @@ class DocumentoController extends Controller
             }
         }
 
+        $documento->autores()->sync($request['autores']);
+
         DB::commit();
 
         return response()->json([
@@ -458,7 +470,7 @@ class DocumentoController extends Controller
                 $documento->load('articuloConReferato');
                 break;
             case DOCUMENTO_TECNICO:
-                $documento->load('documentoTecnico');
+                $documento->load(['documentoTecnico.tipo_documento_tecnico', 'documentoTecnico.enlaces']);
                 break;
         }
     }

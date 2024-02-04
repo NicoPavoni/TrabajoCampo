@@ -16,7 +16,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModalEliminar()">Cerrar</button>
-                        <button type="button" class="btn btn-danger" @click="eliminarArticulo(modalEliminar.id)"
+                        <button type="button" class="btn btn-danger" @click="eliminarDocumento(modalEliminar.id)"
                             :disabled="modalEliminar.loading"><span class="spinner-border spinner-border-sm me-1"
                                 role="status" aria-hidden="true" v-if="modalEliminar.loading"></span>Eliminar</button>
                     </div>
@@ -75,6 +75,7 @@
 import DefaultLayout from '../../../layouts/DefaultLayout.vue';
 import { ref, onMounted } from 'vue';
 import { useArtReferatoStore } from '@/stores/articulo-con-referato';
+import { useDocumentoStore } from '@/stores/documento';
 import { createRouterMatcher, useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -91,6 +92,7 @@ const editarArticulo = (documentoId) => {
 export default {
     async mounted() {
         const artReferatoStore = useArtReferatoStore();
+        const docStore = useDocumentoStore();
         await artReferatoStore.listarArticulos()
             .catch(e => console.error(e))
             .then(data => {
@@ -100,6 +102,7 @@ export default {
                 }
             })
         this.artReferatoStore = artReferatoStore;
+        this.docStore = docStore;
     },
     data() {
         return {
@@ -116,9 +119,9 @@ export default {
         }
     },
     methods: {
-        async eliminarArticulo(documentoId) {
+        async eliminarDocumento(documentoId) {
             this.modalEliminar.loading = true;
-            await this.artReferatoStore.eliminarArtReferato(documentoId)
+            await this.docStore.eliminarDocumento(documentoId)
                 .catch(e => console.error(e))
                 .then(data => {
                     if (data.status == 200) {

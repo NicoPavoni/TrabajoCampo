@@ -17,4 +17,14 @@ class DocumentoTecnico extends Model
         'tipo_documento_tecnico_id',
     ];
     public $timestamps = false;
+
+    public function tipo_documento_tecnico()
+    {
+        return $this->belongsTo(TipoDocumentoTecnico::class, 'tipo_documento_tecnico_id');
+    }
+
+    public function enlaces()
+    {
+        return $this->hasMany(Enlace::class, 'documento_tecnico_id');
+    }
 }

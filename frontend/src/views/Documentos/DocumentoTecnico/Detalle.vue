@@ -1,40 +1,40 @@
 <template>
     <DefaultLayout>
         <div class="container d-flex flex-column mt-5" v-if="!loading">
-            <h2 class="text-center mb-4 center-content">Articulos con Referato - Detalle</h2>
+            <h2 class="text-center mb-4 center-content">Documento Tecnico - Detalle</h2>
 
             <div class="d-flex flex-column  flex-md-row justify-content-center">
                 <div class="mb-3 me-3">
-                    <label for="nombreArticulo" class="form-label fw-bold">Nombre del Articulo</label>
-                    <input v-model="articulo.nombre" type="text" class="form-control" id="nombreArticulo"
+                    <label for="nombreDocumento" class="form-label fw-bold">Nombre del Documento</label>
+                    <input v-model="documento.nombre" type="text" class="form-control" id="nombreDocumento"
                         placeholder="Nombre" required disabled>
                 </div>
 
                 <div class="mb-3 me-3">
                     <label for="lugar" class="form-label fw-bold">Lugar</label>
-                    <input v-model="articulo.articulo_con_referato.lugar" type="text" class="form-control" id="lugar"
+                    <input v-model="documento.documento_tecnico.lugar" type="text" class="form-control" id="lugar"
                         placeholder="Lugar" required disabled>
                 </div>
 
                 <div class="mb-3">
                     <label for="fecha" class="form-label fw-bold">Fecha</label>
                     <div class="input-group">
-                        <input v-model="articulo.articulo_con_referato.fecha" type="date" class="form-control" id="fecha"
+                        <input v-model="documento.documento_tecnico.fecha" type="date" class="form-control" id="fecha"
                             placeholder="Fecha" required disabled>
                     </div>
                 </div>
             </div>
 
             <div class="mb-3 d-flex flex-column  align-items-center">
-                <label class="form-label mb-2 fw-bold">Tipo de Congreso</label>
+                <label class="form-label mb-2 fw-bold">Tipo de Documento Tecnico</label>
 
                 <div class="d-flex w-100 justify-content-between justify-content-md-center">
-                    {{ articulo.articulo_con_referato.es_nacional ? 'Nacional 🇦🇷' : 'Internacional 🌎' }}
+                    {{ documento.documento_tecnico.tipo_documento_tecnico.nombre }}
                 </div>
             </div>
 
             <!-- sección contenedora para centrar el input y la tabla -->
-            <div class="overflow-auto mb-4 mt-3" v-if="articulo.autores.length > 0">
+            <div class="overflow-auto mb-4 mt-3" v-if="documento.autores.length > 0">
                 <!-- Tabla de Autores -->
                 <table class="table mx-auto text-center">
                     <thead>
@@ -44,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="autor in articulo.autores" :key="autor.id">
+                        <tr v-for="autor in documento.autores" :key="autor.id">
                             <td>{{ autor.nombre }}</td>
                             <td>
                                 {{ autor.apellido }}
@@ -90,10 +90,10 @@ export default {
                     localStorage.clear();
                     this.$router.push({ name: "login" })
                 } else if (data.status == 200) {
-                    if (!data.data.hasOwnProperty('articulo_con_referato')) {
-                        this.mensajeError = "Error en el detalle: Este documento no es un Articulo con Referato"
+                    if (!data.data.hasOwnProperty('documento_tecnico')) {
+                        this.mensajeError = "Error en el detalle: Este documento no es un Documento Tecnico"
                     }
-                    this.articulo = data.data;
+                    this.documento = data.data;
                     this.loading = false;
                 }
             })
@@ -102,12 +102,16 @@ export default {
 
     data() {
         return {
-            "articulo": {
+            "documento": {
                 "nombre": null,
-                "articulo_con_referato": {
+                "documento_tecnico": {
                     "lugar": null,
                     "fecha": null,
                     "es_nacional": null,
+                    "enlaces": [],
+                    "tipo_documento_tecnico": {
+                        "nombre": null
+                    }
                 },
                 "autores": []
             },
@@ -118,7 +122,7 @@ export default {
     methods: {
 
         volver: function () {
-            this.$router.push({ name: 'listadoArtReferato' });
+            this.$router.push({ name: 'listadoDocumentoTecnico' });
         },
     }
 }

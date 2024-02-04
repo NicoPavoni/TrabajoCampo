@@ -2,14 +2,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
+
 import ListadoArtReferato from '../views/Documentos/ArticuloConReferato/Listado.vue'
 import AltaArtReferato from '../views/Documentos/ArticuloConReferato/Alta.vue'
 import EditarArtReferato from '../views/Documentos/ArticuloConReferato/Editar.vue'
 import DetalleArtReferato from '../views/Documentos/ArticuloConReferato/Detalle.vue'
+
 import ListadoRevistaNacional from '../views/Documentos/RevistaNacional/Listado.vue'
+// import AltaRevistaNacional from '../views/Documentos/RevistaNacional/Alta.vue'
+// import EditarRevistaNacional from '../views/Documentos/RevistaNacional/Editar.vue'
+// import DetalleRevistaNacional from '../views/Documentos/RevistaNacional/Detalle.vue'
+
 import ListadoLibroCapitulo from '../views/Documentos/LibroCapitulo/Listado.vue'
-import ListadoEvento from '../views/Evento/Listado.vue'
+// import AltaLibroCapitulo from '../views/Documentos/LibroCapitulo/Alta.vue'
+// import EditarLibroCapitulo from '../views/Documentos/LibroCapitulo/Editar.vue'
+// import DetalleLibroCapitulo from '../views/Documentos/LibroCapitulo/Detalle.vue'
+
 import ListadoDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Listado.vue'
+import AltaDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Alta.vue'
+import EditarDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Editar.vue'
+import DetalleDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Detalle.vue'
+
+import ListadoEvento from '../views/Evento/Listado.vue'
 import ListadoPatente from '../views/Patente/Listado.vue'
 import ListadoRegPropIntelectual from '../views/RegPropIntelectual/Listado.vue'
 import ListadoRegPropIndustrial from '../views/RegPropIndustrial/Listado.vue'
@@ -36,6 +50,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+    // Articulo con referato
     {
       path: '/articulo-referato',
       name: 'listadoArtReferato',
@@ -56,26 +71,80 @@ const router = createRouter({
       name: 'detalleArtReferato',
       component: DetalleArtReferato
     },
+    // \Articulo con referato
+
+    // Revista nacional
     {
       path: '/revista-nacional',
       name: 'listadoRevistaNacional',
       component: ListadoRevistaNacional
     },
+    // {
+    //   path: '/revista-nacional/alta',
+    //   name: 'altaRevistaNacional',
+    //   component: AltaRevistaNacional
+    // },
+    // {
+    //   path: '/revista-nacional/:id/editar',
+    //   name: 'editarRevistaNacional',
+    //   component: EditarRevistaNacional
+    // },
+    // {
+    //   path: '/revista-nacional/:id',
+    //   name: 'detalleRevistaNacional',
+    //   component: DetalleRevistaNacional
+    // },
+    // \Revista nacional
+
+    // Libro/Capitulo
     {
       path: '/libro-capitulo',
       name: 'listadoLibroCapitulo',
       component: ListadoLibroCapitulo
     },
-    {
-      path: '/evento',
-      name: 'lintadoEvento',
-      component: ListadoEvento
-    },
+    // {
+    //   path: '/libro-capitulo/alta',
+    //   name: 'altaLibroCapitulo',
+    //   component: AltaLibroCapitulo
+    // },
+    // {
+    //   path: '/libro-capitulo/:id/editar',
+    //   name: 'editarLibroCapitulo',
+    //   component: EditarLibroCapitulo
+    // },
+    // {
+    //   path: '/libro-capitulo/:id',
+    //   name: 'detalleLibroCapitulo',
+    //   component: DetalleLibroCapitulo
+    // },
+
     {
       path: '/documento-tecnico',
       name: 'listadoDocumentoTecnico',
       component: ListadoDocumentoTecnico
     },
+    {
+      path: '/documento-tecnico/alta',
+      name: 'altaDocumentoTecnico',
+      component: AltaDocumentoTecnico
+    },
+    {
+      path: '/documento-tecnico/:id/editar',
+      name: 'editarDocumentoTecnico',
+      component: EditarDocumentoTecnico
+    },
+    {
+      path: '/documento-tecnico/:id',
+      name: 'detalleDocumentoTecnico',
+      component: DetalleDocumentoTecnico
+    },
+
+    {
+      path: '/evento',
+      name: 'lintadoEvento',
+      component: ListadoEvento
+    },
+
     {
       path: '/patente',
       name: 'listadoPatente',

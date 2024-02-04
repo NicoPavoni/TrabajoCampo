@@ -2,7 +2,7 @@
   <DefaultLayout>
     <form @submit="editarArticulo">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Articulos con Referato - Editar</h2>
+        <h2 class="text-center mb-4 center-content">Articulos con Referato - Alta</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center">
           <div class="mb-3 me-3">
