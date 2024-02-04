@@ -27,7 +27,7 @@ main {
             v-model="password">
           <span class="small text-danger ms-3" v-if="errors.password">{{ errors.password }}</span>
         </div>
-        <span class="small text-danger text-center mb-3 mt-1" v-if="errors.loginError">{{ errors.loginError }}</span>
+        <span class="small text-danger text-center mb-1 mt-1 p-0" v-if="errors.loginError">{{ errors.loginError }}</span>
         <button type="submit" class="btn btn-success align-self-center mt-3" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
           Ingresar
@@ -90,10 +90,14 @@ export default {
       this.loading = true;
 
       let response = await this.userStore.logIn(this.email, this.password)
-        .catch(e => console.error(e))
+        .catch(e => {
+          this.errors.loginError = e;
+          this.loading = false;
+        })
         .then(async response => {
+          console.log("No fue un error")
           let data = await response.json()
-          if (response.status == 401) {
+          if (response.status >= 400) {
             this.errors.loginError = data.message
             this.loading = false;
             return;

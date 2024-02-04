@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <form @submit="editarArticulo">
-      <div class="container d-flex flex-column mt-5">
+      <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
         <h2 class="text-center mb-4 center-content">Articulos con Referato - Alta</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center">
@@ -80,19 +80,26 @@
         </div>
 
       </div>
+      <div class="align-self-center p-5 mx-auto center-content" v-else>
+        <div class="spinner-border text-primary" style="width: 4rem; height: 4rem" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
       <!-- Botones -->
       <div class="d-flex justify-content-center  mb-5 mt-3">
         <button @click="cancelar" type="button" class="btn btn-danger me-3">
           <i class="bi bi-x me-1"></i>Cancelar
         </button>
-        <button type="submit" class="btn btn-success">
-          <i class="bi bi-plus me-1"></i>Editar Articulo
+        <button type="submit" class="btn btn-success" :disabled="loading">
+          <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Articulo
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado exitosamente
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado exitosamente.
+      Redireccionando al listado...
     </div>
     <div class="alert alert-danger align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
   </DefaultLayout>
@@ -132,7 +139,8 @@ export default {
           this.articulo.es_nacional = data.data.articulo_con_referato.es_nacional;
           let autores = data.data.autores.map(autor => autor.id)
           this.articulo.autores = autores;
-
+          this.loadingAutores = false;
+          this.loading = false;
         }
       })
 
@@ -160,7 +168,9 @@ export default {
       "autoresNoSeleccionados": [],
       "autorSeleccionado": null,
       "mensajeExito": null,
-      "mensajeError": null
+      "mensajeError": null,
+      loadingAutores: true,
+      "loading": true
     }
   },
   computed: {
@@ -190,9 +200,11 @@ export default {
         return;
       }
 
+      this.loading = true;
       await this.artStore.editarArtReferato(this.$route.params.id, this.articulo)
         .catch(e => console.error(e))
         .then(data => {
+          this.loading = false;
           if (data.status == 200) {
             this.mensajeExito = true;
             setTimeout(() => this.$router.push({ name: 'listadoArtReferato' }), 5000)

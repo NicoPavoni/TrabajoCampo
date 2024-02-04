@@ -1,69 +1,71 @@
 <template>
     <DefaultLayout>
-        <form @submit="editarArticulo">
-            <div class="container d-flex flex-column mt-5">
-                <h2 class="text-center mb-4 center-content">Articulos con Referato - Alta</h2>
+        <div class="container d-flex flex-column mt-5" v-if="!loading">
+            <h2 class="text-center mb-4 center-content">Articulos con Referato - Alta</h2>
 
-                <div class="d-flex flex-column  flex-md-row justify-content-center">
-                    <div class="mb-3 me-3">
-                        <label for="nombreArticulo" class="form-label fw-bold">Nombre del Articulo</label>
-                        <input v-model="articulo.nombre" type="text" class="form-control" id="nombreArticulo"
-                            placeholder="Nombre" required disabled>
-                    </div>
-
-                    <div class="mb-3 me-3">
-                        <label for="lugar" class="form-label fw-bold">Lugar</label>
-                        <input v-model="articulo.articulo_con_referato.lugar" type="text" class="form-control" id="lugar"
-                            placeholder="Lugar" required disabled>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fecha" class="form-label fw-bold">Fecha</label>
-                        <div class="input-group">
-                            <input v-model="articulo.articulo_con_referato.fecha" type="date" class="form-control"
-                                id="fecha" placeholder="Fecha" required disabled>
-                        </div>
-                    </div>
+            <div class="d-flex flex-column  flex-md-row justify-content-center">
+                <div class="mb-3 me-3">
+                    <label for="nombreArticulo" class="form-label fw-bold">Nombre del Articulo</label>
+                    <input v-model="articulo.nombre" type="text" class="form-control" id="nombreArticulo"
+                        placeholder="Nombre" required disabled>
                 </div>
 
-                <div class="mb-3 d-flex flex-column  align-items-center">
-                    <label class="form-label mb-2 fw-bold">Tipo de Congreso</label>
+                <div class="mb-3 me-3">
+                    <label for="lugar" class="form-label fw-bold">Lugar</label>
+                    <input v-model="articulo.articulo_con_referato.lugar" type="text" class="form-control" id="lugar"
+                        placeholder="Lugar" required disabled>
+                </div>
 
-                    <div class="d-flex w-100 justify-content-between justify-content-md-center">
-                        {{ articulo.articulo_con_referato.es_nacional ? 'Nacional 🇦🇷' : 'Internacional 🌎' }}
+                <div class="mb-3">
+                    <label for="fecha" class="form-label fw-bold">Fecha</label>
+                    <div class="input-group">
+                        <input v-model="articulo.articulo_con_referato.fecha" type="date" class="form-control" id="fecha"
+                            placeholder="Fecha" required disabled>
                     </div>
                 </div>
-
-                <!-- sección contenedora para centrar el input y la tabla -->
-                <div class="overflow-auto mb-4 mt-3" v-if="articulo.autores.length > 0">
-                    <!-- Tabla de Autores -->
-                    <table class="table mx-auto text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="autor in articulo.autores" :key="autor.id">
-                                <td>{{ autor.nombre }}</td>
-                                <td>
-                                    {{ autor.apellido }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
             </div>
 
-            <!-- Botones -->
-            <div class="d-flex justify-content-center  mb-5 mt-3">
-                <button @click="volver" type="button" class="btn btn-secondary me-3">
-                    <i class="bi bi-arrow-left me-1"></i>Volver al listado
-                </button>
+            <div class="mb-3 d-flex flex-column  align-items-center">
+                <label class="form-label mb-2 fw-bold">Tipo de Congreso</label>
+
+                <div class="d-flex w-100 justify-content-between justify-content-md-center">
+                    {{ articulo.articulo_con_referato.es_nacional ? 'Nacional 🇦🇷' : 'Internacional 🌎' }}
+                </div>
             </div>
-        </form>
+
+            <!-- sección contenedora para centrar el input y la tabla -->
+            <div class="overflow-auto mb-4 mt-3" v-if="articulo.autores.length > 0">
+                <!-- Tabla de Autores -->
+                <table class="table mx-auto text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="autor in articulo.autores" :key="autor.id">
+                            <td>{{ autor.nombre }}</td>
+                            <td>
+                                {{ autor.apellido }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="align-self-center p-5" v-else>
+            <div class="spinner-border text-primary" style="width: 4rem; height: 4rem" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <!-- Botones -->
+        <div class="d-flex justify-content-center  mb-5 mt-3">
+            <button @click="volver" type="button" class="btn btn-secondary me-3">
+                <i class="bi bi-arrow-left me-1"></i>Volver al listado
+            </button>
+        </div>
 
         <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado
             exitosamente
@@ -96,6 +98,7 @@ export default {
                         this.mensajeError = "Error en el detalle: Este documento no es un Articulo con Referato"
                     }
                     this.articulo = data.data;
+                    this.loading = false;
                 }
             })
 
@@ -112,6 +115,7 @@ export default {
                 },
                 "autores": []
             },
+            "loading": true
         }
     },
 
