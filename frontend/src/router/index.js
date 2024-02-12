@@ -14,9 +14,9 @@ import ListadoRevistaNacional from '../views/Documentos/RevistaNacional/Listado.
 // import DetalleRevistaNacional from '../views/Documentos/RevistaNacional/Detalle.vue'
 
 import ListadoLibroCapitulo from '../views/Documentos/LibroCapitulo/Listado.vue'
-// import AltaLibroCapitulo from '../views/Documentos/LibroCapitulo/Alta.vue'
-// import EditarLibroCapitulo from '../views/Documentos/LibroCapitulo/Editar.vue'
-// import DetalleLibroCapitulo from '../views/Documentos/LibroCapitulo/Detalle.vue'
+import AltaLibroCapitulo from '../views/Documentos/LibroCapitulo/Alta.vue'
+import EditarLibroCapitulo from '../views/Documentos/LibroCapitulo/Editar.vue'
+import DetalleLibroCapitulo from '../views/Documentos/LibroCapitulo/Detalle.vue'
 
 import ListadoDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Listado.vue'
 import AltaDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Alta.vue'
@@ -102,21 +102,21 @@ const router = createRouter({
       name: 'listadoLibroCapitulo',
       component: ListadoLibroCapitulo
     },
-    // {
-    //   path: '/libro-capitulo/alta',
-    //   name: 'altaLibroCapitulo',
-    //   component: AltaLibroCapitulo
-    // },
-    // {
-    //   path: '/libro-capitulo/:id/editar',
-    //   name: 'editarLibroCapitulo',
-    //   component: EditarLibroCapitulo
-    // },
-    // {
-    //   path: '/libro-capitulo/:id',
-    //   name: 'detalleLibroCapitulo',
-    //   component: DetalleLibroCapitulo
-    // },
+    {
+      path: '/libro-capitulo/alta',
+      name: 'altaLibroCapitulo',
+      component: AltaLibroCapitulo
+    },
+    {
+      path: '/libro-capitulo/:id/editar',
+      name: 'editarLibroCapitulo',
+      component: EditarLibroCapitulo
+    },
+    {
+      path: '/libro-capitulo/:id',
+      name: 'detalleLibroCapitulo',
+      component: DetalleLibroCapitulo
+    },
 
     {
       path: '/documento-tecnico',

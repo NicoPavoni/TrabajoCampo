@@ -64,7 +64,7 @@ const logout = () => {
               <router-link to="/articulo-referato" class="sidebar-link">Articulos con Referato</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('libro-capitulo') }">
-              <router-link to="/libro-capitulo">Libros Capitulos</router-link>
+              <router-link to="/libro-capitulo">Libros y capitulos</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('evento') }">
               <router-link to="/evento" class="sidebar-link">Eventos</router-link>

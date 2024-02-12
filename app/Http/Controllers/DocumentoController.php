@@ -39,7 +39,9 @@ class DocumentoController extends Controller
             'nombre' => 'required|string',
             'editorial' => 'required|string',
             'isbn' => 'required|string',
-            'nro_capitulo' => 'nullable|string|min:0'
+            'nro_capitulo' => 'nullable|string|min:0',
+            'autores' => 'array|required',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -62,8 +64,11 @@ class DocumentoController extends Controller
             'documento_id' => $documento->id,
         ]);
 
+        $documento->autores()->attach($request['autores']);
+
         DB::commit();
 
+        $documento->load('autores');
         $documento->libroCapitulo = $libroCapitulo;
 
         return response()->json([
@@ -78,7 +83,9 @@ class DocumentoController extends Controller
             'nombre' => 'required|string',
             'editorial' => 'required|string',
             'isbn' => 'required|string',
-            'nro_capitulo' => 'nullable|numeric|min:0'
+            'nro_capitulo' => 'nullable|numeric|min:0',
+            'autores' => 'array|required',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -109,8 +116,11 @@ class DocumentoController extends Controller
         $documento->libroCapitulo->nro_capitulo = $request['nro_capitulo'] ?? null;
 
         $documento->push();
+        $documento->autores()->sync($request['autores']);
 
         DB::commit();
+
+        $documento->load('autores');
 
         return response()->json([
             'message' => 'Libro/Capitulo actualizado exitosamente',
@@ -478,7 +488,7 @@ class DocumentoController extends Controller
 
     public function listarDocumentos(int $tipo_documento)
     {
-        $documentos = Documento::where('tipo_documento', $tipo_documento)->get();
+        $documentos = Documento::with('autores')->where('tipo_documento', $tipo_documento)->get();
 
         foreach ($documentos as $documento) {
             $this->cargarRelacionDocumento($documento);
