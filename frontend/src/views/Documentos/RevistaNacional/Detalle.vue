@@ -1,36 +1,49 @@
 <template>
     <DefaultLayout>
         <div class="container d-flex flex-column mt-5" v-if="!loading">
-            <h2 class="text-center mb-4 center-content">Libros y Capitulos - Detalle</h2>
+            <h2 class="text-center mb-4 center-content">Publicaciónes en Revistas Nacionales - Detalle</h2>
 
-            <div class="d-flex flex-column  flex-md-row justify-content-center">
-                <div class="mb-3 me-3">
-                    <label for="nombreLibroCapitulo" class="form-label fw-bold">Nombre del Libro/Capitulo</label>
-                    <input v-model="libroCapitulo.nombre" type="text" class="form-control" id="nombreLibroCapitulo"
-                        disabled>
+            <div class="d-flex flex-column gap-3 flex-md-row justify-content-center">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label fw-bold">Nombre de la Publicación</label>
+                    <input v-model="revista.nombre" type="text" class="form-control" id="nombre" disabled>
                 </div>
 
-                <div class="mb-3 me-3">
-                    <label for="isbn" class="form-label fw-bold">ISBN</label>
-                    <input v-model="libroCapitulo.isbn" type="text" class="form-control" id="isbn" disabled>
+                <div class="mb-3">
+                    <label for="pais" class="form-label fw-bold">Pais</label>
+                    <input v-model="revista.pais" type="text" class="form-control" id="pais" disabled>
                 </div>
 
                 <div class="mb-3">
                     <label for="editorial" class="form-label fw-bold">Editorial</label>
-                    <input v-model="libroCapitulo.editorial" type="text" class="form-control" id="editorial" disabled>
+                    <div class="input-group">
+                        <input v-model="revista.editorial" type="text" class="form-control" id="editorial" disabled>
+                    </div>
                 </div>
             </div>
 
-            <div class="mb-3 d-flex flex-column  align-items-center">
-                <div class="mb-3 me-3">
-                    <label for="nro_capitulo" class="form-label fw-bold">N° Capitulo</label>
-                    <input v-model="libroCapitulo.nro_capitulo" type="number" class="form-control" id="nro_capitulo"
-                        disabled>
+            <div class="mb-3 d-flex flex-column flex-md-row justify-content-center gap-3 align-items-center">
+                <div class="mb-3">
+                    <label for="issn" class="form-label fw-bold">ISSN</label>
+                    <div class="input-group">
+                        <input v-model="revista.issn" type="text" class="form-control" id="issn" disabled>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="titulo_trabajo" class="form-label fw-bold">Titulo de la Publicación</label>
+                    <div class="input-group">
+                        <input v-model="revista.titulo_trabajo" type="text" class="form-control" id="titulo_trabajo"
+                            disabled>
+                    </div>
+                </div>
+                <div class="mb-3 d-flex gap-2 mt-5">
+                    <p class="text-success" v-if="revista.con_referato">Con referato</p>
+                    <p class="text-danger" v-else>Sin referato</p>
                 </div>
             </div>
 
             <!-- sección contenedora para centrar el input y la tabla -->
-            <div class="overflow-auto mb-4 mt-3" v-if="libroCapitulo.autores.length > 0">
+            <div class="overflow-auto mb-4 mt-3" v-if="revista.autores.length > 0">
                 <!-- Tabla de Autores -->
                 <table class="table mx-auto text-center">
                     <thead>
@@ -40,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="autor in libroCapitulo.autores" :key="autor.id">
+                        <tr v-for="autor in revista.autores" :key="autor.id">
                             <td>{{ autor.nombre }}</td>
                             <td>
                                 {{ autor.apellido }}
@@ -86,14 +99,17 @@ export default {
                     localStorage.clear();
                     this.$router.push({ name: "login" })
                 } else if (data.status == 200) {
-                    if (!data.data.hasOwnProperty('libro_capitulo')) {
-                        this.mensajeError = "Error en el detalle: Este documento no es un Libro/Capitulo"
+                    if (!data.data.hasOwnProperty('revista_nacional')) {
+                        this.mensajeError = "Error en el detalle: Este documento no es una Publicación en Revistas Nacionales"
                     }
-                    this.libroCapitulo.nombre = data.data.nombre;
-                    this.libroCapitulo.isbn = data.data.libro_capitulo.isbn;
-                    this.libroCapitulo.editorial = data.data.libro_capitulo.editorial;
-                    this.libroCapitulo.nro_capitulo = data.data.libro_capitulo.nro_capitulo;
-                    this.libroCapitulo.autores = data.data.autores;
+                    this.revista.nombre = data.data.nombre;
+                    this.revista.pais = data.data.revista_nacional.pais;
+                    this.revista.editorial = data.data.revista_nacional.editorial;
+                    this.revista.issn = data.data.revista_nacional.issn;
+                    this.revista.titulo_trabajo = data.data.revista_nacional.titulo_trabajo;
+                    this.revista.con_referato = data.data.revista_nacional.con_referato;
+                    this.revista.autores = data.data.autores;
+                    this.loadingAutores = false;
                     this.loading = false;
                 }
             })
@@ -102,11 +118,13 @@ export default {
 
     data() {
         return {
-            "libroCapitulo": {
+            "revista": {
                 "nombre": null,
-                "isbn": null,
+                "pais": null,
                 "editorial": null,
-                "nro_capitulo": null,
+                "issn": null,
+                "titulo_trabajo": null,
+                "con_referato": null,
                 "autores": []
             },
             "loading": true
@@ -116,7 +134,7 @@ export default {
     methods: {
 
         volver: function () {
-            this.$router.push({ name: 'listadoLibroCapitulo' });
+            this.$router.push({ name: 'listadoRevistaNacional' });
         },
     }
 }
@@ -158,15 +176,6 @@ export default {
     font-size: 1.2rem;
     cursor: pointer;
     margin-right: 5px;
-}
-
-input[type='number'] {
-    -moz-appearance: textfield;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
 }
 
 @media(min-width:768px) {

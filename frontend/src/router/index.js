@@ -9,9 +9,9 @@ import EditarArtReferato from '../views/Documentos/ArticuloConReferato/Editar.vu
 import DetalleArtReferato from '../views/Documentos/ArticuloConReferato/Detalle.vue'
 
 import ListadoRevistaNacional from '../views/Documentos/RevistaNacional/Listado.vue'
-// import AltaRevistaNacional from '../views/Documentos/RevistaNacional/Alta.vue'
-// import EditarRevistaNacional from '../views/Documentos/RevistaNacional/Editar.vue'
-// import DetalleRevistaNacional from '../views/Documentos/RevistaNacional/Detalle.vue'
+import AltaRevistaNacional from '../views/Documentos/RevistaNacional/Alta.vue'
+import EditarRevistaNacional from '../views/Documentos/RevistaNacional/Editar.vue'
+import DetalleRevistaNacional from '../views/Documentos/RevistaNacional/Detalle.vue'
 
 import ListadoLibroCapitulo from '../views/Documentos/LibroCapitulo/Listado.vue'
 import AltaLibroCapitulo from '../views/Documentos/LibroCapitulo/Alta.vue'
@@ -79,21 +79,21 @@ const router = createRouter({
       name: 'listadoRevistaNacional',
       component: ListadoRevistaNacional
     },
-    // {
-    //   path: '/revista-nacional/alta',
-    //   name: 'altaRevistaNacional',
-    //   component: AltaRevistaNacional
-    // },
-    // {
-    //   path: '/revista-nacional/:id/editar',
-    //   name: 'editarRevistaNacional',
-    //   component: EditarRevistaNacional
-    // },
-    // {
-    //   path: '/revista-nacional/:id',
-    //   name: 'detalleRevistaNacional',
-    //   component: DetalleRevistaNacional
-    // },
+    {
+      path: '/revista-nacional/alta',
+      name: 'altaRevistaNacional',
+      component: AltaRevistaNacional
+    },
+    {
+      path: '/revista-nacional/:id/editar',
+      name: 'editarRevistaNacional',
+      component: EditarRevistaNacional
+    },
+    {
+      path: '/revista-nacional/:id',
+      name: 'detalleRevistaNacional',
+      component: DetalleRevistaNacional
+    },
     // \Revista nacional
 
     // Libro/Capitulo
@@ -117,7 +117,9 @@ const router = createRouter({
       name: 'detalleLibroCapitulo',
       component: DetalleLibroCapitulo
     },
+    // \Libro/Capitulo
 
+    // Documento Tecnico
     {
       path: '/documento-tecnico',
       name: 'listadoDocumentoTecnico',
@@ -138,6 +140,7 @@ const router = createRouter({
       name: 'detalleDocumentoTecnico',
       component: DetalleDocumentoTecnico
     },
+    // \Documento Tecnico
 
     {
       path: '/evento',

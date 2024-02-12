@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-export const useRevistaStore = defineStore('revista-nacional', {
+export const useRevistaNacionalStore = defineStore('revista-nacional', {
   actions: {
-    async listarDocTecnicos() {
+    async listarRevistaNacionales() {
       return await axios.get(import.meta.env.VITE_API_URL + '/documento/2', {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -11,7 +11,7 @@ export const useRevistaStore = defineStore('revista-nacional', {
       })
     },
 
-    crearDocTecnico(revistaNacional) {
+    crearRevistaNacional(revistaNacional) {
       return axios.post(
         import.meta.env.VITE_API_URL + '/documento/revista-nacional',
         revistaNacional,
@@ -23,7 +23,7 @@ export const useRevistaStore = defineStore('revista-nacional', {
       )
     },
 
-    editarDocTecnico(documento_id, revistaNacional) {
+    editarRevistaNacional(documento_id, revistaNacional) {
       return axios.put(
         import.meta.env.VITE_API_URL + '/documento/revista-nacional/' + documento_id,
         revistaNacional,

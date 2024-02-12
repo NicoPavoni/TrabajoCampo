@@ -138,7 +138,9 @@ class DocumentoController extends Controller
             'editorial' => 'required|string',
             'issn' => 'required|string',
             'titulo_trabajo' => 'required|string',
-            'con_referato' => 'required|boolean'
+            'con_referato' => 'required|boolean',
+            'autores' => 'array|required',
+            'autores.*' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -163,8 +165,11 @@ class DocumentoController extends Controller
             'documento_id' => $documento->id,
         ]);
 
+        $documento->autores()->attach($request['autores']);
+
         DB::commit();
 
+        $documento->load('autores');
         $documento->revistaNacional = $revistaNacional;
 
         return response()->json([
@@ -215,7 +220,11 @@ class DocumentoController extends Controller
 
         $documento->push();
 
+        $documento->autores()->sync($request['autores']);
+
         DB::commit();
+
+        $documento->load('autores');
 
         return response()->json([
             'message' => 'Revista Nacional actualizada exitosamente',

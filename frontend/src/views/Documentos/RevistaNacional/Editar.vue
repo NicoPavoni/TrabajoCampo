@@ -1,8 +1,8 @@
 <template>
   <DefaultLayout>
-    <form @submit="crearRevistaNacional">
+    <form @submit="editarRevistaNacional">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Publicaciónes en Revistas Nacionales - Alta</h2>
+        <h2 class="text-center mb-4 center-content">Publicaciónes en Revistas Nacionales - Editar</h2>
 
         <div class="d-flex flex-column gap-3 flex-md-row justify-content-center">
           <div class="mb-3">
@@ -11,8 +11,8 @@
           </div>
 
           <div class="mb-3">
-            <label for="pais" class="form-label fw-bold">Pais</label>
-            <input v-model="revista.pais" type="text" class="form-control" id="pais" placeholder="Pais" required>
+            <label for="Pais" class="form-label fw-bold">Pais</label>
+            <input v-model="revista.pais" type="text" class="form-control" id="Pais" placeholder="Pais" required>
           </div>
 
           <div class="mb-3">
@@ -100,14 +100,15 @@
         </button>
         <button type="submit" class="btn btn-success" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
-          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Crear Publicación
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Publicación
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Publicación creada exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Publicación actualizada exitosamente.
       Redireccionando al listado...
     </div>
+    <div class="alert alert-danger align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
   </DefaultLayout>
 </template>
 
@@ -115,9 +116,8 @@
 import DefaultLayout from '../../../layouts/DefaultLayout.vue';
 import { useRevistaNacionalStore } from '@/stores/revista-nacional';
 import { usePersonaStore } from '@/stores/persona';
+import { useDocumentoStore } from '@/stores/documento';
 import { useRouter } from 'vue-router';
-
-
 </script>
 
 <script>
@@ -127,14 +127,39 @@ export default {
 
   async mounted() {
     const revistaNacionalStore = useRevistaNacionalStore();
+    const documentoStore = useDocumentoStore();
     const personaStore = usePersonaStore();
+
     await personaStore.listarPersonas();
-    this.loadingAutores = false;
+    this.mensajeError = null;
+    await documentoStore.detalleDocumento(this.$route.params.id)
+      .catch(e => console.error(e))
+      .then(data => {
+        if (data.status == 401) {
+          localStorage.clear();
+          this.$router.push({ name: "login" })
+        } else if (data.status == 200) {
+          if (!data.data.hasOwnProperty('revista_nacional')) {
+            this.mensajeError = "Error en el editar: Este documento no es una Publicación en una Revista Nacional"
+          }
+          this.revista.nombre = data.data.nombre;
+          this.revista.pais = data.data.revista_nacional.pais;
+          this.revista.editorial = data.data.revista_nacional.editorial;
+          this.revista.issn = data.data.revista_nacional.issn;
+          this.revista.titulo_trabajo = data.data.revista_nacional.titulo_trabajo;
+          this.revista.con_referato = data.data.revista_nacional.con_referato ? true : false;
+          let autores = data.data.autores.map(autor => autor.id)
+          this.revista.autores = autores;
+          this.loadingAutores = false;
+          this.loading = false;
+        }
+      })
 
     this.autores = personaStore.getPersonas;
-    this.autoresNoSeleccionados = this.autores;
+    this.autoresNoSeleccionados = this.autores.filter((autor) => !this.revista.autores.includes(autor.id))
 
     this.revistaNacionalStore = revistaNacionalStore;
+
   },
 
   data() {
@@ -156,8 +181,9 @@ export default {
       "autoresNoSeleccionados": [],
       "autorSeleccionado": null,
       "mensajeExito": null,
-      "loadingAutores": true,
-      "loading": false
+      "mensajeError": null,
+      loadingAutores: true,
+      "loading": true
     }
   },
   computed: {
@@ -167,10 +193,10 @@ export default {
   },
 
   methods: {
-    crearRevistaNacional: async function (e) {
+    editarRevistaNacional: async function (e) {
       e.preventDefault();
+
       this.errors = {
-        "es_nacional": null,
         "autores": null
       }
 
@@ -181,12 +207,13 @@ export default {
       if (this.errors.autores !== null) {
         return;
       }
+
       this.loading = true;
-      await this.revistaNacionalStore.crearRevistaNacional(this.revista)
+      await this.revistaNacionalStore.editarRevistaNacional(this.$route.params.id, this.revista)
         .catch(e => console.error(e))
         .then(data => {
           this.loading = false;
-          if (data.status == 201) {
+          if (data.status == 200) {
             this.mensajeExito = true;
             setTimeout(() => this.$router.push({ name: 'listadoRevistaNacional' }), 5000)
           } else if (data.status == 401) {
