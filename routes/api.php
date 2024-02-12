@@ -93,8 +93,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('parametricas')->group(function () {
         Route::get('personas', 'App\Http\Controllers\ParametricaController@personas');
+        Route::get('tipos-licencias', 'App\Http\Controllers\ParametricaController@tiposLicencias');
+        Route::get('instituciones', 'App\Http\Controllers\ParametricaController@instituciones');
+        Route::get('tipos-documento-tecnico', 'App\Http\Controllers\ParametricaController@tiposDocumentosTecnicos');
     });
-
-    Route::get('tipos-licencias', 'App\Http\Controllers\ParametricaController@tiposLicencias');
-    Route::get('instituciones', 'App\Http\Controllers\ParametricaController@instituciones');
 });

@@ -12,7 +12,7 @@
                         <button type="button" class="btn-close" aria-label="Close" @click="cerrarModalEliminar()"></button>
                     </div>
                     <div class="modal-body">
-                        <p>¿Estas seguro que desea eliminar el articulo '{{ modalEliminar.nombre }}'?</p>
+                        <p>¿Estas seguro que desea eliminar el documento tecnico '{{ modalEliminar.nombre }}'?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModalEliminar()">Cerrar</button>
@@ -27,7 +27,7 @@
 
         <div class="container" v-if="!loading">
             <div class="d-flex align-items-center mt-4">
-                <router-link to="/articulo-referato/alta" class="text-center btn btn-success"><i
+                <router-link to="/documento-tecnico/alta" class="text-center btn btn-success"><i
                         class="bi bi-plus-lg me-2"></i>Nuevo</router-link>
 
                 <div class="alert alert-success mx-auto p-2" v-if="exitoEliminar">Articulo '{{ modalEliminar.nombre
@@ -126,7 +126,7 @@ export default {
                 .then(data => {
                     if (data.status == 200) {
                         this.exitoEliminar = true;
-                        this.articulos = this.articulos.filter((articulo) => articulo.id != documentoId);
+                        this.documentos = this.documentos.filter((documento) => documento.id != documentoId);
                         this.modalEliminar.mostrar = false;
                         this.modalEliminar.loading = false;
                     }

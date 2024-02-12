@@ -54,6 +54,23 @@
                 </table>
             </div>
 
+            <!-- sección contenedora para centrar el input y la tabla -->
+            <div class="overflow-auto mb-4 mt-3" v-if="documento.documento_tecnico.enlaces.length > 0">
+                <!-- Tabla de Autores -->
+                <table class="table mx-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Enlaces</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="enlace in documento.documento_tecnico.enlaces" :key="enlace.id">
+                            <td><a :href="enlace.enlace">{{ enlace.enlace }}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
         <div class="align-self-center p-5" v-else>
             <div class="spinner-border text-primary" style="width: 4rem; height: 4rem" role="status">
@@ -111,9 +128,9 @@ export default {
                     "enlaces": [],
                     "tipo_documento_tecnico": {
                         "nombre": null
-                    }
+                    },
                 },
-                "autores": []
+                "autores": [],
             },
             "loading": true
         }

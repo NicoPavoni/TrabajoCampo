@@ -357,6 +357,7 @@ class DocumentoController extends Controller
 
         DB::commit();
 
+        $documentoTecnico->load('enlaces');
         $documento->documentoTecnico = $documentoTecnico;
 
         return response()->json([

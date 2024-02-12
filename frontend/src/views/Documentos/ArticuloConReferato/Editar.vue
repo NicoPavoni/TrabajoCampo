@@ -109,6 +109,7 @@
 import DefaultLayout from '../../../layouts/DefaultLayout.vue';
 import { useArtReferatoStore } from '@/stores/articulo-con-referato';
 import { usePersonaStore } from '@/stores/persona';
+import { useDocumentoStore } from '@/stores/documento';
 import { useRouter } from 'vue-router';
 </script>
 
@@ -119,11 +120,12 @@ export default {
 
   async mounted() {
     const artStore = useArtReferatoStore();
+    const documentoStore = useDocumentoStore();
     const personaStore = usePersonaStore();
 
     await personaStore.listarPersonas();
     this.mensajeError = null;
-    let articulo = await artStore.detalleArtReferato(this.$route.params.id)
+    await documentoStore.detalleDocumento(this.$route.params.id)
       .catch(e => console.error(e))
       .then(data => {
         if (data.status == 401) {
