@@ -7,7 +7,7 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - 5000:5173
+      - ${DOCKER_FRONT_PORT}:5173
     links:
       - api-service
     depends_on:
