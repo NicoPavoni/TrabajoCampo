@@ -31,4 +31,9 @@ class ReunionCientifica extends Model
     {
         return $this->belongsToMany(Persona::class, 'autores_reunion', 'reunion_cientifica_id', 'persona_id');
     }
+
+    public function trabajo_publicado()
+    {
+        return $this->belongsTo(TrabajoPublicado::class, 'trabajo_id');
+    }
 }

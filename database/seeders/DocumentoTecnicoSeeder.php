@@ -22,8 +22,8 @@ class DocumentoTecnicoSeeder extends Seeder
         DocumentoTecnico::create([
             'lugar' => 'Lugar 1',
             'fecha' => '2023-01-01',
-            'documento_id' => '1',
-            'tipo_documento_tecnico_id' => $documento->id
+            'documento_id' => $documento->id,
+            'tipo_documento_tecnico_id' => 1
         ]);
 
         $documento = Documento::create([
@@ -34,8 +34,8 @@ class DocumentoTecnicoSeeder extends Seeder
         DocumentoTecnico::create([
             'lugar' => 'Lugar 2',
             'fecha' => '2023-01-02',
-            'documento_id' => '2',
-            'tipo_documento_tecnico_id' => $documento->id
+            'documento_id' => $documento->id,
+            'tipo_documento_tecnico_id' => 3
         ]);
 
         $documento = Documento::create([
@@ -46,8 +46,8 @@ class DocumentoTecnicoSeeder extends Seeder
         DocumentoTecnico::create([
             'lugar' => 'Lugar 3',
             'fecha' => '2023-01-03',
-            'documento_id' => '3',
-            'tipo_documento_tecnico_id' => $documento->id
+            'documento_id' => $documento->id,
+            'tipo_documento_tecnico_id' => 2
         ]);
 
         $documento = Documento::create([
@@ -58,8 +58,8 @@ class DocumentoTecnicoSeeder extends Seeder
         DocumentoTecnico::create([
             'lugar' => 'Lugar 4',
             'fecha' => '2023-01-04',
-            'documento_id' => '4',
-            'tipo_documento_tecnico_id' => $documento->id
+            'documento_id' => $documento->id,
+            'tipo_documento_tecnico_id' => 1
         ]);
     }
 }

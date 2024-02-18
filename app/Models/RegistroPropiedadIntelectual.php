@@ -19,7 +19,7 @@ class RegistroPropiedadIntelectual extends Model
 
     public function tipo_licencia()
     {
-        return $this->belongsTo(TipoLicencia::class);
+        return $this->belongsTo(TipoLicencia::class, 'tipo_licencia_id');
     }
 
     public function titular()

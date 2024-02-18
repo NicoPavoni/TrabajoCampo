@@ -34,8 +34,11 @@
           <div class="mb-3">
             <label for="titulo_trabajo" class="form-label fw-bold">Titulo de la Publicación</label>
             <div class="input-group">
-              <input v-model="revista.titulo_trabajo" type="text" class="form-control" id="titulo_trabajo"
-                placeholder="Titulo" required>
+              <select v-model="revista.trabajo_id" class="form-control" aria-label="Buscar Autores"
+                id="trabajo_publicado">
+                <option v-for="trabajo in trabajosPublicados" :value="trabajo.id" :key="trabajo.id">{{ trabajo.titulo }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3 d-flex gap-2 mt-4">
@@ -113,10 +116,11 @@
 </template>
 
 <script setup>
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRevistaNacionalStore } from '@/stores/revista-nacional';
 import { usePersonaStore } from '@/stores/persona';
 import { useDocumentoStore } from '@/stores/documento';
+import { useParametricaStore } from '@/stores/parametricas';
 import { useRouter } from 'vue-router';
 </script>
 
@@ -127,8 +131,10 @@ export default {
 
   async mounted() {
     const revistaNacionalStore = useRevistaNacionalStore();
+    const parametricaStore = useParametricaStore();
     const documentoStore = useDocumentoStore();
     const personaStore = usePersonaStore();
+    await parametricaStore.listarTrabajosPublicados().then(data => this.trabajosPublicados = data.data)
 
     await personaStore.listarPersonas();
     this.mensajeError = null;
@@ -145,6 +151,7 @@ export default {
           this.revista.nombre = data.data.nombre;
           this.revista.pais = data.data.revista_nacional.pais;
           this.revista.editorial = data.data.revista_nacional.editorial;
+          this.revista.trabajo_id = data.data.revista_nacional.trabajo_id;
           this.revista.issn = data.data.revista_nacional.issn;
           this.revista.titulo_trabajo = data.data.revista_nacional.titulo_trabajo;
           this.revista.con_referato = data.data.revista_nacional.con_referato ? true : false;

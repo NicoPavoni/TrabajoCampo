@@ -39,6 +39,8 @@ class RegistroPropiedadController extends Controller
 
         DB::commit();
 
+        $registro->load('titular');
+
         return response()->json([
             'message' => 'Registro de Propiedad Industrial creado exitosamente',
             'registro' => $registro
@@ -79,6 +81,8 @@ class RegistroPropiedadController extends Controller
 
         DB::commit();
 
+        $registro->load('titular');
+
         return response()->json([
             'message' => 'Registro de Propiedad Industrial actualizado exitosamente',
             'registro' => $registro
@@ -105,7 +109,7 @@ class RegistroPropiedadController extends Controller
     public function listarRegIndustriales()
     {
         return response()->json(
-            RegistroPropiedadIndustrial::all()
+            RegistroPropiedadIndustrial::with('titular')->get()
         );
     }
 
@@ -142,6 +146,8 @@ class RegistroPropiedadController extends Controller
         ]);
 
         DB::commit();
+
+        $registro->load(['titular', 'tipo_licencia']);
 
         return response()->json([
             'message' => 'Registro de Propiedad Intelectual creado exitosamente',
@@ -181,6 +187,8 @@ class RegistroPropiedadController extends Controller
 
         DB::commit();
 
+        $registro->load(['titular', 'tipo_licencia']);
+
         return response()->json([
             'message' => 'Registro de Propiedad Intelectual actualizado exitosamente',
             'registro' => $registro
@@ -207,13 +215,13 @@ class RegistroPropiedadController extends Controller
     public function listarRegIntelectuales()
     {
         return response()->json(
-            RegistroPropiedadIntelectual::all()
+            RegistroPropiedadIntelectual::with(['titular', 'tipo_licencia'])->get()
         );
     }
 
     public function verRegIntelectual(int $registro_id)
     {
-        return RegistroPropiedadIntelectual::with('titular')->find($registro_id) ??
+        return RegistroPropiedadIntelectual::with(['titular', 'tipo_licencia'])->find($registro_id) ??
             response()->json([
                 'message' => 'Registro de Propiedad Intelectual no encontrado'
             ], 404);
@@ -246,6 +254,8 @@ class RegistroPropiedadController extends Controller
         $patente->titulares()->attach($request['titulares']);
 
         DB::commit();
+
+        $patente->load('titulares');
 
         return response()->json([
             'message' => 'Patente creada exitosamente',
@@ -286,6 +296,8 @@ class RegistroPropiedadController extends Controller
         $patente->titulares()->sync($request['titulares']);
 
         DB::commit();
+
+        $patente->load('titulares');
 
         return response()->json([
             'message' => 'Patente actualizada exitosamente',

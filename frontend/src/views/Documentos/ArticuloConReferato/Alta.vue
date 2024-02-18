@@ -105,7 +105,7 @@
 </template>
 
 <script setup>
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useArtReferatoStore } from '@/stores/articulo-con-referato';
 import { usePersonaStore } from '@/stores/persona';
 import { useRouter } from 'vue-router';

@@ -26,6 +26,13 @@ export const useParametricaStore = defineStore('parametricas', {
           }
         }
       )
+    },
+    async listarTrabajosPublicados() {
+      return await axios.get(import.meta.env.VITE_API_URL + '/parametricas/trabajos-publicados', {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
     }
   }
 })

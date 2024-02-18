@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('pais');
             $table->string('editorial');
             $table->string('issn');
-            $table->string('titulo_trabajo');
+            $table->foreignId('trabajo_id');
             $table->boolean('con_referato');
             $table->foreignId('documento_id');
             $table->foreign('documento_id')->references('id')->on('documento')->onDelete('cascade');

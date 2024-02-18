@@ -14,7 +14,7 @@ class RevistaNacional extends Model
         'pais',
         'editorial',
         'issn',
-        'titulo_trabajo',
+        'trabajo_id',
         'con_referato',
         'documento_id',
     ];
@@ -23,5 +23,10 @@ class RevistaNacional extends Model
     public function documento()
     {
         return $this->belongsTo(Documento::class);
+    }
+
+    public function trabajo_publicado()
+    {
+        return $this->belongsTo(TrabajoPublicado::class, 'trabajo_id');
     }
 }

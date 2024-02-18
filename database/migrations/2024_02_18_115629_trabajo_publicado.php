@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patente', function (Blueprint $table) {
+        Schema::create('trabajo_publicado', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_presentacion');
             $table->string('titulo');
-            $table->foreignId('registro_propiedad_id')->nullable();
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patente');
+        Schema::dropIfExists('trabajo_publicado');
     }
 };

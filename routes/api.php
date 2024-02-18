@@ -96,5 +96,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('tipos-licencias', 'App\Http\Controllers\ParametricaController@tiposLicencias');
         Route::get('instituciones', 'App\Http\Controllers\ParametricaController@instituciones');
         Route::get('tipos-documento-tecnico', 'App\Http\Controllers\ParametricaController@tiposDocumentosTecnicos');
+        Route::get('trabajos-publicados', 'App\Http\Controllers\ParametricaController@trabajosPublicados');
     });
 });

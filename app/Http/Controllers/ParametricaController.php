@@ -7,6 +7,7 @@ use App\Models\Institucion;
 use Illuminate\Http\Request;
 use App\Models\Persona;
 use App\Models\TipoDocumentoTecnico;
+use App\Models\TrabajoPublicado;
 
 class ParametricaController extends Controller
 {
@@ -28,5 +29,10 @@ class ParametricaController extends Controller
     public function tiposDocumentosTecnicos()
     {
         return TipoDocumentoTecnico::all();
+    }
+
+    public function trabajosPublicados()
+    {
+        return TrabajoPublicado::all();
     }
 }

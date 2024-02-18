@@ -1,33 +1,57 @@
 <template>
   <DefaultLayout>
-    <form @submit="crearLibroCapitulo">
+    <form @submit="crearReunion">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Libros y Capitulos - Alta</h2>
+        <h2 class="text-center mb-4 center-content">Reunion Cientifica - Alta</h2>
 
-        <div class="d-flex flex-column  flex-md-row justify-content-center">
-          <div class="mb-3 me-3">
-            <label for="nombreLibroCapitulo" class="form-label fw-bold">Nombre del Libro/Capitulo</label>
-            <input v-model="libroCapitulo.nombre" type="text" class="form-control" id="nombreLibroCapitulo"
-              placeholder="Nombre" required>
-          </div>
-
-          <div class="mb-3 me-3">
-            <label for="isbn" class="form-label fw-bold">ISBN</label>
-            <input v-model="libroCapitulo.isbn" type="text" class="form-control" id="isbn" placeholder="ISBN" required>
+        <div class="d-flex flex-column  flex-md-row justify-content-center gap-4">
+          <div class="mb-3">
+            <label for="nombre" class="form-label fw-bold">Nombre de la Reunion</label>
+            <input v-model="reunion.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
           </div>
 
           <div class="mb-3">
-            <label for="editorial" class="form-label fw-bold">Editorial</label>
-            <input v-model="libroCapitulo.editorial" type="text" class="form-control" id="editorial"
-              placeholder="Editorial" required>
+            <label for="fecha_inicio" class="form-label fw-bold">Fecha de Inicio</label>
+            <input v-model="reunion.fecha_inicio" type="date" class="form-control" id="fecha_inicio" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="trabajo_publicado" class="form-label fw-bold">Trabajo Publicado</label>
+            <select v-model="reunion.trabajo_id" id="trabajo_publicado" class="form-control" required>
+              <option value="" selected disabled>Seleccione un trabajo</option>
+              <option v-for="trabajo in trabajosPublicados" :key="trabajo.id" :value="trabajo.id">{{ trabajo.titulo }}
+              </option>
+            </select>
           </div>
         </div>
 
-        <div class="mb-3 d-flex flex-column  align-items-center">
-          <div class="mb-3 me-3">
-            <label for="nro_capitulo" class="form-label fw-bold">N° Capitulo</label>
-            <input v-model="libroCapitulo.nro_capitulo" type="number" class="form-control" id="nro_capitulo"
-              placeholder="Opcional">
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-4">
+          <div class="d-flex gap-2 mt-3">
+            <input class="form-check-input" type="checkbox" v-model="reunion.nacional" id="esNacional">
+            <label class="form-check-label" for="esNacional">
+              Nacional
+            </label>
+
+          </div>
+          <div class="mb-3" v-if="reunion.nacional">
+            <label for="ciudad" class="form-label fw-bold">Ciudad</label>
+            <input v-model="reunion.ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad"
+              :required="reunion.nacional">
+          </div>
+          <div class="mb-3" v-else>
+            <label for="pais" class="form-label fw-bold">Pais</label>
+            <input v-model="reunion.pais" type="text" class="form-control" id="pais" placeholder="Pais"
+              :required="!reunion.nacional">
+          </div>
+
+          <div class="mb-3">
+            <label for="expositor" class="form-label fw-bold">Expositor</label>
+            <select v-model="reunion.expositor_id" id="expositor" class="form-control" required>
+              <option value="" selected disabled>Seleccione un expositor</option>
+              <option v-for="persona in autores" :key="persona.id" :value="persona.id">{{ persona.nombre + " " +
+                persona.apellido }}
+              </option>
+            </select>
           </div>
         </div>
 
@@ -49,7 +73,7 @@
 
         <span v-if="errors.autores" class="small text-danger text-center my-2">{{ errors.autores }}</span>
         <!-- sección contenedora para centrar el input y la tabla -->
-        <div class="overflow-auto mb-4 mt-3" v-if="libroCapitulo.autores.length > 0">
+        <div class="overflow-auto mb-4 mt-3" v-if="reunion.autores.length > 0">
           <!-- Tabla de Autores -->
           <table class="table mx-auto text-center">
             <thead>
@@ -84,12 +108,12 @@
         </button>
         <button type="submit" class="btn btn-success" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
-          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Crear Libro/Capitulo
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Crear Reunion
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Libro/Capitulo creado exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Reunion creada exitosamente.
       Redireccionando al listado...
     </div>
   </DefaultLayout>
@@ -97,7 +121,8 @@
 
 <script setup>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import { useLibroCapituloStore } from '@/stores/libro-capitulo';
+import { useReunionCientificaStore } from '@/stores/reunion-cientifica';
+import { useParametricaStore } from '@/stores/parametricas';
 import { usePersonaStore } from '@/stores/persona';
 import { useRouter } from 'vue-router';
 
@@ -110,15 +135,17 @@ import { useRouter } from 'vue-router';
 export default {
 
   async mounted() {
-    const libroCapituloStore = useLibroCapituloStore();
+    const reunionStore = useReunionCientificaStore();
     const personaStore = usePersonaStore();
     await personaStore.listarPersonas();
+    const parametricaStore = useParametricaStore();
+    await parametricaStore.listarTrabajosPublicados().then(data => this.trabajosPublicados = data.data);
     this.loadingAutores = false;
 
     this.autores = personaStore.getPersonas;
     this.autoresNoSeleccionados = this.autores;
 
-    this.libroCapituloStore = libroCapituloStore;
+    this.reunionStore = reunionStore;
   },
 
   data() {
@@ -126,16 +153,20 @@ export default {
       "errors": {
         "autores": null
       },
-      "libroCapitulo": {
+      "reunion": {
         "nombre": null,
-        "isbn": null,
-        "editorial": null,
-        "nro_capitulo": null,
+        "fecha_inicio": null,
+        "trabajo_id": null,
+        "ciudad": null,
+        "pais": null,
+        "nacional": 0,
+        "expositor_id": null,
         "autores": []
       },
       "autores": [],
       "autoresNoSeleccionados": [],
       "autorSeleccionado": null,
+      "trabajosPublicados": [],
       "mensajeExito": null,
       "loadingAutores": true,
       "loading": false
@@ -143,32 +174,42 @@ export default {
   },
   computed: {
     autoresSeleccionados() {
-      return this.autores.filter((autor) => this.libroCapitulo.autores.includes(autor.id))
-    }
+      return this.autores.filter((autor) => this.reunion.autores.includes(autor.id))
+    },
   },
 
   methods: {
-    crearLibroCapitulo: async function (e) {
+    crearReunion: async function (e) {
       e.preventDefault();
       this.errors = {
         "autores": null
       }
-
-      if (this.libroCapitulo.autores.length <= 0) {
+      if (this.reunion.autores.length <= 0) {
         this.errors.autores = "Por favor ingrese un autor";
       }
 
       if (this.errors.autores !== null) {
         return;
       }
+
+      if (this.reunion.nacional && !this.reunion.ciudad) {
+        return;
+      }
+
+      if (!this.reunion.nacional && !this.reunion.pais) {
+        return;
+      }
+
       this.loading = true;
-      await this.libroCapituloStore.crearLibroCapitulo(this.libroCapitulo)
+      let reunionData = this.reunion;
+      reunionData.nacional = reunionData.nacional ? '1' : '0';
+      await this.reunionStore.crearReunion(reunionData)
         .catch(e => console.error(e))
         .then(data => {
           this.loading = false;
           if (data.status == 201) {
             this.mensajeExito = true;
-            setTimeout(() => this.$router.push({ name: 'listadoLibroCapitulo' }), 5000)
+            setTimeout(() => this.$router.push({ name: 'listadoReunionCientifica' }), 5000)
           } else if (data.status == 401) {
             localStorage.clear();
             this.$router.push({ name: 'login' })
@@ -177,22 +218,22 @@ export default {
     },
 
     cancelar: function () {
-      this.$router.push({ name: 'listadoLibroCapitulo' });
+      this.$router.push({ name: 'listadoReunionCientifica' });
     },
 
     agregarAutor: function () {
       if (!this.autorSeleccionado) {
         return;
       }
-      this.libroCapitulo.autores.push(this.autorSeleccionado);
+      this.reunion.autores.push(this.autorSeleccionado);
       this.autorSeleccionado = null;
-      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.libroCapitulo.autores.includes(autor.id))
+      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.reunion.autores.includes(autor.id))
     },
 
     eliminarAutor: function (autor_id) {
-      let autorIndex = this.libroCapitulo.autores.indexOf(autor_id);
-      this.libroCapitulo.autores.splice(autorIndex, 1);
-      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.libroCapitulo.autores.includes(autor.id))
+      let autorIndex = this.reunion.autores.indexOf(autor_id);
+      this.reunion.autores.splice(autorIndex, 1);
+      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.reunion.autores.includes(autor.id))
     }
   }
 }
@@ -234,15 +275,6 @@ export default {
   font-size: 1.2rem;
   cursor: pointer;
   margin-right: 5px;
-}
-
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
 }
 
 @media(min-width:768px) {

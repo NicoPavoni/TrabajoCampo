@@ -137,7 +137,7 @@ class DocumentoController extends Controller
             'pais' => 'required|string',
             'editorial' => 'required|string',
             'issn' => 'required|string',
-            'titulo_trabajo' => 'required|string',
+            'trabajo_id' => 'required|numeric|min:1',
             'con_referato' => 'required|boolean',
             'autores' => 'array|required',
             'autores.*' => 'numeric'
@@ -160,7 +160,7 @@ class DocumentoController extends Controller
             'pais' => $request['pais'],
             'editorial' => $request['editorial'],
             'issn' => $request['issn'],
-            'titulo_trabajo' => $request['titulo_trabajo'],
+            'trabajo_id' => $request['trabajo_id'],
             'con_referato' => $request['con_referato'],
             'documento_id' => $documento->id,
         ]);
@@ -169,7 +169,7 @@ class DocumentoController extends Controller
 
         DB::commit();
 
-        $documento->load('autores');
+        $documento->load(['autores']);
         $documento->revistaNacional = $revistaNacional;
 
         return response()->json([
@@ -185,7 +185,7 @@ class DocumentoController extends Controller
             'pais' => 'required|string',
             'editorial' => 'required|string',
             'issn' => 'required|string',
-            'titulo_trabajo' => 'required|string',
+            'trabajo_id' => 'required|numeric|min:1',
             'con_referato' => 'required|boolean'
         ]);
 
@@ -215,7 +215,7 @@ class DocumentoController extends Controller
         $documento->revistaNacional->pais = $request['pais'];
         $documento->revistaNacional->editorial = $request['editorial'];
         $documento->revistaNacional->issn = $request['issn'];
-        $documento->revistaNacional->titulo_trabajo = $request['titulo_trabajo'];
+        $documento->revistaNacional->trabajo_id = $request['titulo_trabajo'];
         $documento->revistaNacional->con_referato = $request['con_referato'];
 
         $documento->push();
@@ -224,7 +224,7 @@ class DocumentoController extends Controller
 
         DB::commit();
 
-        $documento->load('autores');
+        $documento->load(['autores', 'revistaNacional.trabajo_publicado']);
 
         return response()->json([
             'message' => 'Revista Nacional actualizada exitosamente',
@@ -475,7 +475,7 @@ class DocumentoController extends Controller
 
     /**
      * Metodo privado que dependiendo del numero de tipo_documento carga distintas relaciones de Documento con
-     * sus tabla real
+     * su tabla real
      */
     private function cargarRelacionDocumento(Documento $documento)
     {
@@ -484,7 +484,7 @@ class DocumentoController extends Controller
                 $documento->load('libroCapitulo');
                 break;
             case REVISTA_NACIONAL:
-                $documento->load('revistaNacional');
+                $documento->load(['revistaNacional.trabajo_publicado']);
                 break;
             case ARTICULO_CON_REFERATO:
                 $documento->load('articuloConReferato');

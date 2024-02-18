@@ -72,7 +72,7 @@
 
 <script setup>
 
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ref, onMounted } from 'vue';
 import { useDocTecnicoStore } from '@/stores/documento-tecnico';
 import { useDocumentoStore } from '@/stores/documento';

@@ -72,7 +72,7 @@
 
 <script setup>
 
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ref, onMounted } from 'vue';
 import { useRevistaNacionalStore } from '@/stores/revista-nacional';
 import { useDocumentoStore } from '@/stores/documento';

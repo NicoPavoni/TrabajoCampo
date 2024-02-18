@@ -73,7 +73,7 @@
 
 <script setup>
 
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ref, onMounted } from 'vue';
 import { useLibroCapituloStore } from '@/stores/libro-capitulo';
 import { useDocumentoStore } from '@/stores/documento';

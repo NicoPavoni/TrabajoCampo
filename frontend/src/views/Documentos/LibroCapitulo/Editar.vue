@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useLibroCapituloStore } from '@/stores/libro-capitulo';
 import { usePersonaStore } from '@/stores/persona';
 import { useDocumentoStore } from '@/stores/documento';

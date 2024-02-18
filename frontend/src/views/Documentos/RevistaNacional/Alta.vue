@@ -32,10 +32,14 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="titulo_trabajo" class="form-label fw-bold">Titulo de la Publicación</label>
+            <label for="trabajo_publicado" class="form-label fw-bold">Trabajo Publicado</label>
             <div class="input-group">
-              <input v-model="revista.titulo_trabajo" type="text" class="form-control" id="titulo_trabajo"
-                placeholder="Titulo" required>
+              <select v-model="revista.trabajo_id" class="form-control" aria-label="Buscar Autores"
+                id="trabajo_publicado">
+                <option value="" selected disabled>Seleccione un trabajo</option>
+                <option v-for="trabajo in trabajosPublicados" :value="trabajo.id" :key="trabajo.id">{{ trabajo.titulo }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3 d-flex gap-2 mt-4">
@@ -112,11 +116,11 @@
 </template>
 
 <script setup>
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRevistaNacionalStore } from '@/stores/revista-nacional';
 import { usePersonaStore } from '@/stores/persona';
 import { useRouter } from 'vue-router';
-
+import { useParametricaStore } from '@/stores/parametricas';
 
 </script>
 
@@ -127,9 +131,13 @@ export default {
 
   async mounted() {
     const revistaNacionalStore = useRevistaNacionalStore();
+    const parametricaStore = useParametricaStore();
     const personaStore = usePersonaStore();
     await personaStore.listarPersonas();
+    await parametricaStore.listarTrabajosPublicados().then(data => this.trabajosPublicados = data.data)
     this.loadingAutores = false;
+
+
 
     this.autores = personaStore.getPersonas;
     this.autoresNoSeleccionados = this.autores;
@@ -148,10 +156,11 @@ export default {
         "pais": null,
         "editorial": null,
         "issn": null,
-        "titulo_trabajo": null,
+        "trabajo_id": null,
         "con_referato": null,
         "autores": []
       },
+      "trabajosPublicados": [],
       "autores": [],
       "autoresNoSeleccionados": [],
       "autorSeleccionado": null,

@@ -30,10 +30,14 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="titulo_trabajo" class="form-label fw-bold">Titulo de la Publicación</label>
+                    <label for="trabajo_publicado" class="form-label fw-bold">Trabajo Publicado</label>
                     <div class="input-group">
-                        <input v-model="revista.titulo_trabajo" type="text" class="form-control" id="titulo_trabajo"
-                            disabled>
+                        <select v-model="revista.trabajo_id" class="form-control" aria-label="Buscar Autores"
+                            id="trabajo_publicado">
+                            <option v-for="trabajo in trabajosPublicados" :value="trabajo.id" :key="trabajo.id">{{
+                                trabajo.titulo }}
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 d-flex gap-2 mt-5">
@@ -80,8 +84,9 @@
 </template>
   
 <script setup>
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useDocumentoStore } from '@/stores/documento';
+import { useParametricaStore } from '@/stores/parametricas';
 import { useRouter } from 'vue-router';
 </script>
   
@@ -91,6 +96,8 @@ import { useRouter } from 'vue-router';
 export default {
 
     async mounted() {
+        const parametricaStore = useParametricaStore();
+        await parametricaStore.listarTrabajosPublicados().then(data => this.trabajosPublicados = data.data)
         const docStore = useDocumentoStore();
         await docStore.detalleDocumento(this.$route.params.id)
             .catch(e => console.error(e))
@@ -105,6 +112,7 @@ export default {
                     this.revista.nombre = data.data.nombre;
                     this.revista.pais = data.data.revista_nacional.pais;
                     this.revista.editorial = data.data.revista_nacional.editorial;
+                    this.revista.trabajo_id = data.data.revista_nacional.trabajo_id;
                     this.revista.issn = data.data.revista_nacional.issn;
                     this.revista.titulo_trabajo = data.data.revista_nacional.titulo_trabajo;
                     this.revista.con_referato = data.data.revista_nacional.con_referato;
@@ -123,10 +131,11 @@ export default {
                 "pais": null,
                 "editorial": null,
                 "issn": null,
-                "titulo_trabajo": null,
+                "trabajo_id": null,
                 "con_referato": null,
                 "autores": []
             },
+            "trabajosPublicados": [],
             "loading": true
         }
     },

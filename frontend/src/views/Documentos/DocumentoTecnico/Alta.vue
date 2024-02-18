@@ -136,7 +136,7 @@
 </template>
 
 <script setup>
-import DefaultLayout from '../../../layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useDocTecnicoStore } from '@/stores/documento-tecnico';
 import { usePersonaStore } from '@/stores/persona';
 import { useParametricaStore } from '@/stores/parametricas';

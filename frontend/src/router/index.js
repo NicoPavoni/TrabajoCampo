@@ -24,10 +24,29 @@ import EditarDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Editar.
 import DetalleDocumentoTecnico from '../views/Documentos/DocumentoTecnico/Detalle.vue'
 
 import ListadoEvento from '../views/Evento/Listado.vue'
+import AltaEvento from '../views/Evento/Alta.vue'
+import EditarEvento from '../views/Evento/Editar.vue'
+import DetalleEvento from '../views/Evento/Detalle.vue'
+
 import ListadoPatente from '../views/Patente/Listado.vue'
+import AltaPatente from '../views/Patente/Alta.vue'
+import EditarPatente from '../views/Patente/Editar.vue'
+import DetallePatente from '../views/Patente/Detalle.vue'
+
 import ListadoRegPropIntelectual from '../views/RegPropIntelectual/Listado.vue'
+import AltaRegPropIntelectual from '../views/RegPropIntelectual/Alta.vue'
+import EditarRegPropIntelectual from '../views/RegPropIntelectual/Editar.vue'
+import DetalleRegPropIntelectual from '../views/RegPropIntelectual/Detalle.vue'
+
 import ListadoRegPropIndustrial from '../views/RegPropIndustrial/Listado.vue'
+import AltaRegPropIndustrial from '../views/RegPropIndustrial/Alta.vue'
+import EditarRegPropIndustrial from '../views/RegPropIndustrial/Editar.vue'
+import DetalleRegPropIndustrial from '../views/RegPropIndustrial/Detalle.vue'
+
 import ListadoReunionCientifica from '../views/ReunionCientifica/Listado.vue'
+import AltaReunionCientifica from '../views/ReunionCientifica/Alta.vue'
+import EditarReunionCientifica from '../views/ReunionCientifica/Editar.vue'
+import DetalleReunionCientifica from '../views/ReunionCientifica/Detalle.vue'
 
 const isLoggedIn = () => {
   if (localStorage.getItem('token')) {
@@ -142,31 +161,117 @@ const router = createRouter({
     },
     // \Documento Tecnico
 
+    // Evento
     {
       path: '/evento',
-      name: 'lintadoEvento',
+      name: 'listadoEvento',
       component: ListadoEvento
     },
+    {
+      path: '/evento/alta',
+      name: 'altaEvento',
+      component: AltaEvento
+    },
+    {
+      path: '/evento/:id/editar',
+      name: 'editarEvento',
+      component: EditarEvento
+    },
+    {
+      path: '/evento/:id',
+      name: 'detalleEvento',
+      component: DetalleEvento
+    },
+    // \Evento
 
+    // Patente
     {
       path: '/patente',
       name: 'listadoPatente',
       component: ListadoPatente
     },
     {
+      path: '/patente/alta',
+      name: 'altaPatente',
+      component: AltaPatente
+    },
+    {
+      path: '/patente/:id/editar',
+      name: 'editarPatente',
+      component: EditarPatente
+    },
+    {
+      path: '/patente/:id',
+      name: 'detallePatente',
+      component: DetallePatente
+    },
+    // \Patente
+
+    // Registro de Propiedad Intelectual
+    {
       path: '/registro-propiedad-intelectual',
-      name: 'listadoPropiedadIntelectual',
+      name: 'listadoRegPropIntelectual',
       component: ListadoRegPropIntelectual
     },
     {
+      path: '/registro-propiedad-intelectual/alta',
+      name: 'altaRegPropIntelectual',
+      component: AltaRegPropIntelectual
+    },
+    {
+      path: '/registro-propiedad-intelectual/:id/editar',
+      name: 'editarRegPropIntelectual',
+      component: EditarRegPropIntelectual
+    },
+    {
+      path: '/registro-propiedad-intelectual/:id',
+      name: 'detalleRegPropIntelectual',
+      component: DetalleRegPropIntelectual
+    },
+    // \Registro de Propiedad Intelectual
+
+    // Registro de Propiedad Industrial
+    {
       path: '/registro-propiedad-industrial',
-      name: 'listadoPropiedadIndustrial',
+      name: 'listadoRegPropIndustrial',
       component: ListadoRegPropIndustrial
     },
+    {
+      path: '/registro-propiedad-industrial/alta',
+      name: 'altaRegPropIndustrial',
+      component: AltaRegPropIndustrial
+    },
+    {
+      path: '/registro-propiedad-industrial/:id/editar',
+      name: 'editarRegPropIndustrial',
+      component: EditarRegPropIndustrial
+    },
+    {
+      path: '/registro-propiedad-industrial/:id',
+      name: 'detalleRegPropIndustrial',
+      component: DetalleRegPropIndustrial
+    },
+    // \Registro de Propiedad Industrial
+
     {
       path: '/reunion-cientifica',
       name: 'listadoReunionCientifica',
       component: ListadoReunionCientifica
+    },
+    {
+      path: '/reunion-cientifica/alta',
+      name: 'altaReunionCientifica',
+      component: AltaReunionCientifica
+    },
+    {
+      path: '/reunion-cientifica/:id/editar',
+      name: 'editarReunionCientifica',
+      component: EditarReunionCientifica
+    },
+    {
+      path: '/reunion-cientifica/:id',
+      name: 'detalleReunionCientifica',
+      component: DetalleReunionCientifica
     }
   ]
 })

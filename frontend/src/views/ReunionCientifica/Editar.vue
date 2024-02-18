@@ -1,43 +1,58 @@
 <template>
   <DefaultLayout>
-    <form @submit="editarArticulo">
+    <form @submit="editarReunion">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Articulos con Referato - Editar</h2>
+        <h2 class="text-center mb-4 center-content">Reunion Cientifica - Editar</h2>
 
-        <div class="d-flex flex-column  flex-md-row justify-content-center">
-          <div class="mb-3 me-3">
-            <label for="nombreArticulo" class="form-label fw-bold">Nombre del Articulo</label>
-            <input v-model="articulo.nombre" type="text" class="form-control" id="nombreArticulo" placeholder="Nombre"
-              required>
-          </div>
-
-          <div class="mb-3 me-3">
-            <label for="lugar" class="form-label fw-bold">Lugar</label>
-            <input v-model="articulo.lugar" type="text" class="form-control" id="lugar" placeholder="Lugar" required>
+        <div class="d-flex flex-column  flex-md-row justify-content-center gap-4">
+          <div class="mb-3">
+            <label for="nombre" class="form-label fw-bold">Nombre de la Reunion</label>
+            <input v-model="reunion.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
           </div>
 
           <div class="mb-3">
-            <label for="fecha" class="form-label fw-bold">Fecha</label>
-            <div class="input-group">
-              <input v-model="articulo.fecha" type="date" class="form-control" id="fecha" placeholder="Fecha" required>
-            </div>
+            <label for="fecha_inicio" class="form-label fw-bold">Fecha de Inicio</label>
+            <input v-model="reunion.fecha_inicio" type="date" class="form-control" id="fecha_inicio" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="trabajo_publicado" class="form-label fw-bold">Trabajo Publicado</label>
+            <select v-model="reunion.trabajo_id" id="trabajo_publicado" class="form-control" required>
+              <option value="" selected disabled>Seleccione un trabajo</option>
+              <option v-for="trabajo in trabajosPublicados" :key="trabajo.id" :value="trabajo.id">{{ trabajo.titulo }}
+              </option>
+            </select>
           </div>
         </div>
 
-        <div class="mb-3 d-flex flex-column  align-items-center">
-          <label class="form-label mb-2 fw-bold">Tipo de Congreso</label>
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-4">
+          <div class="d-flex gap-2 mt-3">
+            <input class="form-check-input" type="checkbox" v-model="reunion.nacional" id="esNacional">
+            <label class="form-check-label" for="esNacional">
+              Nacional
+            </label>
 
-          <div class="d-flex w-100 justify-content-between justify-content-md-center">
-            <div class="form-check">
-              <input v-model="articulo.es_nacional" class="form-check-input" type="radio" id="nacional" value="1">
-              <label class="form-check-label" for="nacional">Nacional</label>
-            </div>
-            <div class="form-check">
-              <input v-model="articulo.es_nacional" class="form-check-input" type="radio" id="internacional" value="0">
-              <label class="form-check-label" for="internacional">Internacional</label>
-            </div>
           </div>
-          <span v-if="errors.es_nacional" class="small text-danger">{{ errors.es_nacional }}</span>
+          <div class="mb-3" v-if="reunion.nacional">
+            <label for="ciudad" class="form-label fw-bold">Ciudad</label>
+            <input v-model="reunion.ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad"
+              :required="reunion.nacional">
+          </div>
+          <div class="mb-3" v-else>
+            <label for="pais" class="form-label fw-bold">Pais</label>
+            <input v-model="reunion.pais" type="text" class="form-control" id="pais" placeholder="Pais"
+              :required="!reunion.nacional">
+          </div>
+
+          <div class="mb-3">
+            <label for="expositor" class="form-label fw-bold">Expositor</label>
+            <select v-model="reunion.expositor_id" id="expositor" class="form-control" required>
+              <option value="" selected disabled>Seleccione un expositor</option>
+              <option v-for="persona in autores" :key="persona.id" :value="persona.id">{{ persona.nombre + " " +
+                persona.apellido }}
+              </option>
+            </select>
+          </div>
         </div>
 
         <div class="d-flex flex-column align-items-center">
@@ -58,7 +73,7 @@
 
         <span v-if="errors.autores" class="small text-danger text-center my-2">{{ errors.autores }}</span>
         <!-- sección contenedora para centrar el input y la tabla -->
-        <div class="overflow-auto mb-4 mt-3" v-if="articulo.autores.length > 0">
+        <div class="overflow-auto mb-4 mt-3" v-if="reunion.autores.length > 0">
           <!-- Tabla de Autores -->
           <table class="table mx-auto text-center">
             <thead>
@@ -93,12 +108,12 @@
         </button>
         <button type="submit" class="btn btn-success" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
-          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Articulo
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Reunion
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Reunion actualizado exitosamente.
       Redireccionando al listado...
     </div>
     <div class="alert alert-danger align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
@@ -107,9 +122,9 @@
 
 <script setup>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import { useArtReferatoStore } from '@/stores/articulo-con-referato';
+import { useReunionCientificaStore } from '@/stores/reunion-cientifica';
+import { useParametricaStore } from '@/stores/parametricas';
 import { usePersonaStore } from '@/stores/persona';
-import { useDocumentoStore } from '@/stores/documento';
 import { useRouter } from 'vue-router';
 </script>
 
@@ -119,51 +134,55 @@ import { useRouter } from 'vue-router';
 export default {
 
   async mounted() {
-    const artStore = useArtReferatoStore();
-    const documentoStore = useDocumentoStore();
     const personaStore = usePersonaStore();
-
     await personaStore.listarPersonas();
+
+    const parametricaStore = useParametricaStore();
+    await parametricaStore.listarTrabajosPublicados().then(data => this.trabajosPublicados = data.data);
+
     this.mensajeError = null;
-    await documentoStore.detalleDocumento(this.$route.params.id)
+    const reunionStore = useReunionCientificaStore();
+    await reunionStore.detalleReunion(this.$route.params.id)
       .catch(e => console.error(e))
       .then(data => {
         if (data.status == 401) {
           localStorage.clear();
           this.$router.push({ name: "login" })
         } else if (data.status == 200) {
-          if (!data.data.hasOwnProperty('articulo_con_referato')) {
-            this.mensajeError = "Error en el editar: Este documento no es un Articulo con Referato"
-          }
-          this.articulo.nombre = data.data.nombre;
-          this.articulo.lugar = data.data.articulo_con_referato.lugar;
-          this.articulo.fecha = data.data.articulo_con_referato.fecha;
-          this.articulo.es_nacional = data.data.articulo_con_referato.es_nacional;
+          this.reunion.nombre = data.data.nombre;
+          this.reunion.fecha_inicio = data.data.fecha_inicio;
+          this.reunion.trabajo_id = data.data.trabajo_id;
+          this.reunion.ciudad = data.data.ciudad;
+          this.reunion.pais = data.data.pais;
+          this.reunion.nacional = data.data.nacional == 1;
+          this.reunion.expositor_id = data.data.expositor_id;
           let autores = data.data.autores.map(autor => autor.id)
-          this.articulo.autores = autores;
+          this.reunion.autores = autores;
           this.loadingAutores = false;
           this.loading = false;
         }
       })
 
     this.autores = personaStore.getPersonas;
-    this.autoresNoSeleccionados = this.autores.filter((autor) => !this.articulo.autores.includes(autor.id))
+    this.autoresNoSeleccionados = this.autores.filter((autor) => !this.reunion.autores.includes(autor.id))
 
-    this.artStore = artStore;
+    this.reunionStore = reunionStore;
 
   },
 
   data() {
     return {
       "errors": {
-        "es_nacional": null,
         "autores": null
       },
-      "articulo": {
+      "reunion": {
         "nombre": null,
-        "lugar": null,
-        "fecha": null,
-        "es_nacional": null,
+        "fecha_inicio": null,
+        "trabajo_id": null,
+        "ciudad": null,
+        "pais": null,
+        "nacional": 0,
+        "expositor_id": null,
         "autores": []
       },
       "autores": [],
@@ -177,39 +196,44 @@ export default {
   },
   computed: {
     autoresSeleccionados() {
-      return this.autores.filter((autor) => this.articulo.autores.includes(autor.id))
+      return this.autores.filter((autor) => this.reunion.autores.includes(autor.id))
     }
   },
 
   methods: {
-    editarArticulo: async function (e) {
+    editarReunion: async function (e) {
       e.preventDefault();
 
       this.errors = {
-        "es_nacional": null,
         "autores": null
       }
 
-      if (this.articulo.es_nacional === null) {
-        this.errors.es_nacional = "Por favor seleccione si es Nacional o Internacional"
-      }
-
-      if (this.articulo.autores.length <= 0) {
+      if (this.reunion.autores.length <= 0) {
         this.errors.autores = "Por favor ingrese un autor";
       }
 
-      if (this.errors.es_nacional !== null || this.errors.autores !== null) {
+      if (this.errors.autores !== null) {
+        return;
+      }
+
+      if (this.reunion.nacional && !this.reunion.ciudad) {
+        return;
+      }
+
+      if (!this.reunion.nacional && !this.reunion.pais) {
         return;
       }
 
       this.loading = true;
-      await this.artStore.editarArtReferato(this.$route.params.id, this.articulo)
+      let reunionData = this.reunion;
+      reunionData.nacional = reunionData.nacional ? '1' : '0';
+      await this.reunionStore.editarReunion(this.$route.params.id, reunionData)
         .catch(e => console.error(e))
         .then(data => {
           this.loading = false;
           if (data.status == 200) {
             this.mensajeExito = true;
-            setTimeout(() => this.$router.push({ name: 'listadoArtReferato' }), 5000)
+            setTimeout(() => this.$router.push({ name: 'listadoReunionCientifica' }), 5000)
           } else if (data.status == 401) {
             localStorage.clear();
             this.$router.push({ name: 'login' })
@@ -218,22 +242,22 @@ export default {
     },
 
     cancelar: function () {
-      this.$router.push({ name: 'listadoArtReferato' });
+      this.$router.push({ name: 'listadoReunionCientifica' });
     },
 
     agregarAutor: function () {
       if (!this.autorSeleccionado) {
         return;
       }
-      this.articulo.autores.push(this.autorSeleccionado);
+      this.reunion.autores.push(this.autorSeleccionado);
       this.autorSeleccionado = null;
-      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.articulo.autores.includes(autor.id))
+      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.reunion.autores.includes(autor.id))
     },
 
     eliminarAutor: function (autor_id) {
-      let autorIndex = this.articulo.autores.indexOf(autor_id);
-      this.articulo.autores.splice(autorIndex, 1);
-      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.articulo.autores.includes(autor.id))
+      let autorIndex = this.reunion.autores.indexOf(autor_id);
+      this.reunion.autores.splice(autorIndex, 1);
+      this.autoresNoSeleccionados = this.autores.filter((autor) => !this.reunion.autores.includes(autor.id))
     }
   }
 }

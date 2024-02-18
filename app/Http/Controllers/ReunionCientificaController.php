@@ -16,8 +16,8 @@ class ReunionCientificaController extends Controller
             'nombre' => 'required|string',
             'fecha_inicio' => 'required|date',
             'trabajo_id' => 'required|numeric|min:1',
-            'ciudad' => 'required_if_accepted:nacional|string',
-            'pais' => 'required_unless:nacional,1|string',
+            'ciudad' => 'required_if_accepted:nacional',
+            'pais' => 'required_unless:nacional,1',
             'nacional' => 'required|boolean',
             'expositor_id' => 'required|numeric|min:1',
             'autores' => 'nullable|array',
@@ -47,7 +47,7 @@ class ReunionCientificaController extends Controller
 
         DB::commit();
 
-        $reunion->load('autores');
+        $reunion->load(['autores', 'expositor', 'trabajo_publicado']);
 
         return response()->json([
             'message' => 'Reunión Cientifica creada exitosamente',
@@ -61,8 +61,8 @@ class ReunionCientificaController extends Controller
             'nombre' => 'required|string',
             'fecha_inicio' => 'required|date',
             'trabajo_id' => 'required|numeric|min:1',
-            'ciudad' => 'required_if_accepted:nacional|string',
-            'pais' => 'required_unless:nacional,1|string',
+            'ciudad' => 'required_if_accepted:nacional',
+            'pais' => 'required_unless:nacional,1',
             'nacional' => 'required|boolean',
             'expositor_id' => 'required|numeric|min:1',
             'autores' => 'nullable|array',
@@ -100,7 +100,7 @@ class ReunionCientificaController extends Controller
         DB::commit();
 
         // Cargar la relación después de la transacción
-        $reunion->load('autores');
+        $reunion->load(['autores', 'expositor', 'trabajo_publicado']);
 
         return response()->json([
             'message' => 'Reunión Cientifica actualizada exitosamente',
@@ -110,7 +110,7 @@ class ReunionCientificaController extends Controller
 
     public function listarReunionesCientificas()
     {
-        return response()->json(ReunionCientifica::all());
+        return response()->json(ReunionCientifica::with(['expositor', 'trabajo_publicado'])->get());
     }
 
     public function eliminarReunionCientifica(int $reunion_id)
@@ -132,7 +132,7 @@ class ReunionCientificaController extends Controller
 
     public function verReunion(int $reunion_id)
     {
-        return ReunionCientifica::with(['expositor', 'autores'])->find($reunion_id) ??
+        return ReunionCientifica::with(['autores', 'expositor', 'trabajo_publicado'])->find($reunion_id) ??
             response()->json([
                 'message' => 'Reunion Cientifica inexistente'
             ], 404);
