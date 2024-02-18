@@ -1,11 +1,11 @@
 <template>
     <DefaultLayout>
         <div class="container d-flex flex-column mt-5" v-if="!loading">
-            <h2 class="text-center mb-4 center-content">Reunion Cientifica - Detalle</h2>
+            <h2 class="text-center mb-4 center-content">Reunión Científica - Detalle</h2>
 
             <div class="d-flex flex-column  flex-md-row justify-content-center gap-4">
                 <div class="mb-3">
-                    <label for="nombre" class="form-label fw-bold">Nombre de la Reunion</label>
+                    <label for="nombre" class="form-label fw-bold">Nombre de la Reunión</label>
                     <input v-model="reunion.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre"
                         disabled>
                 </div>
@@ -37,8 +37,8 @@
                         disabled>
                 </div>
                 <div class="mb-3" v-else>
-                    <label for="pais" class="form-label fw-bold">Pais</label>
-                    <input v-model="reunion.pais" type="text" class="form-control" id="pais" placeholder="Pais" disabled>
+                    <label for="pais" class="form-label fw-bold">País</label>
+                    <input v-model="reunion.pais" type="text" class="form-control" id="pais" placeholder="País" disabled>
                 </div>
 
                 <div class="mb-3">

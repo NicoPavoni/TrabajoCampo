@@ -16,7 +16,7 @@ class EventoController extends Controller
             'lugar' => 'required|string',
             'fecha' => 'required|date',
             'nombre' => 'required|string',
-            'descripcion' => 'required|string',
+            'descripcion' => 'nullable|string',
             'asistentes' => 'nullable|array',
             'asistentes.*' => 'numeric|min:1'
         ]);
@@ -55,7 +55,7 @@ class EventoController extends Controller
             'lugar' => 'required|string',
             'fecha' => 'required|date',
             'nombre' => 'required|string',
-            'descripcion' => 'required|string',
+            'descripcion' => 'nullable|string',
             'asistentes' => 'nullable|array',
             'asistentes.*' => 'numeric|min:1'
         ]);

@@ -1,11 +1,11 @@
 <template>
     <DefaultLayout>
         <div class="container d-flex flex-column mt-5" v-if="!loading">
-            <h2 class="text-center mb-4 center-content">Libros y Capitulos - Detalle</h2>
+            <h2 class="text-center mb-4 center-content">Libros y Capítulos - Detalle</h2>
 
             <div class="d-flex flex-column  flex-md-row justify-content-center">
                 <div class="mb-3 me-3">
-                    <label for="nombreLibroCapitulo" class="form-label fw-bold">Nombre del Libro/Capitulo</label>
+                    <label for="nombreLibroCapitulo" class="form-label fw-bold">Nombre del Libro/Capítulo(s)</label>
                     <input v-model="libroCapitulo.nombre" type="text" class="form-control" id="nombreLibroCapitulo"
                         disabled>
                 </div>
@@ -23,7 +23,7 @@
 
             <div class="mb-3 d-flex flex-column  align-items-center">
                 <div class="mb-3 me-3">
-                    <label for="nro_capitulo" class="form-label fw-bold">N° Capitulo</label>
+                    <label for="nro_capitulo" class="form-label fw-bold">N° Capítulo</label>
                     <input v-model="libroCapitulo.nro_capitulo" type="number" class="form-control" id="nro_capitulo"
                         disabled>
                 </div>
@@ -87,7 +87,7 @@ export default {
                     this.$router.push({ name: "login" })
                 } else if (data.status == 200) {
                     if (!data.data.hasOwnProperty('libro_capitulo')) {
-                        this.mensajeError = "Error en el detalle: Este documento no es un Libro/Capitulo"
+                        this.mensajeError = "Error en el detalle: Este documento no es un Libro/Capítulo"
                     }
                     this.libroCapitulo.nombre = data.data.nombre;
                     this.libroCapitulo.isbn = data.data.libro_capitulo.isbn;

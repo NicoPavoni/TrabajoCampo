@@ -32,7 +32,7 @@ const logout = () => {
     :class="{ show: props.open }" style="max-width: 280px;" id="offcanvasSidebar">
     <div class="d-flex border-bottom pb-3 mb-3 align-items-center justify-content-between">
       <a href="/home" class="d-flex align-items-center link-dark text-decoration-none text-black">
-        <span class="fs-5 fw-semibold">Modulo GCC </span>
+        <span class="fs-5 fw-semibold">Módulo GCC </span>
       </a>
       <button class="btn close-modal" @click="$emit('cerrarSidebar')"><i class="bi bi-chevron-left me-2"></i></button>
     </div>
@@ -46,14 +46,14 @@ const logout = () => {
       <li class="mb-1">
         <router-link to="/reunion-cientifica" class="btn align-items-center rounded"
           :class="{ active: isActive('reunion-cientifica') }">
-          Reuniones Cientificas
+          Reuniónes Científicas
         </router-link>
       </li>
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
           :class="{ active: isntActive(['home', 'reunion-cientifica']) }" data-bs-target="#trabajos-cientificos-collapse"
           aria-expanded="false">
-          Trabajos Cientificos
+          Trabajos Científicos
         </button>
         <div class="collapse" id="trabajos-cientificos-collapse">
           <ul class="btn-toggle-nav fw-normal pb-1 small">
@@ -61,16 +61,16 @@ const logout = () => {
               <router-link to="/revista-nacional">En Revistas Nacionales</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('articulo-referato') }">
-              <router-link to="/articulo-referato" class="sidebar-link">Articulos con Referato</router-link>
+              <router-link to="/articulo-referato" class="sidebar-link">Artículos con Referato</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('libro-capitulo') }">
-              <router-link to="/libro-capitulo">Libros y capitulos</router-link>
+              <router-link to="/libro-capitulo">Libros y capítulos</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('evento') }">
               <router-link to="/evento" class="sidebar-link">Eventos</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('documento-tecnico') }">
-              <router-link to="/documento-tecnico" class="sidebar-link">Articulos, informes y memorias</router-link>
+              <router-link to="/documento-tecnico" class="sidebar-link">Artículos, informes y memorias</router-link>
             </li>
             <li class="sidebar-link rounded" :class="{ active: isActive('patente') }">
               <router-link to="/patente" class="sidebar-link">Pat. desarrollos y cert.</router-link>

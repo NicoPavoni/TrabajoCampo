@@ -1,7 +1,7 @@
 <template>
     <DefaultLayout>
 
-        <h2 class="text-center mt-3">Listado de Artículos, informes y memorias</h2>
+        <h2 class="text-center mt-3">Listado de artículos, informes y memorias</h2>
 
         <div class="modal" :class="{ 'd-block': modalEliminar.mostrar }" style="background-color: rgba(0,0,0,0.3)"
             tabindex="-1">
@@ -12,7 +12,7 @@
                         <button type="button" class="btn-close" aria-label="Close" @click="cerrarModalEliminar()"></button>
                     </div>
                     <div class="modal-body">
-                        <p>¿Estas seguro que desea eliminar el documento tecnico '{{ modalEliminar.nombre }}'?</p>
+                        <p>¿Está seguro que desea eliminar el documento tecnico '{{ modalEliminar.nombre }}'?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModalEliminar()">Cerrar</button>

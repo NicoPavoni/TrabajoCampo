@@ -1,7 +1,7 @@
 <template>
     <DefaultLayout>
         <div class="container d-flex flex-column mt-5" v-if="!loading">
-            <h2 class="text-center mb-4 center-content">Publicaciónes en Revistas Nacionales - Detalle</h2>
+            <h2 class="text-center mb-4 center-content">Publicaciones en Revistas Nacionales - Detalle</h2>
 
             <div class="d-flex flex-column gap-3 flex-md-row justify-content-center">
                 <div class="mb-3">
@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="pais" class="form-label fw-bold">Pais</label>
+                    <label for="pais" class="form-label fw-bold">País</label>
                     <input v-model="revista.pais" type="text" class="form-control" id="pais" disabled>
                 </div>
 

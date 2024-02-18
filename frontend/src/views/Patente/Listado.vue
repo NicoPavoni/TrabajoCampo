@@ -12,7 +12,7 @@
                         <button type="button" class="btn-close" aria-label="Close" @click="cerrarModalEliminar()"></button>
                     </div>
                     <div class="modal-body">
-                        <p>¿Estas seguro que desea eliminar la patente '{{ modalEliminar.nombre }}'?</p>
+                        <p>¿Está seguro que desea eliminar la patente '{{ modalEliminar.nombre }}'?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModalEliminar()">Cerrar</button>

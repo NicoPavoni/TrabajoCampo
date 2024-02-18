@@ -2,11 +2,11 @@
   <DefaultLayout>
     <form @submit="crearLibroCapitulo">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Libros y Capitulos - Alta</h2>
+        <h2 class="text-center mb-4 center-content">Libros y Capítulos - Alta</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center">
           <div class="mb-3 me-3">
-            <label for="nombreLibroCapitulo" class="form-label fw-bold">Nombre del Libro/Capitulo</label>
+            <label for="nombreLibroCapitulo" class="form-label fw-bold">Nombre del Libro/Capítulo(s)</label>
             <input v-model="libroCapitulo.nombre" type="text" class="form-control" id="nombreLibroCapitulo"
               placeholder="Nombre" required>
           </div>
@@ -25,8 +25,8 @@
 
         <div class="mb-3 d-flex flex-column  align-items-center">
           <div class="mb-3 me-3">
-            <label for="nro_capitulo" class="form-label fw-bold">N° Capitulo</label>
-            <input v-model="libroCapitulo.nro_capitulo" type="number" class="form-control" id="nro_capitulo"
+            <label for="nro_capitulo" class="form-label fw-bold">N° Capítulo</label>
+            <input v-model="libroCapitulo.nro_capitulo" type="text" class="form-control" id="nro_capitulo"
               placeholder="Opcional">
           </div>
         </div>
@@ -84,12 +84,12 @@
         </button>
         <button type="submit" class="btn btn-success" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
-          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Crear Libro/Capitulo
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Crear Libro/Capítulo
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Libro/Capitulo creado exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Libro/Capítulo creado exitosamente.
       Redireccionando al listado...
     </div>
   </DefaultLayout>
@@ -234,15 +234,6 @@ export default {
   font-size: 1.2rem;
   cursor: pointer;
   margin-right: 5px;
-}
-
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
 }
 
 @media(min-width:768px) {

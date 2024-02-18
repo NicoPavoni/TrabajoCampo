@@ -1,7 +1,7 @@
 <template>
     <DefaultLayout>
         <div class="container d-flex flex-column mt-5" v-if="!loading">
-            <h2 class="text-center mb-4 center-content">Documento Tecnico - Detalle</h2>
+            <h2 class="text-center mb-4 center-content">Documento Técnico - Detalle</h2>
 
             <div class="d-flex flex-column  flex-md-row justify-content-center">
                 <div class="mb-3 me-3">
@@ -26,7 +26,7 @@
             </div>
 
             <div class="mb-3 d-flex flex-column  align-items-center">
-                <label class="form-label mb-2 fw-bold">Tipo de Documento Tecnico</label>
+                <label class="form-label mb-2 fw-bold">Tipo de Documento Técnico</label>
 
                 <div class="d-flex w-100 justify-content-between justify-content-md-center">
                     {{ documento.documento_tecnico.tipo_documento_tecnico.nombre }}
@@ -108,7 +108,7 @@ export default {
                     this.$router.push({ name: "login" })
                 } else if (data.status == 200) {
                     if (!data.data.hasOwnProperty('documento_tecnico')) {
-                        this.mensajeError = "Error en el detalle: Este documento no es un Documento Tecnico"
+                        this.mensajeError = "Error en el detalle: Este documento no es un Documento Técnico"
                     }
                     this.documento = data.data;
                     this.loading = false;

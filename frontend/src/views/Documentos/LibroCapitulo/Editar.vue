@@ -2,11 +2,11 @@
   <DefaultLayout>
     <form @submit="editarLibroCapitulo">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Libros y Capitulos - Editar</h2>
+        <h2 class="text-center mb-4 center-content">Libros y Capítulos - Editar</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center">
           <div class="mb-3 me-3">
-            <label for="nombre" class="form-label fw-bold">Nombre del Libro/Capitulo</label>
+            <label for="nombre" class="form-label fw-bold">Nombre del Libro/Capítulo(s)</label>
             <input v-model="libroCapitulo.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre"
               required>
           </div>
@@ -25,8 +25,8 @@
 
         <div class="mb-3 d-flex flex-column  align-items-center">
           <div class="mb-3 me-3">
-            <label for="nro_capitulo" class="form-label fw-bold">N° Capitulo</label>
-            <input v-model="libroCapitulo.nro_capitulo" type="number" class="form-control" id="nro_capitulo"
+            <label for="nro_capitulo" class="form-label fw-bold">N° Capítulo</label>
+            <input v-model="libroCapitulo.nro_capitulo" type="text" class="form-control" id="nro_capitulo"
               placeholder="Opcional">
           </div>
         </div>
@@ -84,12 +84,12 @@
         </button>
         <button type="submit" class="btn btn-success" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
-          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Libro/Capitulo
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Libro/Capítulo
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Libro/Capitulo actualizado exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Libro/Capítulo actualizado exitosamente.
       Redireccionando al listado...
     </div>
     <div class="alert alert-danger align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
@@ -124,7 +124,7 @@ export default {
           this.$router.push({ name: "login" })
         } else if (data.status == 200) {
           if (!data.data.hasOwnProperty('libro_capitulo')) {
-            this.mensajeError = "Error en el editar: Este documento no es un Libro/Capitulo"
+            this.mensajeError = "Error en el editar: Este documento no es un Libro/Capítulo"
           }
           this.libroCapitulo.nombre = data.data.nombre;
           this.libroCapitulo.isbn = data.data.libro_capitulo.isbn;

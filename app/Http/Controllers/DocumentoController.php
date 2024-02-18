@@ -215,7 +215,7 @@ class DocumentoController extends Controller
         $documento->revistaNacional->pais = $request['pais'];
         $documento->revistaNacional->editorial = $request['editorial'];
         $documento->revistaNacional->issn = $request['issn'];
-        $documento->revistaNacional->trabajo_id = $request['titulo_trabajo'];
+        $documento->revistaNacional->trabajo_id = $request['trabajo_id'];
         $documento->revistaNacional->con_referato = $request['con_referato'];
 
         $documento->push();

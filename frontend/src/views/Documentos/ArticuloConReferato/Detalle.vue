@@ -1,11 +1,11 @@
 <template>
     <DefaultLayout>
         <div class="container d-flex flex-column mt-5" v-if="!loading">
-            <h2 class="text-center mb-4 center-content">Articulos con Referato - Detalle</h2>
+            <h2 class="text-center mb-4 center-content">Artículos con Referato - Detalle</h2>
 
             <div class="d-flex flex-column  flex-md-row justify-content-center">
                 <div class="mb-3 me-3">
-                    <label for="nombreArticulo" class="form-label fw-bold">Nombre del Articulo</label>
+                    <label for="nombreArticulo" class="form-label fw-bold">Nombre del Artículo</label>
                     <input v-model="articulo.nombre" type="text" class="form-control" id="nombreArticulo"
                         placeholder="Nombre" required disabled>
                 </div>
@@ -91,7 +91,7 @@ export default {
                     this.$router.push({ name: "login" })
                 } else if (data.status == 200) {
                     if (!data.data.hasOwnProperty('articulo_con_referato')) {
-                        this.mensajeError = "Error en el detalle: Este documento no es un Articulo con Referato"
+                        this.mensajeError = "Error en el detalle: Este documento no es un Artículo con Referato"
                     }
                     this.articulo = data.data;
                     this.loading = false;

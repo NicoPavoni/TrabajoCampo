@@ -2,7 +2,7 @@
   <DefaultLayout>
     <form @submit="crearDocumentoTecnico">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Documento Tecnico - Alta</h2>
+        <h2 class="text-center mb-4 center-content">Documento Técnico - Alta</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center">
           <div class="mb-3 me-3">
@@ -26,7 +26,7 @@
 
         <div class="mb-3 d-flex flex-column align-items-center justify-content-center">
           <div class="mb-3">
-            <label class="form-label mb-2 fw-bold" for="tipoDocTecnico">Tipo de Documento Tecnico</label>
+            <label class="form-label mb-2 fw-bold" for="tipoDocTecnico">Tipo de Documento Técnico</label>
 
             <select name="tipoDocTecnico" id="tipoDocTecnico" class="form-control"
               v-model="documento.tipo_documento_tecnico_id">
@@ -129,7 +129,7 @@
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Documento Tecnico creado exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Documento Técnico creado exitosamente.
       Redireccionando al listado...
     </div>
   </DefaultLayout>

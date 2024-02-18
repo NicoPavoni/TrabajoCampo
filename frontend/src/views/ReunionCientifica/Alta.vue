@@ -2,11 +2,11 @@
   <DefaultLayout>
     <form @submit="crearReunion">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Reunion Cientifica - Alta</h2>
+        <h2 class="text-center mb-4 center-content">Reunión Científica - Alta</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center gap-4">
           <div class="mb-3">
-            <label for="nombre" class="form-label fw-bold">Nombre de la Reunion</label>
+            <label for="nombre" class="form-label fw-bold">Nombre de la Reunión</label>
             <input v-model="reunion.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
           </div>
 
@@ -39,8 +39,8 @@
               :required="reunion.nacional">
           </div>
           <div class="mb-3" v-else>
-            <label for="pais" class="form-label fw-bold">Pais</label>
-            <input v-model="reunion.pais" type="text" class="form-control" id="pais" placeholder="Pais"
+            <label for="pais" class="form-label fw-bold">País</label>
+            <input v-model="reunion.pais" type="text" class="form-control" id="pais" placeholder="País"
               :required="!reunion.nacional">
           </div>
 
@@ -108,12 +108,12 @@
         </button>
         <button type="submit" class="btn btn-success" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
-          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Crear Reunion
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Crear Reunión
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Reunion creada exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Reunión creada exitosamente.
       Redireccionando al listado...
     </div>
   </DefaultLayout>

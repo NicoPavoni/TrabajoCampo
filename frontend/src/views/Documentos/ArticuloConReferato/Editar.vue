@@ -2,11 +2,11 @@
   <DefaultLayout>
     <form @submit="editarArticulo">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Articulos con Referato - Editar</h2>
+        <h2 class="text-center mb-4 center-content">Artículos con Referato - Editar</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center">
           <div class="mb-3 me-3">
-            <label for="nombreArticulo" class="form-label fw-bold">Nombre del Articulo</label>
+            <label for="nombreArticulo" class="form-label fw-bold">Nombre del Artículo</label>
             <input v-model="articulo.nombre" type="text" class="form-control" id="nombreArticulo" placeholder="Nombre"
               required>
           </div>
@@ -93,12 +93,12 @@
         </button>
         <button type="submit" class="btn btn-success" :disabled="loading">
           <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" v-if="loading"></span>
-          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Articulo
+          <i class="bi bi-plus me-1" :class="{ 'd-none': loading }"></i>Editar Artículo
         </button>
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Articulo con Referato actualizado exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Artículo con Referato actualizado exitosamente.
       Redireccionando al listado...
     </div>
     <div class="alert alert-danger align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
@@ -133,7 +133,7 @@ export default {
           this.$router.push({ name: "login" })
         } else if (data.status == 200) {
           if (!data.data.hasOwnProperty('articulo_con_referato')) {
-            this.mensajeError = "Error en el editar: Este documento no es un Articulo con Referato"
+            this.mensajeError = "Error en el editar: Este documento no es un Artículo con Referato"
           }
           this.articulo.nombre = data.data.nombre;
           this.articulo.lugar = data.data.articulo_con_referato.lugar;

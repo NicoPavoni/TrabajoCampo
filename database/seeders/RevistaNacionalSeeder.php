@@ -20,7 +20,7 @@ class RevistaNacionalSeeder extends Seeder
         ]);
 
         RevistaNacional::create([
-            'pais' => 'Pais 1',
+            'pais' => 'País 1',
             'editorial' => 'Editorial 1',
             'issn' => 'issn 1',
             'trabajo_id' => 1,
@@ -34,7 +34,7 @@ class RevistaNacionalSeeder extends Seeder
         ]);
 
         RevistaNacional::create([
-            'pais' => 'Pais 2',
+            'pais' => 'País 2',
             'editorial' => 'Editorial 2',
             'issn' => 'issn 2',
             'trabajo_id' => 2,
@@ -48,7 +48,7 @@ class RevistaNacionalSeeder extends Seeder
         ]);
 
         RevistaNacional::create([
-            'pais' => 'Pais 3',
+            'pais' => 'País 3',
             'editorial' => 'Editorial 3',
             'issn' => 'issn 3',
             'trabajo_id' => 3,
@@ -62,7 +62,7 @@ class RevistaNacionalSeeder extends Seeder
         ]);
 
         RevistaNacional::create([
-            'pais' => 'Pais 4',
+            'pais' => 'País 4',
             'editorial' => 'Editorial 4',
             'issn' => 'issn 4',
             'trabajo_id' => 4,

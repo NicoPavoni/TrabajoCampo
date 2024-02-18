@@ -1,7 +1,7 @@
 <template>
     <DefaultLayout>
 
-        <h2 class="text-center mt-3">Listado de Publicaciónes en Revistas Nacionales</h2>
+        <h2 class="text-center mt-3">Listado de Publicaciones en Revistas Nacionales</h2>
 
         <div class="modal" :class="{ 'd-block': modalEliminar.mostrar }" style="background-color: rgba(0,0,0,0.3)"
             tabindex="-1">
@@ -12,7 +12,7 @@
                         <button type="button" class="btn-close" aria-label="Close" @click="cerrarModalEliminar()"></button>
                     </div>
                     <div class="modal-body">
-                        <p>¿Estas seguro que desea eliminar la publicación '{{ modalEliminar.nombre }}'?</p>
+                        <p>¿Está seguro que desea eliminar la publicación '{{ modalEliminar.nombre }}'?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModalEliminar()">Cerrar</button>
@@ -40,7 +40,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Nombre </th>
-                            <th scope="col">Pais</th>
+                            <th scope="col">País</th>
                             <th scope="col">ISSN</th>
                             <th scope="col">Con Referato</th>
                             <th scope="col">Acciones</th>

@@ -2,7 +2,7 @@
   <DefaultLayout>
     <form @submit="editarDocumentoTecnico">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Documento Tecnico - Editar</h2>
+        <h2 class="text-center mb-4 center-content">Documento Técnico - Editar</h2>
 
         <div class="d-flex flex-column  flex-md-row justify-content-center">
           <div class="mb-3 me-3">
@@ -26,7 +26,7 @@
 
         <div class="mb-3 d-flex flex-column align-items-center justify-content-center">
           <div class="mb-3">
-            <label class="form-label mb-2 fw-bold" for="tipoDocTecnico">Tipo de Documento Tecnico</label>
+            <label class="form-label mb-2 fw-bold" for="tipoDocTecnico">Tipo de Documento Técnico</label>
 
             <select name="tipoDocTecnico" id="tipoDocTecnico" class="form-control"
               v-model="documento.tipo_documento_tecnico_id">
@@ -128,7 +128,7 @@
       </div>
     </form>
 
-    <div class="alert alert-success align-self-center" v-if="mensajeExito">Documento Tecnico actualizado exitosamente.
+    <div class="alert alert-success align-self-center" v-if="mensajeExito">Documento Técnico actualizado exitosamente.
       Redireccionando al listado...
     </div>
     <div class="alert alert-danger align-self-center" v-if="mensajeError">{{ mensajeError }}</div>
@@ -167,7 +167,7 @@ export default {
           this.$router.push({ name: "login" })
         } else if (data.status == 200) {
           if (!data.data.hasOwnProperty('documento_tecnico')) {
-            this.mensajeError = "Error en el editar: Este documento no es un Documento Tecnico"
+            this.mensajeError = "Error en el editar: Este documento no es un Documento Técnico"
           }
           this.documento.nombre = data.data.nombre;
           this.documento.lugar = data.data.documento_tecnico.lugar;

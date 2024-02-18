@@ -14,7 +14,7 @@ class TipoDocumentoTecnicoSeeder extends Seeder
     public function run(): void
     {
         TipoDocumentoTecnico::create([
-            'nombre' => 'Articulo de divulgacion'
+            'nombre' => 'Artículo de divulgación'
         ]);
 
         TipoDocumentoTecnico::create([
@@ -22,7 +22,7 @@ class TipoDocumentoTecnicoSeeder extends Seeder
         ]);
 
         TipoDocumentoTecnico::create([
-            'nombre' => 'Memoria Tecnica'
+            'nombre' => 'Memoria Técnica'
         ]);
     }
 }

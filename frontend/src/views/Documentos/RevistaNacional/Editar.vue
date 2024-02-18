@@ -2,7 +2,7 @@
   <DefaultLayout>
     <form @submit="editarRevistaNacional">
       <div class="container d-flex flex-column mt-5" v-if="!loadingAutores">
-        <h2 class="text-center mb-4 center-content">Publicaciónes en Revistas Nacionales - Editar</h2>
+        <h2 class="text-center mb-4 center-content">Publicaciones en Revistas Nacionales - Editar</h2>
 
         <div class="d-flex flex-column gap-3 flex-md-row justify-content-center">
           <div class="mb-3">
@@ -11,8 +11,8 @@
           </div>
 
           <div class="mb-3">
-            <label for="Pais" class="form-label fw-bold">Pais</label>
-            <input v-model="revista.pais" type="text" class="form-control" id="Pais" placeholder="Pais" required>
+            <label for="pais" class="form-label fw-bold">País</label>
+            <input v-model="revista.pais" type="text" class="form-control" id="pais" placeholder="País" required>
           </div>
 
           <div class="mb-3">
@@ -181,7 +181,7 @@ export default {
         "editorial": null,
         "issn": null,
         "titulo_trabajo": null,
-        "con_referato": null,
+        "con_referato": false,
         "autores": []
       },
       "autores": [],

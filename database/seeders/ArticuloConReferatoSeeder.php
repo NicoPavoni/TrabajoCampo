@@ -32,7 +32,7 @@ class ArticuloConReferatoSeeder extends Seeder
         ]);
 
         ArticuloConReferato::create([
-            'lugar' => 'Pais 1',
+            'lugar' => 'País 1',
             'fecha' => '2023-12-12',
             'es_nacional' => '0',
             'documento_id' => $documento->id
@@ -56,7 +56,7 @@ class ArticuloConReferatoSeeder extends Seeder
         ]);
 
         ArticuloConReferato::create([
-            'lugar' => 'Pais 2',
+            'lugar' => 'País 2',
             'fecha' => '2023-11-11',
             'es_nacional' => '0',
             'documento_id' => $documento->id
