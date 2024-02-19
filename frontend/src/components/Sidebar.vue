@@ -46,7 +46,7 @@ const logout = () => {
       <li class="mb-1">
         <router-link to="/reunion-cientifica" class="btn align-items-center rounded"
           :class="{ active: isActive('reunion-cientifica') }">
-          Reuniónes Científicas
+          Reuniones Científicas
         </router-link>
       </li>
       <li class="mb-1">

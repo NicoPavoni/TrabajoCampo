@@ -1,7 +1,7 @@
 <template>
     <DefaultLayout>
 
-        <h2 class="text-center mt-3">Listado de Reuniónes Científicas</h2>
+        <h2 class="text-center mt-3">Listado de Reuniones Científicas</h2>
 
         <div class="modal" :class="{ 'd-block': modalEliminar.mostrar }" style="background-color: rgba(0,0,0,0.3)"
             tabindex="-1">

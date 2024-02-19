@@ -83,7 +83,7 @@ class DocumentoController extends Controller
             'nombre' => 'required|string',
             'editorial' => 'required|string',
             'isbn' => 'required|string',
-            'nro_capitulo' => 'nullable|numeric|min:0',
+            'nro_capitulo' => 'nullable|string|min:0',
             'autores' => 'array|required',
             'autores.*' => 'numeric'
         ]);
